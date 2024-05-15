@@ -15,6 +15,7 @@ const DropFileInput = props => {
 
     const [fileList, setFileList] = useState([]);
     const [progress, setProgress] = useState()
+    const [firstWord, setFirstWord] = useState(null);
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -38,27 +39,36 @@ const DropFileInput = props => {
 
     
     const startUpload = () => {
-        fileList.forEach(uploadFiles);
+        fileList.forEach(uploadFile);
     };
 
-    const uploadFiles = (file) => {
-        //
-        if(!file) return;
-        const storageRef = ref(storage,  `/files/${file.name}`)
-        const uploadTask = uploadBytesResumable(storageRef, file)
-  
-        uploadTask.on("state_changed", (snapshot) => {
-          const prog = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-  
-          setProgress(prog);
-        }, (err) => console.log(err),
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-          .then(url => console.log(url))
+    const uploadFile = async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://localhost:5000/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Upload failed');
+            }
+
+            const data = await response.json();
+            console.log('Response from server:', data);
+    
+            if (data.first_word) {
+                setFirstWord(data.first_word);
+            } else {
+                console.error('First word not found in server response');
+            }
+    
+        } catch (error) {
+            console.error('Error uploading file:', error);
         }
-        );
-      };
+    };
     return (
         <>
             <div
@@ -92,9 +102,7 @@ const DropFileInput = props => {
                         <button className="drop-file-preview__title" onClick={startUpload}>
                             Ready to upload
                         </button>
-                        <h2 className="header">
-                            Uploaded {progress}%
-                        </h2>
+                        {firstWord && <p>First word from file: {firstWord}</p>}
                     </div>
                 ) : null
             }
