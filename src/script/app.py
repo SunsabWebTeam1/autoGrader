@@ -36,7 +36,7 @@ def upload_file():
         uploaded_module_content = io.BytesIO(content)
 
         # Load test cases from existing file
-        from UnitTest3 import test_suite
+        from UnitTest import test_suite
 
         # Import the uploaded module dynamically
         spec = importlib.util.spec_from_loader(filename, loader=None)

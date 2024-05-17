@@ -8,11 +8,13 @@ const AddFile = () => {
     };
 
     return (
-        <div className="box">
-            <h2 className="header">
-                React drop files input
-            </h2>
-            <DropFileInput onFileChange={(files) => onFileChange(files)} />
+        <div className='bodyforDropFile'>
+            <div className="box">
+                <h2 className="header">
+                    React drop files input
+                </h2>
+                <DropFileInput onFileChange={(files) => onFileChange(files)} />
+            </div>
         </div>
     );
 };
