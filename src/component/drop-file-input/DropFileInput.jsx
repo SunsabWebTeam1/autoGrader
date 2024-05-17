@@ -9,13 +9,14 @@ import { storage } from '../../firebase';
 
 //firebaseStuff
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+
 const DropFileInput = props => {
 
     const wrapperRef = useRef(null);
 
     const [fileList, setFileList] = useState([]);
-    const [progress, setProgress] = useState()
-    const [firstWord, setFirstWord] = useState(null);
+    const [progress, setProgress] = useState(0); // Initialize progress state
+    const [failures, setFailures] = useState(0); // Initialize progress state
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -24,6 +25,8 @@ const DropFileInput = props => {
     const onFileDrop = (e) => {
         const newFile = e.target.files[0];
         if (newFile) {
+            setFailures(0);
+            setProgress(0);
             const updatedList = [...fileList, newFile];
             setFileList(updatedList);
             props.onFileChange(updatedList);
@@ -59,16 +62,14 @@ const DropFileInput = props => {
             const data = await response.json();
             console.log('Response from server:', data);
     
-            if (data.first_word) {
-                setFirstWord(data.first_word);
-            } else {
-                console.error('First word not found in server response');
-            }
-    
+            setProgress(data.percentage_passed)// Update the progress state
+            setFailures(data.failures)
         } catch (error) {
             console.error('Error uploading file:', error);
         }
     };
+
+    
     return (
         <>
             <div
@@ -102,7 +103,11 @@ const DropFileInput = props => {
                         <button className="drop-file-preview__title" onClick={startUpload}>
                             Ready to upload
                         </button>
-                        {firstWord && <p>First word from file: {firstWord}</p>}
+                        <div className="progress-container">
+                            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+                        </div>
+                        <p>Test pass percentage: {progress}%</p>
+                        <p>Failures: {failures}</p>
                     </div>
                 ) : null
             }
