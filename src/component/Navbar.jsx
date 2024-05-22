@@ -16,6 +16,12 @@ function Navbar() {
         <Typography variant="h6" sx={{ marginLeft: "20px" }}>
           <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>Add File</Link>
         </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/Signup" style={{ textDecoration: "none", color: "inherit" }}>Signup</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/Login" style={{ textDecoration: "none", color: "inherit" }}>Login</Link>
+        </Typography>
       </Toolbar>
     </AppBar>
   );
