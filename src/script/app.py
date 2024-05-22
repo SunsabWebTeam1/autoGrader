@@ -12,6 +12,7 @@ CORS(app)  # Enable CORS for all routes
 # Configure MySQL connection
 mysql_connection = mysql.connector.connect(
     host='localhost',
+    port='3307',
     user='root',
     password='password',
     database='file_storage'
@@ -36,7 +37,11 @@ def upload_file():
         uploaded_module_content = io.BytesIO(content)
 
         # Load test cases from existing file
+<<<<<<< Updated upstream
         from UnitTest3 import test_suite
+=======
+        from RunTestCase import test_suite
+>>>>>>> Stashed changes
 
         # Import the uploaded module dynamically
         spec = importlib.util.spec_from_loader(filename, loader=None)
@@ -60,8 +65,9 @@ def upload_file():
                        (filename, size, content, percentage_passed))
         mysql_connection.commit()
         cursor.close()
+        test_result_message = f"{percentage_passed}% of tests passed. {failed_tests} tests failed."
 
-        print(percentage_passed)
+        print(test_result_message)
 
         return jsonify({'percentage_passed': percentage_passed, 'failures': failed_tests})
     except Exception as e:
