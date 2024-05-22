@@ -4,7 +4,7 @@ import mysql.connector
 # Configure MySQL connection
 mysql_connection = mysql.connector.connect(
     host='localhost',
-    port='3307',
+    port='3306',
     user='root',
     password='password',
     database='file_storage'
@@ -18,9 +18,8 @@ def test_suite(uploaded_module):
                 result = cursor.fetchall()
                 expected = [('John', 'Doe', 1001), ('Jane', 'Doe', 1002), ('Bob', 'Smith', 1003)]
                 self.assertEqual(result, expected)
-                return result
             finally:
                 cursor.close()
-                mysql_connection.close()
+        
 
     return unittest.TestLoader().loadTestsFromTestCase(TestSQLQueries)
