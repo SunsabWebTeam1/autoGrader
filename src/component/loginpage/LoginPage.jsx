@@ -5,7 +5,7 @@ import imgLogin from '../../images/LI-Image.jpg';
 
 function LoginPage() {
     return (
-        <div className="App" style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="App">
             <div className="login">
                 <div className="loginCard">
                     <Card sx={{ display: 'flex', position: 'relative', width: '100%', height: '80vh' }}>
@@ -47,20 +47,21 @@ function LoginPage() {
                         </CardCover>
                         <CardContent sx={{ flex: '1 0 50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign:"left" }}>
                             <div className="section-1">
-                                <Typography component="div" variant="h4" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
-                                    Username 
+                                <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
+                                    Email 
                                 </Typography>
                                 <TextField id="outlined-basic" label="Username or Email" variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
                             </div>
                             <div className="section-2">
-                                <Typography component="div" variant="h4" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
+                                <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Password 
                                 </Typography>
-                                <TextField id="outlined-basic" label="Password" type="password" variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
+                                <TextField id="outlined-basic" label="Password"  variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
                             </div>
                             <div className="buttons-2">
                                 <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', marginRight: '10%', width: '50%', height: '7vh' }}>Log In with Google</Button>
-                                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', width: '50%', height: '7vh'  }}>Log In</Button>
+                                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', width: '50%', height: '7vh'  }}>Log In
+                                </Button>
                             </div>
                         </CardContent>
                     </Card>

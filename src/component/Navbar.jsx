@@ -17,8 +17,12 @@ function Navbar() {
           <Link to="/loginpage" style={{ textDecoration: "none", color: "inherit" }}>Log In</Link>
         </Typography>
         <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/signuppage" style={{ textDecoration: "none", color: "inherit" }}>Sign Up</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
           <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>Add File</Link>
         </Typography>
+
       </Toolbar>
     </AppBar>
   );

@@ -15,8 +15,8 @@ function AboutSignUp(){
                 </div>
             </div>
             <div id="about-signup" className="about-signup">
-                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10px', marginRight: '10px', width: '25%', height: '7vh' }}>Sign Up</Button>
-                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10px', width: '25%', height: '7vh'  }}>Log In</Button>
+                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginRight: '2%', width: '25%', height: '7vh' }}>Sign Up</Button>
+                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', width: '25%', height: '7vh'  }}>Log In</Button>
             </div>
         </section>
     )
