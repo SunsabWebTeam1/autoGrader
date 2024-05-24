@@ -1,89 +1,210 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: all 0.2s linear;
-    text-decoration: none;
-  }
-
-body {
-    overflow-x: hidden;
-  }
-  
-.about {
-    min-height: 45vh;
-    width: 100vw;
-    top: 5rem;
-    position: relative;
-    overflow: hidden;
-    text-align: left;
-
-  }
-
-.about .row {
-    display: flex;
-    flex-direction: column;    
-    align-items: flex-start; 
-    justify-content: space-around;
-    padding: 0 4rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.2s linear;
+  text-decoration: none;
 }
 
+body {
+  overflow-x: hidden;
+}
+
+.about {
+  min-height: 45vh;
+  width: 100vw;
+  top: 5rem;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.about .row {
+  display: flex;
+  flex-direction: column;    
+  align-items: flex-start; 
+  justify-content: space-around;
+  padding: 0 4rem;
+}
 
 .about .row .content p {
-    font-size: 1.3rem;
-    color: #333;
-    padding: 1rem 0;
-  }
-
+  font-size: 1.3rem;
+  color: #333;
+  padding: 1rem 0;
+}
 
 .about h3 {
-    font-size: 3rem;
-    padding: 1rem 0;
+  font-size: 3rem;
+  padding: 1rem 0;
+}
+
+.about img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.about .about-signup {
+  display: flex;
+  flex-direction: row;    
+  align-items: flex-start; 
+  justify-content: left;
+  padding: 0 4rem;
+  padding-bottom: 2.5%;
+  margin-top: 2%;
 }
 
 .home {
-    min-height: 80vh;
-    width: 100vw;
-    position: relative;
-    background-image: url(../images/LP-Image.jpg);
-    background-size: cover;
-    overflow: hidden !important;
-    text-align: left;
-    padding: 0 3rem;
-
-  }
-.about img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-}
-
-.about .about-signup{
-    display: flex;
-    flex-direction: row;    
-    align-items: flex-start; 
-    justify-content: center;
-    margin: 2rem;
+  min-height: 80vh;
+  width: 100vw;
+  position: relative;
+  background-image: url(../images/LP-Image.jpg);
+  background-size: cover;
+  overflow: hidden !important;
+  text-align: left;
+  padding: 0 3rem;
 }
 
 .home::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust the color and opacity as needed */
-
-  }
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(36, 68, 49, 0.6); /* 60% opacity */
+}
 
 .home h1 {
-    color: #fff;
-    font-size: 5.5rem;
-    position: absolute;
-    bottom: 20%;
-    justify-content: space-around;
+  color: #fff;
+  font-size: 5.5rem;
+  position: absolute;
+  bottom: 20%;
+  justify-content: space-around;
+}
+
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #45A5AA; 
+}
+
+.login .loginCard {
+  width: 80%;
+  max-width: 100vw;
+  height: 80%;
+}
+
+.login .section-1 {
+  margin-top: 5%;
+}
+
+.login .section-2 {
+  margin-top: 10%;
+}
+
+.login .buttons-1 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15%;
+}
+
+.login .buttons-2 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 7.5%;
+}
+
+.signup {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0
+}
+
+.signup .section-1 {
+  text-align: left;
+  padding: 0 3rem;
+  margin-top: 2.5%;
+}
+
+.signup .section-2 {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 3rem;
+  margin-top: 2.5%;
+  padding-top: 5%;
+  gap: 10%;
+
+}
+.signup .section-3 {
+  display: flex;
+  padding: 0 3rem;
+  padding-bottom: 2.5%;
+}
+
+.signup h1 {
+  font-size: 3rem;
+  position: absolute;
+  justify-content: space-around;
+}
+
+.signup .buttons-1 {
+  display: flex;
+  width: 70%;
+}
+.teacherinfo {
+  flex: 1;
+  text-align: left;
+}
+
+.teacherinfo h3 {
+  font-size: 3rem;
+  padding: 1rem 0;
+  
+}
+
+.teacherinfo .teacher-icon {
+  display: block;
+  margin: 0 auto;  
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.teacherinfo .section-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  margin-top: 2rem; 
+}
+.studentinfo {
+  flex: 1;
+  text-align: left;
+}
+
+.studentinfo h3 {
+  font-size: 3rem;
+  padding: 1rem 0;
+}
+
+.studentinfo .student-icon {
+  display: block;
+  margin: 0 auto;  
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.studentinfo .section-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  margin-top: 2rem;
 }

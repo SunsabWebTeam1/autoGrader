@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#0E1011" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#212322" }}>
       <Toolbar>
         <img
           alt="Logo"
@@ -14,13 +14,13 @@ function Navbar() {
           <Link to="/landingpage" style={{ textDecoration: "none", color: "inherit" }}>Home</Link>
         </Typography>
         <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/loginpage" style={{ textDecoration: "none", color: "inherit" }}>Log In</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/signuppage" style={{ textDecoration: "none", color: "inherit" }}>Sign Up</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
           <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>Add File</Link>
-        </Typography>
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/Signup" style={{ textDecoration: "none", color: "inherit" }}>Signup</Link>
-        </Typography>
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/Login" style={{ textDecoration: "none", color: "inherit" }}>Login</Link>
         </Typography>
       </Toolbar>
     </AppBar>

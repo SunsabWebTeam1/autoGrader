@@ -3,6 +3,8 @@ import './App.css';
 import Navbar from './component/Navbar';
 import LandingPage from './component/landingpage/LandingPage';
 import AddFile from './component/drop-file-input/AddFile';
+import LoginPage from './component/loginpage/LoginPage';
+import SignupPage from './component/signuppage/SignupPage';
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -46,8 +48,8 @@ const Home = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/landingpage" element={<LandingPage />} />
                 <Route path="/addfile" element={<AddFile />} />
-                <Route path="/Signup" element={<Signup />} />
-                <Route path="/Login" element={<Login />} />
+                <Route path="/loginpage" element={<LoginPage />} />
+                <Route path="/signuppage" element={<SignupPage/>} />
             </Routes>
             </AnimatePresence>
         </div>
