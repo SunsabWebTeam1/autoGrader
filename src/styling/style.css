@@ -151,6 +151,7 @@ body {
   padding-bottom: 2.5%;
 }
 
+
 .signup h1 {
   font-size: 3rem;
   position: absolute;
@@ -207,4 +208,83 @@ body {
   flex-direction: column;
   align-items: center;  
   margin-top: 2rem;
+}
+
+.add-credentials {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0
+}
+.add-credentials  h1{
+  font-size: 3rem;
+  position: absolute;
+  justify-content: space-around;
+}
+
+.add-credentials .section-1 {
+  text-align: left;
+  padding: 0 3rem;
+  margin-top: 2.5%;
+}
+
+.add-credentials .section-2 {
+  display: flex;
+  text-align: center;
+  padding: 0 3rem;
+  margin-top: 2.5%;
+  padding-top: 5%;
+  gap: 5%;
+
+}
+.add-credentials .section-2-1 {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0 3rem;
+  margin-top: 2.5%;
+  width: 50%;
+}
+
+.add-credentials .section-2-1 .title{
+  text-align: left;
+}
+
+.add-credentials .section-3 {
+  display: flex;
+  text-align: center;
+  padding: 0 3rem;
+  gap: 5%;
+
+}
+.add-credentials .section-3-1 {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0 3rem;
+  margin-top: 2.5%;
+  padding-top: 5%;
+  width: 50%;
+}
+
+.add-credentials .section-3-1 .title{
+  text-align: left;
+}
+
+.add-credentials .section-4 {
+  display: flex;
+  padding: 0 3rem;
+  padding-bottom: 2.5%;
+}
+
+
+.add-credentials .content {
+  padding: 0;
+}
+.add-credentials .icon {
+  height: 2em;
+  width: 2em;
+  margin-left: 10px;  
+  vertical-align: middle;  
 }
