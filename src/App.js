@@ -5,6 +5,7 @@ import LandingPage from './component/landingpage/LandingPage';
 import AddFile from './component/drop-file-input/AddFile';
 import LoginPage from './component/loginpage/LoginPage';
 import SignupPage from './component/signuppage/SignupPage';
+import AddCredentialsPage from './component/signuppage/AddCredentialsPage';
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/addfile" element={<AddFile />} />
                 <Route path="/loginpage" element={<LoginPage />} />
                 <Route path="/signuppage" element={<SignupPage/>} />
+                <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
             </Routes>
             </AnimatePresence>
         </div>
