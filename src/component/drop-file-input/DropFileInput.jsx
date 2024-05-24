@@ -17,6 +17,7 @@ const DropFileInput = props => {
     const [fileList, setFileList] = useState([]);
     const [progress, setProgress] = useState(0); // Initialize progress state
     const [failures, setFailures] = useState(0); // Initialize progress state
+    const [testResults, setTestResults] = useState([]); // Initialize test results state
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -25,13 +26,16 @@ const DropFileInput = props => {
     const onFileDrop = (e) => {
         const newFile = e.target.files[0];
         if (newFile) {
+            // Reset test results when a new file is dropped
+            setTestResults([]);
+            
             setFailures(0);
             setProgress(0);
             const updatedList = [...fileList, newFile];
             setFileList(updatedList);
             props.onFileChange(updatedList);
         }
-    }
+    }   
 
     const fileRemove = (file) => {
         const updatedList = [...fileList];
@@ -62,8 +66,9 @@ const DropFileInput = props => {
             const data = await response.json();
             console.log('Response from server:', data);
     
-            setProgress(data.percentage_passed)// Update the progress state
-            setFailures(data.failures)
+            setProgress(data.percentage_passed || 0);
+            setFailures(data.failures || 0);
+            setTestResults(data.test_results || []); 
         } catch (error) {
             console.error('Error uploading file:', error);
         }
@@ -72,7 +77,7 @@ const DropFileInput = props => {
     
     return (
         <>
-            <div
+           <div
                 ref={wrapperRef}
                 className="drop-file-input"
                 onDragEnter={onDragEnter}
@@ -108,6 +113,18 @@ const DropFileInput = props => {
                         </div>
                         <p>Test pass percentage: {progress}%</p>
                         <p>Failures: {failures}</p>
+                        {
+                            testResults.length > 0 && (
+                                <div>
+                                    <p>Test Results:</p>
+                                    <ul>
+                                        {testResults.map((test, index) => (
+                                            <li key={index}>{test.name} = {test.score}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )
+                        }
                     </div>
                 ) : null
             }

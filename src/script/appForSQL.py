@@ -64,8 +64,9 @@ def upload_file():
         mysql_connection.commit()
         cursor.close()
 
-        # Return success response with the query result and test percentage
-        return jsonify({'result': result, 'percentage_passed': percentage_passed})
+        
+
+        return jsonify({'percentage_passed': percentage_passed, 'failures': failed_tests})
     except Exception as e:
         # Print out any exceptions that occur for debugging
         print("Error:", str(e))
