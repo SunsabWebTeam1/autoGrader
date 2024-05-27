@@ -5,10 +5,7 @@ import '../../styling/drop-file-input.css';
 
 import { ImageConfig } from '../../config/ImageConfig'; 
 import uploadImg from '../../assets/cloud-upload-regular-240.png';
-import { storage } from '../../firebase';
 
-//firebaseStuff
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 const DropFileInput = props => {
 
