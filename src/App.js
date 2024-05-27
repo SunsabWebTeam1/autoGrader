@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import { Protected } from './context/ProtectedRoutes';
 import Navbar from './component/Navbar';
 import LandingPage from './component/landingpage/LandingPage';
 import AddFile from './component/drop-file-input/AddFile';
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/loginpage" element={<LoginPage />} />
                 <Route path="/signuppage" element={<SignupPage/>} />
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
+                <Route path="/homepage"></Route>
             </Routes>
             </AnimatePresence>
         </div>

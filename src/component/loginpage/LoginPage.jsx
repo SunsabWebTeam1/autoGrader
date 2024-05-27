@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, Typography, Box, TextField, Button } from "@mui/material";
 import { CardCover } from "@mui/joy";
 import imgLogin from '../../images/LI-Image.jpg';
+import { UserAuth } from "../../context/AuthContext";
 
 function LoginPage() {
+    const {onLogin, googleSignIn} = UserAuth();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { user } = UserAuth();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          await onLogin(email, password);
+        } catch (error) {
+          console.error('Login failed', error);
+        }
+    };
+    
+    const handleGoogleSubmit = async () => {
+        try{
+            await googleSignIn();
+        }   catch (error) {
+            console.error('Google login failed', error);
+        }
+    };
+    console.log("User:", user);
     return (
         <div className="App">
             <div className="login">
@@ -50,17 +73,44 @@ function LoginPage() {
                                 <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Email 
                                 </Typography>
-                                <TextField id="outlined-basic" label="Username or Email" variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
+                                <TextField 
+                                id="outlined-basic" 
+                                label="Username or Email" 
+                                variant="outlined" 
+                                sx={{ mt: 2, mb: 1, width: '100%' }} 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className="section-2">
                                 <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Password 
                                 </Typography>
-                                <TextField id="outlined-basic" label="Password"  variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
+                                <TextField 
+                                id="outlined-basic" 
+                                label="Password"  
+                                variant="outlined" 
+                                sx={{ mt: 2, mb: 1, width: '100%' }}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                />
                             </div>
                             <div className="buttons-2">
-                                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', marginRight: '10%', width: '50%', height: '7vh' }}>Log In with Google</Button>
-                                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', width: '50%', height: '7vh'  }}>Log In
+                                <Button variant="contained" 
+                                style={{ backgroundColor: '#00989B', 
+                                color: 'white', 
+                                marginTop: '10%', 
+                                marginRight: '10%', 
+                                width: '50%', 
+                                height: '7vh' }}
+                                onClick={handleGoogleSubmit}>Log In with Google</Button>
+                                
+                                <Button variant="contained" 
+                                style={{ backgroundColor: '#00989B', 
+                                color: 'white', 
+                                marginTop: '10%', 
+                                width: '50%', 
+                                height: '7vh'  }}
+                                onClick={handleSubmit}>Log In
                                 </Button>
                             </div>
                         </CardContent>
