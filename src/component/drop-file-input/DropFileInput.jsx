@@ -28,11 +28,10 @@ const DropFileInput = props => {
             
             setFailures(0);
             setProgress(0);
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
-            props.onFileChange(updatedList);
+            setFileList([newFile]); // Update the file list with the new file
+            props.onFileChange([newFile]);
         }
-    }   
+    };
 
     const fileRemove = (file) => {
         const updatedList = [...fileList];
@@ -63,9 +62,9 @@ const DropFileInput = props => {
             const data = await response.json();
             console.log('Response from server:', data);
     
-            setProgress(data.percentage_passed || 0);
-            setFailures(data.failures || 0);
-            setTestResults(data.test_results || []); 
+            setProgress(data.test_results.percentage_passed || 0);
+            setFailures(data.test_results.failures || 0);
+            setTestResults(data.test_results.test_results || []); 
         } catch (error) {
             console.error('Error uploading file:', error);
         }
