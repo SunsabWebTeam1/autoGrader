@@ -85,7 +85,11 @@ const DropTestInstruction = props => {
                     <p>Drag & Drop your files here</p>
                 </div>
                 <input type="file" value="" onChange={onFileDrop}/>
+                
             </div>
+            <button className="drop-file-preview__title" onClick={downloadFile}>
+                            Download File
+            </button>
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">
@@ -103,9 +107,6 @@ const DropTestInstruction = props => {
                         }
                         <button className="drop-file-preview__title" onClick={startUpload}>
                             Ready to upload
-                        </button>
-                        <button className="drop-file-preview__title" onClick={downloadFile}>
-                            Download File
                         </button>
                         <h2 className="header">
                             Uploaded {progress}%
