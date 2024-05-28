@@ -9,7 +9,7 @@ import SignupGooglePage from './component/signuppage/SignupGoogle';
 import AddCredentialsPage from './component/signuppage/AddCredentialsPage';
 import HomepageStudent from './component/user-student/homepage/HomepageStudent';
 import HomepageTeacher from './component/user-teacher/homepage/HomepageTeacher';
-import UploadAssignmentpage from './component/user-teacher/upload-assignment/UploadAssignmentpage';
+import UploadAssignment from './component/user-teacher/upload-assignment/UploadAssignmentpage';
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TeaProtected } from './context/TeacherRoutes';
@@ -26,14 +26,14 @@ function App() {
             <Routes location={location} key={location.path}>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/landingpage" element={<LandingPage />} />
-                <Route path="/addfile" element={<AddFile />} />
+                <Route path="/addfile" element={<StuProtected><AddFile /></StuProtected>}/>
                 <Route path="/loginpage" element={<LoginPage />} />
                 <Route path="/signuppage" element={<SignupPage/>} />
                 <Route path="/signupgooglepage" element={<SignupGooglePage/>}/>
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
                 <Route path="/homepage/teacher/:useruid" element={<TeaProtected><HomepageTeacher/></TeaProtected>}/>
-                <Route path="/homepage/teacher/uploadAssignment" element={<TeaProtected><UploadAssignmentpage/></TeaProtected>}/>
+                <Route path="/homepage/teacher/uploadAssignment" element= {<UploadAssignment/>}/>
                 <Route path="/homepage/student/:useruid" element={<StuProtected><HomepageStudent/></StuProtected>}/>
             </Routes>
             </AnimatePresence>

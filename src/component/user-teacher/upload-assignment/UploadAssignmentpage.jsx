@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../../../firebase/firebase";
 
-function UploadAssignmentpage() {
-    <div className="App">
-        <p>UploadAssignmentpage</p>
-    </div>
+function UploadAssignment() {
+    return(
+        <div className="App">
+            <p>Upload Assignmentpage</p>
+        </div>
+    )
 }
 
-export default UploadAssignmentpage;
+export default UploadAssignment;
