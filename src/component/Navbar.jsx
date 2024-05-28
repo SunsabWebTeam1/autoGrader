@@ -61,6 +61,9 @@ function Navbar() {
               <Link to={`/homepage/student/${user.uid}`} style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+              <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>addfile</Link>
+            </Typography>
+            <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
             </Typography>
           </>
@@ -70,6 +73,9 @@ function Navbar() {
           <>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to={`/homepage/teacher/${user.uid}`} style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
+            </Typography>
+            <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+              <Link to= "/homepage/teacher/uploadAssignment" style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
@@ -85,7 +91,7 @@ function Navbar() {
           </>
         );
       default:
-        return null; // Return null for unknown userType
+        return null; 
     }
   };
   

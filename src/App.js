@@ -9,6 +9,7 @@ import SignupGooglePage from './component/signuppage/SignupGoogle';
 import AddCredentialsPage from './component/signuppage/AddCredentialsPage';
 import HomepageStudent from './component/user-student/homepage/HomepageStudent';
 import HomepageTeacher from './component/user-teacher/homepage/HomepageTeacher';
+import UploadAssignmentpage from './component/user-teacher/upload-assignment/UploadAssignmentpage';
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TeaProtected } from './context/TeacherRoutes';
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
                 <Route path="/homepage/teacher/:useruid" element={<TeaProtected><HomepageTeacher/></TeaProtected>}/>
+                <Route path="/homepage/teacher/uploadAssignment" element={<TeaProtected><UploadAssignmentpage/></TeaProtected>}/>
                 <Route path="/homepage/student/:useruid" element={<StuProtected><HomepageStudent/></StuProtected>}/>
             </Routes>
             </AnimatePresence>
