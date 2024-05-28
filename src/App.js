@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+
+import DropFileInput from './component/drop-file-input/DropFileInput.jsx';
+import DropTestInstruction from './component/drop-file-input/DropTestInstruction.jsx';
+
 import Navbar from './component/Navbar';
 import LandingPage from './component/landingpage/LandingPage';
 import AddFile from './component/drop-file-input/AddFile';
@@ -20,7 +24,6 @@ import Signup from './SignupAuth';
 import Login from './Login';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
- 
 
 //firebase
 function App() {
