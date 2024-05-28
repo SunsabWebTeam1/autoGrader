@@ -8,7 +8,7 @@ import SignupPage from './component/signuppage/SignupPage';
 import SignupGooglePage from './component/signuppage/SignupGoogle';
 import AddCredentialsPage from './component/signuppage/AddCredentialsPage';
 import HomepageStudent from './component/user-student/homepage/HomepageStudent';
-import HomepageTeacher from './component/user-teacher/HomepageTeacher';
+import HomepageTeacher from './component/user-teacher/homepage/HomepageTeacher';
 import { AnimatePresence } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TeaProtected } from './context/TeacherRoutes';
