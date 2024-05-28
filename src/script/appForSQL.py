@@ -16,7 +16,7 @@ mysql_connection = mysql.connector.connect(
 )
 
 def run_test_suite(uploaded_module, mysql_connection):
-    from SQL.RunTestCase import test_suite
+    from SQL.PLSQLTestCase import test_suite
     
     # Create a test suite instance
     test_suite_instance = test_suite(uploaded_module, mysql_connection)

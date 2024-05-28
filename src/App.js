@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 import DropFileInput from './component/drop-file-input/DropFileInput.jsx';
-
+import DropTestInstruction from './component/drop-file-input/DropTestInstruction.jsx';
 //firebase
 function App() {
 

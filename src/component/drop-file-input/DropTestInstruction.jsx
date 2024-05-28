@@ -5,16 +5,16 @@ import '../../styling/drop-file-input.css';
 
 import { ImageConfig } from '../../config/ImageConfig'; 
 import uploadImg from '../../assets/cloud-upload-regular-240.png';
+import { storage } from '../../firebase';
 
-
-const DropFileInput = props => {
+//firebaseStuff
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+const DropTestInstruction = props => {
 
     const wrapperRef = useRef(null);
 
     const [fileList, setFileList] = useState([]);
-    const [progress, setProgress] = useState(0); // Initialize progress state
-    const [failures, setFailures] = useState(0); // Initialize progress state
-    const [testResults, setTestResults] = useState([]); // Initialize test results state
+    const [progress, setProgress] = useState()
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -23,15 +23,11 @@ const DropFileInput = props => {
     const onFileDrop = (e) => {
         const newFile = e.target.files[0];
         if (newFile) {
-            // Reset test results when a new file is dropped
-            setTestResults([]);
-            
-            setFailures(0);
-            setProgress(0);
-            setFileList([newFile]); // Update the file list with the new file
-            props.onFileChange([newFile]);
+            const updatedList = [...fileList, newFile];
+            setFileList(updatedList);
+            props.onFileChange(updatedList);
         }
-    };
+    }
 
     const fileRemove = (file) => {
         const updatedList = [...fileList];
@@ -40,41 +36,44 @@ const DropFileInput = props => {
         props.onFileChange(updatedList);
     }
 
-    
+
     const startUpload = () => {
-        fileList.forEach(uploadFile);
+        fileList.forEach(uploadFiles);
     };
 
-    const uploadFile = async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
+    const uploadFiles = (file) => {
+        //
+        if(!file) return;
+        const storageRef = ref(storage,  `/files/${file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
 
-        try {
-            const response = await fetch('http://localhost:5000/upload', {
-                method: 'POST',
-                body: formData
-            });
+        uploadTask.on("state_changed", (snapshot) => {
+          const prog = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100)
 
-            if (!response.ok) {
-                throw new Error('Upload failed');
-            }
-
-            const data = await response.json();
-            console.log('Response from server:', data);
-    
-            setProgress(data.test_results.percentage_passed || 0);
-            setFailures(data.test_results.failures || 0);
-            setTestResults(data.test_results.test_results || []); 
-            
-        } catch (error) {
-            console.error('Error uploading file:', error);
+          setProgress(prog);
+        }, (err) => console.log(err),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref)
+          .then(url => console.log(url))
         }
-    };
+        );
+      };
 
-    
+      const downloadFile = async () => {
+        if (fileList.length === 0) {
+            alert("Assignment is not yet uploaded");
+            return;
+        }
+        
+        const file = fileList[0];
+        const storageRef = ref(storage, `/files/${file.name}`);
+        const downloadUrl = await getDownloadURL(storageRef);
+        window.open(downloadUrl);
+    };
     return (
         <>
-           <div
+            <div
                 ref={wrapperRef}
                 className="drop-file-input"
                 onDragEnter={onDragEnter}
@@ -105,23 +104,12 @@ const DropFileInput = props => {
                         <button className="drop-file-preview__title" onClick={startUpload}>
                             Ready to upload
                         </button>
-                        <div className="progress-container">
-                            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-                        </div>
-                        <p>Test pass percentage: {progress}%</p>
-                        <p>Failures: {failures}</p>
-                        {
-                            testResults.length > 0 && (
-                                <div>
-                                    <p>Test Results:</p>
-                                    <ul>
-                                        {testResults.map((test, index) => (
-                                            <li key={index}>{test.name} = {test.score}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )
-                        }
+                        <button className="drop-file-preview__title" onClick={downloadFile}>
+                            Download File
+                        </button>
+                        <h2 className="header">
+                            Uploaded {progress}%
+                        </h2>
                     </div>
                 ) : null
             }
@@ -129,8 +117,8 @@ const DropFileInput = props => {
     );
 }
 
-DropFileInput.propTypes = {
+DropTestInstruction.propTypes = {
     onFileChange: PropTypes.func
 }
 
-export default DropFileInput;
+export default DropTestInstruction;
