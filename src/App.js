@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-import DropFileInput from './component/drop-file-input/DropFileInput.jsx';
-import DropTestInstruction from './component/drop-file-input/DropTestInstruction.jsx';
-
 import Navbar from './component/Navbar';
 import LandingPage from './component/landingpage/LandingPage';
 import AddFile from './component/drop-file-input/AddFile';
+import DropFile from './component/drop-file-input/DropFile';
 import LoginPage from './component/loginpage/LoginPage';
 import SignupPage from './component/signuppage/SignupPage';
 import SignupGooglePage from './component/signuppage/SignupGoogle';
@@ -57,6 +55,7 @@ const Home = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/landingpage" element={<LandingPage />} />
                 <Route path="/addfile" element={<AddFile />} />
+                <Route path="/DropFile" element={<DropFile />} />
                 <Route path="/Signup" element={<Signup />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/addfile" element={<StuProtected><AddFile /></StuProtected>}/>
