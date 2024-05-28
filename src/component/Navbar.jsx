@@ -99,6 +99,22 @@ function Navbar() {
   return (
     <AppBar position="static" sx={{ backgroundColor: "#212322" }}>
       <Toolbar>
+        <img
+          alt="Logo"
+          style={{ height: "50px", marginRight: "auto" }}
+        />
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/landingpage" style={{ textDecoration: "none", color: "inherit" }}>Home</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>Add File</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/Signup" style={{ textDecoration: "none", color: "inherit" }}>Signup</Link>
+        </Typography>
+        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+          <Link to="/Login" style={{ textDecoration: "none", color: "inherit" }}>Login</Link>
+        </Typography>
         <img alt="Logo" style={{ height: "50px", marginRight: "auto" }} />
         {renderNavbar()}
       </Toolbar>
