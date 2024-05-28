@@ -6,8 +6,9 @@ import StudentIcon from "../../icons/Children.svg";
 import TeacherIcon from "../../icons/Teacher.svg";
 import { auth } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
 function AddCredentialsPage() {
-  const { accountType } = useParams();
+  const { accountType, userId } = useParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState('');
@@ -16,18 +17,24 @@ function AddCredentialsPage() {
 
   useEffect(() => {
     console.log("Selected Account Type:", accountType);
-  }, [accountType]);
+  }, [accountType, userId]);
 
   const handleProceed = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    
+    event.preventDefault(); 
+  
     if (accountType) {
+      
+      if (!firstName || !lastName || !email || !password) {
+        console.error("Please fill in all fields.");
+        return; 
+      }
+  
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const userId = userCredential.user.uid;
-        
+  
         await signInWithEmailAndPassword(auth, email, password);
-        
+  
         // Check authentication state
         const currentUser = auth.currentUser;
         console.log("Current User:", currentUser);
@@ -40,16 +47,21 @@ function AddCredentialsPage() {
         };
   
         // Add account to Firestore
-        await addAccount(userId, account);
+        await addAccount(userId, account, accountType);
   
         console.log(`Account created for ${accountType}`);
-        // Redirect to a dashboard or confirmation page if necessary
-        window.location.href = `/dashboard`; // Adjust the redirect URL as needed
+        if (accountType == "student") {
+          window.location.href = `/homepage/student/${userId}`; 
+        }
+        if (accountType == "teacher") {
+          window.location.href = `/homepage/teacher/${userId}`; 
+        } 
       } catch (error) {
         console.error("Error creating account:", error);
       }
     }
   };
+  
   
   
   return (
