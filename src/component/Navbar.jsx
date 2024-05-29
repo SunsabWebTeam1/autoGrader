@@ -61,7 +61,7 @@ function Navbar() {
               <Link to={`/homepage/student/${user.uid}`} style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-              <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>addfile</Link>
+              <Link to="/student/upload-submission" style={{ textDecoration: "none", color: "inherit" }}>Submit Assignment</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
@@ -75,7 +75,7 @@ function Navbar() {
               <Link to={`/homepage/teacher/${user.uid}`} style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-              <Link to="/homepage/teacher/uploadAssignment" style={{ textDecoration: "none", color: "inherit" }}>Upload Assignment</Link>
+              <Link to="/teacher/upload-instructions" style={{ textDecoration: "none", color: "inherit" }}>Upload Assignment Instructions</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
@@ -85,6 +85,9 @@ function Navbar() {
       case "authenticated":
         return (
           <>
+            <Typography variant="h6" sx={{ marginLeft: "20px" }}>
+              <Link to="/signupgooglepage" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Choose Account</Link>
+            </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
             </Typography>

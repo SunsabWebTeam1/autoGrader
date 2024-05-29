@@ -1,11 +1,9 @@
-import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 
-import '../../styling/drop-file-input.css';
-
-import { ImageConfig } from '../../config/ImageConfig'; 
-import uploadImg from '../../assets/cloud-upload-regular-240.png';
-
+import uploadImg from '../../../assets/cloud-upload-regular-240.png';
+import { ImageConfig } from '../../../config/ImageConfig';
+import '../../../styling/drop-file-input.css';
 
 const DropFileInput = props => {
 
@@ -134,3 +132,5 @@ DropFileInput.propTypes = {
 }
 
 export default DropFileInput;
+
+//student
