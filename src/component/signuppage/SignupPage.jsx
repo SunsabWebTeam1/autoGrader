@@ -9,6 +9,7 @@ function SignupPage()
   const { accountType } = useParams();
   // State to keep track of selected account type
   const [selectedAccountType, setSelectedAccountType] = useState("");
+  
 
   const handleStudentClick = () => {
     setSelectedAccountType("student");

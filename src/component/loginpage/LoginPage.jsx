@@ -1,9 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, Box, TextField, Button } from "@mui/material";
 import { CardCover } from "@mui/joy";
 import imgLogin from '../../images/LI-Image.jpg';
+import { UserAuth } from "../../context/AuthContext";
+import { findTeacher, findStudent } from "../../services/AccountService";
 
 function LoginPage() {
+    const { onLogin, googleSignIn, user } = UserAuth();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await onLogin(email, password);
+        try {
+            const teacherResult = await findTeacher(user.uid);
+            if (teacherResult.found) {
+                window.location.href = `/homepage/teacher/${user.uid}`;
+                return;
+            }
+
+            const studentResult = await findStudent(user.uid);
+            if (studentResult.found) {
+                window.location.href = `/homepage/student/${user.uid}`;
+                return;
+            }
+
+            console.log('User is neither a teacher nor a student.');
+        } catch (error) {
+            console.error('Login failed', error);
+        }
+    };
+
+    const handleGoogleSubmit = async () => {
+        await googleSignIn();
+        try {
+            setIsAuthenticated(true);
+        } catch (error) {
+            console.error('Google login failed', error);
+        }
+    };
+
+    useEffect(() => {
+        const checkUserRole = async () => {
+            if (isAuthenticated && user) {
+                try {
+                    const teacherResult = await findTeacher(user.uid);
+                    if (teacherResult.found) {
+                        window.location.href = `/homepage/teacher/${user.uid}`;
+                        return;
+                    }
+
+                    const studentResult = await findStudent(user.uid);
+                    if (studentResult.found) {
+                        window.location.href = `/homepage/student/${user.uid}`;
+                        return;
+                    }
+
+                    window.location.href = `/signupgooglepage`;
+                } catch (error) {
+                    console.error('Error checking user role:', error);
+                }
+            }
+        };
+
+        checkUserRole();
+    }, [isAuthenticated]);
+
+    console.log("User:", user);
+
     return (
         <div className="App">
             <div className="login">
@@ -25,7 +91,7 @@ function LoginPage() {
                                 left: '50%', 
                                 transform: 'translate(-50%, -50%)', 
                                 zIndex: 1,
-                                textAlign: 'left', // Align text to the left
+                                textAlign: 'left', 
                                 color: 'white',
                                 width: '90%', 
                             }}>
@@ -50,17 +116,44 @@ function LoginPage() {
                                 <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Email 
                                 </Typography>
-                                <TextField id="outlined-basic" label="Username or Email" variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
+                                <TextField 
+                                id="outlined-basic" 
+                                label="Username or Email" 
+                                variant="outlined" 
+                                sx={{ mt: 2, mb: 1, width: '100%' }} 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className="section-2">
                                 <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Password 
                                 </Typography>
-                                <TextField id="outlined-basic" label="Password"  variant="outlined" sx={{ mt: 2, mb: 1, width: '100%' }} />
+                                <TextField 
+                                id="outlined-basic" 
+                                label="Password"  
+                                variant="outlined" 
+                                sx={{ mt: 2, mb: 1, width: '100%' }}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                />
                             </div>
                             <div className="buttons-2">
-                                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', marginRight: '10%', width: '50%', height: '7vh' }}>Log In with Google</Button>
-                                <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', width: '50%', height: '7vh'  }}>Log In
+                                <Button variant="contained" 
+                                style={{ backgroundColor: '#00989B', 
+                                color: 'white', 
+                                marginTop: '10%', 
+                                marginRight: '10%', 
+                                width: '50%', 
+                                height: '7vh' }}
+                                onClick={handleGoogleSubmit}>Log In with Google</Button>
+                                
+                                <Button variant="contained" 
+                                style={{ backgroundColor: '#00989B', 
+                                color: 'white', 
+                                marginTop: '10%', 
+                                width: '50%', 
+                                height: '7vh'  }}
+                                onClick={handleSubmit}>Log In
                                 </Button>
                             </div>
                         </CardContent>
@@ -72,3 +165,4 @@ function LoginPage() {
 }
 
 export default LoginPage;
+

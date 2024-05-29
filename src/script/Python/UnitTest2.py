@@ -3,7 +3,7 @@ import unittest
 def test_suite(uploaded_module):
     class TestFunctions(unittest.TestCase):
         def test_reverse_words_simple(self):
-            self.assertEqual(uploaded_module.reverse_words("hello world"), "world hello")
+            self.assertEqual(uploaded_module.reverse_words("hello world"), "orld hello")
 
         def test_reverse_words_with_punctuation(self):
             self.assertEqual(uploaded_module.reverse_words("Python is amazing!"), "amazing! is Python")
@@ -18,3 +18,4 @@ def test_suite(uploaded_module):
             self.assertEqual(uploaded_module.reverse_words("Python"), "Python")
 
     return unittest.TestLoader().loadTestsFromTestCase(TestFunctions)
+
