@@ -9,7 +9,7 @@ CORS(app)  # Enable CORS for all routes
 # Configure MySQL connection
 mysql_connection = mysql.connector.connect(
     host='localhost',
-    port='3306',
+    port='3307',
     user='root',
     password='password',
     database='file_storage'
