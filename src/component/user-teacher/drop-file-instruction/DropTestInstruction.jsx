@@ -8,7 +8,7 @@ import { ImageConfig } from '../../../config/ImageConfig';
 import { storage } from '../../../firebase';
 
 //firebaseStuff
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable, listAll } from 'firebase/storage';
 const DropTestInstruction = props => {
 
     const wrapperRef = useRef(null);
@@ -59,16 +59,17 @@ const DropTestInstruction = props => {
         }
         );
       };
-
+      //seperate files
+      
       const downloadFile = async () => {
-        if (fileList.length === 0) {
-            alert("Assignment is not yet uploaded");
+        const storageRef = ref(storage, `/files`);
+        const listResult = await listAll(storageRef);
+        if (listResult.items.length === 0) {
+            alert("No files found in storage");
             return;
         }
-        
-        const file = fileList[0];
-        const storageRef = ref(storage, `/files/${file.name}`);
-        const downloadUrl = await getDownloadURL(storageRef);
+        const firstFileRef = listResult.items[0];
+        const downloadUrl = await getDownloadURL(firstFileRef);
         window.open(downloadUrl);
     };
     return (
