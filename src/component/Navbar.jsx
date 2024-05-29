@@ -1,5 +1,5 @@
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import { findStudent, findTeacher } from "../services/AccountService";
@@ -75,7 +75,7 @@ function Navbar() {
               <Link to={`/homepage/teacher/${user.uid}`} style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-              <Link to= "/homepage/teacher/uploadAssignment" style={{ textDecoration: "none", color: "inherit" }}>Upload Assignment</Link>
+              <Link to="/homepage/teacher/uploadAssignment" style={{ textDecoration: "none", color: "inherit" }}>Upload Assignment</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
@@ -94,32 +94,13 @@ function Navbar() {
         return null; 
     }
   };
-  
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#212322" }}>
       <Toolbar>
-        <img
-          alt="Logo"
-          style={{ height: "50px", marginRight: "auto" }}
-        />
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/landingpage" style={{ textDecoration: "none", color: "inherit" }}>Home</Link>
-        </Typography>
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/addfile" style={{ textDecoration: "none", color: "inherit" }}>Add File</Link>
-        </Typography>
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/dropfile" style={{ textDecoration: "none", color: "inherit" }}>Drop File</Link>
-        </Typography>
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/Signup" style={{ textDecoration: "none", color: "inherit" }}>Signup</Link>
-        </Typography>
-        <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-          <Link to="/Login" style={{ textDecoration: "none", color: "inherit" }}>Login</Link>
-        </Typography>
-        <img alt="Logo" style={{ height: "50px", marginRight: "auto" }} />
-        {renderNavbar()}
+        <Box sx={{ ml: 'auto', display: 'flex' }}>
+          {renderNavbar()}
+        </Box>
       </Toolbar>
     </AppBar>
   );
