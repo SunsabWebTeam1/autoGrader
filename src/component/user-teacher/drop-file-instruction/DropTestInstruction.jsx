@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 
-import '../../styling/drop-file-input.css';
+import '../../../styling/drop-file-input.css';
 
-import { ImageConfig } from '../../config/ImageConfig'; 
-import uploadImg from '../../assets/cloud-upload-regular-240.png';
-import { storage } from '../../firebase';
+import uploadImg from '../../../assets/cloud-upload-regular-240.png';
+import { ImageConfig } from '../../../config/ImageConfig';
+import { storage } from '../../../firebase';
 
 //firebaseStuff
 import { getDownloadURL, ref, uploadBytesResumable, listAll } from 'firebase/storage';
@@ -59,7 +59,8 @@ const DropTestInstruction = props => {
         }
         );
       };
-
+      //seperate files
+      
       const downloadFile = async () => {
         const storageRef = ref(storage, `/files`);
         const listResult = await listAll(storageRef);
@@ -123,3 +124,5 @@ DropTestInstruction.propTypes = {
 }
 
 export default DropTestInstruction;
+
+//teacher 
