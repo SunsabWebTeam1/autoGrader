@@ -44,7 +44,7 @@ const DropTestInstruction = props => {
     const uploadFiles = (file) => {
         //
         if(!file) return;
-        const storageRef = ref(storage,  `/files/${file.name}`)
+        const storageRef = ref(storage,  `/download/${file.name}`)
         const uploadTask = uploadBytesResumable(storageRef, file)
 
         uploadTask.on("state_changed", (snapshot) => {
@@ -61,17 +61,6 @@ const DropTestInstruction = props => {
       };
       //seperate files
       
-      const downloadFile = async () => {
-        const storageRef = ref(storage, `/files`);
-        const listResult = await listAll(storageRef);
-        if (listResult.items.length === 0) {
-            alert("No files found in storage");
-            return;
-        }
-        const firstFileRef = listResult.items[0];
-        const downloadUrl = await getDownloadURL(firstFileRef);
-        window.open(downloadUrl);
-    };
     return (
         <>
             <div
@@ -88,9 +77,6 @@ const DropTestInstruction = props => {
                 <input type="file" value="" onChange={onFileDrop}/>
                 
             </div>
-            <button className="drop-file-preview__title" onClick={downloadFile}>
-                            Download File
-            </button>
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">

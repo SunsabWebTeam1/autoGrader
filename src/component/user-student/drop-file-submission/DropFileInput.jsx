@@ -84,7 +84,9 @@ const DropFileInput = props => {
                     <p>Drag & Drop your files here</p>
                 </div>
                 <input type="file" value="" onChange={onFileDrop}/>
+                
             </div>
+            <input type="text" name="testID" placeholder="Enter your testID" />
             {
                 fileList.length > 0 ? (
                     <div className="drop-file-preview">
