@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { storage } from '../../../firebase';
-import { getDownloadURL, ref, uploadBytesResumable, listAll } from 'firebase/storage';
+import { getDownloadURL, ref, listAll } from 'firebase/storage';
 import { Button } from '@mui/material';
 const DownloadFile = () => {
 
     const downloadFile = async () => {
-        const storageRef = ref(storage, `/files`);
+        const storageRef = ref(storage, `/download`);
         const listResult = await listAll(storageRef);
         if (listResult.items.length === 0) {
             alert("No files found in storage");
