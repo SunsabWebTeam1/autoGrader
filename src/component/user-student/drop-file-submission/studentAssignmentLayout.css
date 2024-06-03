@@ -25,6 +25,12 @@
 
     grid-area: main;
 }
+.MainLayout{
+    display: flex;
+    flex-direction: column;
+    padding-top: 5vh;
+    height: 100%;
+}
 #navBar{
 
     grid-area: navBar;
@@ -36,10 +42,9 @@
 
 .Submit-NextLayout{
     display: flex;
-    margin-right: 10vh;
-    height: 30%;
-    justify-content: end;
     align-items: end;
+    justify-content: end;
+    height: 5%;
 }
 
 
@@ -118,3 +123,15 @@
     padding-left: 45px;
 }
 
+
+/*ProjectDetails*/
+.ProjectDetailsContents{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ProjectDetailsText{
+    text-align: start;
+}
