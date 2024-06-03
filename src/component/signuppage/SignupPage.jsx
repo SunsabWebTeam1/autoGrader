@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useParams} from "react-router-dom";
-import TeacherInfo from "./TeacherInfo";
-import StudentInfo from "./StudentInfo";
 import { Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import StudentInfo from "./StudentInfo";
+import TeacherInfo from "./TeacherInfo";
 
 function SignupPage() 
 {
@@ -64,6 +64,7 @@ function SignupPage()
               marginTop: "5%",
               width: "25%",
               height: "7vh",
+              borderRadius: '10px'
             }}
             onClick={handleProceed}
           >

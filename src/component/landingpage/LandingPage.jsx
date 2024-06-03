@@ -1,7 +1,7 @@
 import React from "react";
-import Home from "./Home";
 import About from "./About";
 import AboutSignUp from "./AboutSignUp";
+import Home from "./Home";
 
 function LandingPage() {
 

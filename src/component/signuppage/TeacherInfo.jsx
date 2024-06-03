@@ -1,6 +1,6 @@
+import { Button } from "@mui/material";
 import React, { useState } from "react";
 import TeacherIcon from "../../icons/Teacher.svg";
-import { Button } from "@mui/material";
 
 function TeacherInfo({ onTeacherClick, selected }) {
   const [clicked, setClicked] = useState(false);
@@ -34,7 +34,8 @@ function TeacherInfo({ onTeacherClick, selected }) {
                 color: "white",
                 width: "50%",
                 height: "7vh",
-                marginTop: "4vh"
+                marginTop: "4vh",
+                borderRadius: '10px'
                 }}
                 onClick={handleButtonClick}
             >

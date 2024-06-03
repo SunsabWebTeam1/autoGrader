@@ -1,8 +1,11 @@
 import React from "react";
+import AssignmentList from "./AssignmentList";
+import StudentHeader from "./StudentHeader";
 function HomepageStudent() {
     return (
         <div className="App">
-            <p>Student Homepage</p>
+            <StudentHeader/>
+            <AssignmentList/>
         </div>
     )
 }

@@ -1,10 +1,14 @@
 import React from "react";
+import CreateAssignmentInfo from "./CreateAssignmentInfo";
+import TeacherHeader from "./TeacherHeader";
+
 function HomepageTeacher() {
     return (
         <div className="App">
-            <p>Teacher Homepage</p>
+            <TeacherHeader/>
+            <CreateAssignmentInfo/>
         </div>
     )
 }
 
-export default HomepageTeacher;
+export default HomepageTeacher

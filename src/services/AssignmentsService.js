@@ -1,4 +1,12 @@
-import {db} from "../firebase/firebase"
-import { collection, setDoc, getDoc, getDocs, query,doc, where, addDoc } from "firebase/firestore";
-import { UserAuth } from "../context/AuthContext";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
+export const addAssignment = async (teacherId, assignment) => {
+    try {
+        const assignmentsCollection = collection(db, 'assignments');
+        await addDoc(assignmentsCollection, { ...assignment, teacherId });
+    } catch (error) {
+        console.error("Error creating/updating assignment:", error);
+        throw error;
+    }
+};

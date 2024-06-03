@@ -1,21 +1,6 @@
-import { db } from "../firebase/firebase";
-import { collection, setDoc, getDoc, getDocs, query,doc, where, addDoc } from "firebase/firestore";
-import { UserAuth } from "../context/AuthContext";
 import { getAuth } from "firebase/auth";
-
-export const getAccount = async (userId) => {
-    try {
-      // Use the userId to reference the correct document in the accounts collection
-      const docRef = getDoc(db, "accounts", userId);
-      // Get the document data
-      const docSnap = await getDoc(docRef);
-      // Return the document data
-      return docSnap.data();
-    } catch (error) {
-      console.error(error);
-      throw error; // It's usually better to throw the error to let the caller handle it
-    }
-  }
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 
   export const findTeacher = async (userId) => {
@@ -133,14 +118,3 @@ export const addAccount = async (userId, account, accountType) => {
 
   
 
-
-  export const editAccount = async(userId, account) => {
-    try{
-        const itemCol = collection(db, `users/${userId}/accounts`);
-        const docRef = await setDoc(itemCol, account);
-        return docRef.id;
-    }
-    catch(error){
-        console.log(error);
-    }
-}

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import TeacherInfo from "./TeacherInfo";
-import StudentInfo from "./StudentInfo";
 import { Button } from "@mui/material";
-import { addAccount } from "../../services/AccountService";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
+import { addAccount } from "../../services/AccountService";
+import StudentInfo from "./StudentInfo";
+import TeacherInfo from "./TeacherInfo";
 
 function SignupGooglePage() {
   const { accountType } = useParams();
@@ -91,6 +91,7 @@ function SignupGooglePage() {
               marginTop: "5%",
               width: "25%",
               height: "7vh",
+              borderRadius: '10px'
             }}
             onClick={handleProceed}
           >
