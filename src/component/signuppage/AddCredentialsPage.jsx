@@ -1,11 +1,11 @@
+import { Button, TextField, Typography } from "@mui/material";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { addAccount } from "../../services/AccountService";
 import { useParams } from "react-router-dom";
-import { TextField, Typography, Button } from "@mui/material";
+import { auth } from "../../firebase/firebase";
 import StudentIcon from "../../icons/Children.svg";
 import TeacherIcon from "../../icons/Teacher.svg";
-import { auth } from "../../firebase/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { addAccount } from "../../services/AccountService";
 
 function AddCredentialsPage() {
   const { accountType, userId } = useParams();
@@ -151,6 +151,7 @@ function AddCredentialsPage() {
               marginTop: "5%",
               width: "25%",
               height: "7vh",
+              borderRadius: '10px',
             }}
             onClick={handleProceed}
           > Proceed

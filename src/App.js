@@ -13,6 +13,7 @@ import SignupGooglePage from './component/signuppage/SignupGoogle';
 import SignupPage from './component/signuppage/SignupPage';
 import AddFile from './component/user-student/drop-file-submission/AddFile';
 import HomepageStudent from './component/user-student/homepage/HomepageStudent';
+import CreateAssignmentPage from './component/user-teacher/create-assignment-page/CreateAssignmentPage';
 import DropFile from './component/user-teacher/drop-file-instruction/DropFile';
 import HomepageTeacher from './component/user-teacher/homepage/HomepageTeacher';
 import { StuProtected } from './context/StudentRoutes';
@@ -60,8 +61,12 @@ const Home = () => {
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
                 <Route path="/homepage/teacher/:useruid" element={<TeaProtected><HomepageTeacher/></TeaProtected>}/>
                 <Route path="/teacher/upload-instructions" element={<TeaProtected><DropFile/></TeaProtected>}/>
+                {/*Placeholder page*/}
+                <Route path="/teacher/create-assignment" element={<TeaProtected><CreateAssignmentPage/></TeaProtected>}/>
                 <Route path="/homepage/student/:useruid" element={<StuProtected><HomepageStudent/></StuProtected>}/>
                 <Route path="/student/upload-submission" element={<StuProtected><AddFile /></StuProtected>}/>
+
+
 
             </Routes>
             </AnimatePresence>

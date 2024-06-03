@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardContent, Typography, Box, TextField, Button } from "@mui/material";
 import { CardCover } from "@mui/joy";
-import imgLogin from '../../images/LI-Image.jpg';
+import { Box, Button, Card, CardContent, TextField, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
-import { findTeacher, findStudent } from "../../services/AccountService";
+import imgLogin from '../../images/LI-Image.jpg';
+import { findStudent, findTeacher } from "../../services/AccountService";
 
 function LoginPage() {
     const { onLogin, googleSignIn, user } = UserAuth();
@@ -107,7 +107,13 @@ function LoginPage() {
                                     New to AutoGrader? Create an account
                                 </Typography>
                                 <div className="buttons-1">
-                                    <Button variant="contained" style={{ backgroundColor: '#00989B', color: 'white', marginTop: '10%', width: '50%', height: '7vh'  }}>Sign Up</Button>
+                                    <Button variant="contained"
+                                     style={{ backgroundColor: '#00989B', 
+                                     color: 'white', 
+                                     marginTop: '10%', 
+                                     width: '50%', 
+                                     height: '7vh',
+                                     borderRadius: '10px'  }}>Sign Up</Button>
                                 </div>
                             </Box>
                         </CardCover>
@@ -144,7 +150,8 @@ function LoginPage() {
                                 marginTop: '10%', 
                                 marginRight: '10%', 
                                 width: '50%', 
-                                height: '7vh' }}
+                                height: '7vh',
+                                borderRadius: '10px' }}
                                 onClick={handleGoogleSubmit}>Log In with Google</Button>
                                 
                                 <Button variant="contained" 
@@ -152,7 +159,8 @@ function LoginPage() {
                                 color: 'white', 
                                 marginTop: '10%', 
                                 width: '50%', 
-                                height: '7vh'  }}
+                                height: '7vh',
+                                borderRadius: '10px'  }}
                                 onClick={handleSubmit}>Log In
                                 </Button>
                             </div>
