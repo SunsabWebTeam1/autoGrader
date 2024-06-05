@@ -1,5 +1,7 @@
 import React from 'react';
 import DropTestInstruction from './DropTestInstruction.jsx';
+import UploadUnitTest from './UploadUnitTest.jsx';
+import axios from 'axios';
 const DropFile = () => {
     const onFileChange = (files) => {
         console.log(files);
@@ -12,6 +14,9 @@ const DropFile = () => {
                     React drop files input
                 </h2>
                 <DropTestInstruction onFileChange={(files) => onFileChange(files)} />
+            </div>
+            <div className="box">
+                <UploadUnitTest/>
             </div>
         </div>
     );
