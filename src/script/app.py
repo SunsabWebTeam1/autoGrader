@@ -39,21 +39,28 @@ def generate_test_results(suite, test_suite_result):
 
     # Record failed test cases
     for test_case, test_failure in zip(suite._tests, test_suite_result.failures):
-        test_case_name = test_case.id().split('.')[-1]
-        failed_test_results.append({'name': test_case_name, 'score': '0/5', 'failure_message': str(test_failure[1]), 'status': 'failed'})
-        print(f"{test_case_name} = 0/5")
+        if test_case is not None:
+            test_case_name = test_case.id().split('.')[-1]
+            failed_test_results.append({'name': test_case_name, 'score': '0/5', 'failure_message': str(test_failure[1]), 'status': 'failed'})
+            print(f"{test_case_name} = 0/5")
+        else:
+            print("Warning: test_case is None in failures")
 
     # Record passed test cases
     for test_case in suite._tests:
-        test_case_name = test_case.id().split('.')[-1]
-        if not any(result['name'] == test_case_name for result in failed_test_results):
-            passed_test_results.append({'name': test_case_name, 'score': '5/5', 'status': 'passed'})
-            print(f"{test_case_name} = 5/5")
+        if test_case is not None:
+            test_case_name = test_case.id().split('.')[-1]
+            if not any(result['name'] == test_case_name for result in failed_test_results):
+                passed_test_results.append({'name': test_case_name, 'score': '5/5', 'status': 'passed'})
+                print(f"{test_case_name} = 5/5")
+        else:
+            print("Warning: test_case is None in passed tests")
 
     # Combine the arrays into a single test_results array
     test_results = passed_test_results + failed_test_results
 
     return test_results
+
 
 @app.route('/upload_unit_test', methods=['POST'])
 def upload_unit_test():
@@ -106,8 +113,6 @@ def run_unit_tests(unit_test_path, submission_path):
     spec.loader.exec_module(unit_test_module)
     
     # Replace `uploaded_module` with the actual module for the submission
-    # Here, you should load the SQL module if possible
-    # For demonstration purposes, we'll simulate it as a dummy module
     class DummySQLModule:
         NUMBER = int
     
@@ -116,6 +121,10 @@ def run_unit_tests(unit_test_path, submission_path):
     
     suite = unit_test_module.test_suite(DummySQLModule, mysql_connection)
     
+    # Check if suite._tests is populated correctly
+    if not suite._tests:
+        print("Warning: No tests found in the test suite")
+
     # Redirect stdout to capture unittest output
     buffer = StringIO()
     runner = unittest.TextTestRunner(stream=buffer, verbosity=2)
@@ -134,6 +143,7 @@ def run_unit_tests(unit_test_path, submission_path):
         'errors_list': [str(error) for error in result.errors],
         'test_results': test_results
     }
+
 
 if __name__ == '__main__':
     app.run(debug=True)
