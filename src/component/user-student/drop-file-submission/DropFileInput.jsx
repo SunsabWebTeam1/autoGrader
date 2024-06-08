@@ -1,138 +1,77 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from "axios";
 
-import uploadImg from '../../../assets/cloud-upload-regular-240.png';
-import { ImageConfig } from '../../../config/ImageConfig';
-import '../../../styling/drop-file-input.css';
+function SubmissionUpload() {
+  const [submissionFile, setSubmissionFile] = useState(null);
+  const [searchParams] = useSearchParams();
+  const [testResults, setTestResults] = useState(null);
+  const [manualUnitTestId, setManualUnitTestId] = useState(""); // New state for manual Unit Test ID
+  const urlUnitTestId = searchParams.get("unit_test_id");
 
-const DropFileInput = props => {
+  const handleSubmissionFileChange = (e) => {
+    setSubmissionFile(e.target.files[0]);
+  };
 
-    const wrapperRef = useRef(null);
+  const handleSubmissionUpload = async () => {
+    const unitTestId = manualUnitTestId || urlUnitTestId; // Use manual Unit Test ID if provided, otherwise fall back to URL parameter
 
-    const [fileList, setFileList] = useState([]);
-    const [progress, setProgress] = useState(0); // Initialize progress state
-    const [failures, setFailures] = useState(0); // Initialize progress state
-    const [testResults, setTestResults] = useState([]); // Initialize test results state
-
-    const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-    const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
-    const onDrop = () => wrapperRef.current.classList.remove('dragover');
-
-    const onFileDrop = (e) => {
-        const newFile = e.target.files[0];
-        if (newFile) {
-            // Reset test results when a new file is dropped
-            setTestResults([]);
-            
-            setFailures(0);
-            setProgress(0);
-            setFileList([newFile]); // Update the file list with the new file
-            props.onFileChange([newFile]);
-        }
-    };
-
-    const fileRemove = (file) => {
-        const updatedList = [...fileList];
-        updatedList.splice(fileList.indexOf(file), 1);
-        setFileList(updatedList);
-        props.onFileChange(updatedList);
+    if (!unitTestId) {
+      alert("Please enter a Unit Test ID");
+      return;
     }
 
-    
-    const startUpload = () => {
-        fileList.forEach(uploadFile);
-    };
+    const formData = new FormData();
+    formData.append("file", submissionFile);
+    formData.append("unit_test_id", unitTestId);
 
-    const uploadFile = async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-            const response = await fetch('http://localhost:5000/upload', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('Upload failed');
-            }
-
-            const data = await response.json();
-            console.log('Response from server:', data);
-    
-            setProgress(data.test_results.percentage_passed || 0);
-            setFailures(data.test_results.failures || 0);
-            setTestResults(data.test_results.test_results || []); 
-            
-        } catch (error) {
-            console.error('Error uploading file:', error);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/upload_submission",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
         }
-    };
+      );
+      setTestResults(response.data);
+      alert("Submission file uploaded and tested successfully");
+    } catch (error) {
+      console.error("Error uploading submission file:", error);
+    }
+  };
 
-    
-    return (
-        <>
-           <div
-                ref={wrapperRef}
-                className="drop-file-input"
-                onDragEnter={onDragEnter}
-                onDragLeave={onDragLeave}
-                onDrop={onDrop}
-            >
-                <div className="drop-file-input__label">
-                    <img src={uploadImg} alt="" />
-                    <p>Drag & Drop your files here</p>
-                </div>
-                <input type="file" value="" onChange={onFileDrop}/>
-                
-            </div>
-            <input type="text" name="testID" placeholder="Enter your testID" />
-            {
-                fileList.length > 0 ? (
-                    <div className="drop-file-preview">
-                        {
-                            fileList.map((item, index) => (
-                                <div key={index} className="drop-file-preview__item">
-                                    <img src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']} alt="" />
-                                    <div className="drop-file-preview__item__info">
-                                        <p>{item.name}</p>
-                                        <p>{item.size}B</p>
-                                    </div>
-                                    <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>x</span>
-                                </div>
-                            ))
-                        }
-                        <button className="drop-file-preview__title" onClick={startUpload}>
-                            Ready to upload
-                        </button>
-                        <div className="progress-container">
-                            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-                        </div>
-                        <p>Test pass percentage: {progress}%</p>
-                        <p>Failures: {failures}</p>
-                        {
-                            testResults.length > 0 && (
-                                <div>
-                                    <p>Test Results:</p>
-                                    <ul>
-                                        {testResults.map((test, index) => (
-                                            <li key={index}>{test.name} = {test.score}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )
-                        }
-                    </div>
-                ) : null
-            }
-        </>
-    );
+  return (
+    <div className="upload-section">
+      <h2>Upload Submission File</h2>
+      <input type="file" onChange={handleSubmissionFileChange} />
+      <input
+        type="text"
+        placeholder="Enter Unit Test ID"
+        value={manualUnitTestId}
+        onChange={(e) => setManualUnitTestId(e.target.value)}
+      />
+      <button onClick={handleSubmissionUpload}>Upload Submission</button>
+      {testResults && (
+        <div className="results-section">
+          <h2>Test Results</h2>
+          <p>Tests Run: {testResults.testsRun}</p>
+          <p>Failures: {testResults.failures}</p>
+          <p>Errors: {testResults.errors}</p>
+          <p>
+            Grade Percentage:{" "}
+            {testResults.grade_percentage !== undefined
+              ? testResults.grade_percentage.toFixed(2)
+              : "N/A"}
+            %
+          </p>
+          <h3>Failures Details:</h3>
+          <pre>{testResults.failures_list.join("\n")}</pre>
+          <h3>Errors Details:</h3>
+          <pre>{testResults.errors_list.join("\n")}</pre>
+        </div>
+      )}
+    </div>
+  );
 }
 
-DropFileInput.propTypes = {
-    onFileChange: PropTypes.func
-}
-
-export default DropFileInput;
-
-//student
+export default SubmissionUpload;

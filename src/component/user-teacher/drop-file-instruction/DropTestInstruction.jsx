@@ -6,6 +6,7 @@ import '../../../styling/drop-file-input.css';
 import uploadImg from '../../../assets/cloud-upload-regular-240.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 import { storage } from '../../../firebase';
+import axios from 'axios';
 
 //firebaseStuff
 import { getDownloadURL, ref, uploadBytesResumable, listAll } from 'firebase/storage';
