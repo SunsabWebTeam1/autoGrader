@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import DropFileInput from './DropFileInput.jsx';
 import ProjectDetails from './ProjectDetails.jsx';
 import DownloadFile from './DownloadFile.jsx';
-import './studentAssignmentLayout.css'
+import '../../../styling/studentAssignmentLayout.css'
 //IconsImport
 import infoICON from '../../../assets/icons/Info.png';
 import instructionICON from '../../../assets/icons/Instruction.png';

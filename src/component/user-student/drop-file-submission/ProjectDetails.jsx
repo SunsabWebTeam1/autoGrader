@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import './studentAssignmentLayout.css'
+import '../../../styling/studentAssignmentLayout.css'
 import DatabaseICON from '../../../assets/icons/Database.png';
 const ProjectDetails = () => {
 

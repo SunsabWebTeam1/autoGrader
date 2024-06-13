@@ -1,23 +1,60 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
-function SubmissionUpload() {
+import PropTypes from 'prop-types';
+import uploadImg from '../../../assets/cloud-upload-regular-240.png';
+import { ImageConfig } from '../../../config/ImageConfig';
+
+import '../../../styling/drop-file-input.css';
+
+const SubmissionUpload = (props) => {
   const [submissionFile, setSubmissionFile] = useState(null);
   const [searchParams] = useSearchParams();
-  const [testResults, setTestResults] = useState(null);
-  const [manualUnitTestId, setManualUnitTestId] = useState(""); // New state for manual Unit Test ID
+  const [testResults, setTestResults] = useState([]);
+  const [manualUnitTestId, setManualUnitTestId] = useState("");
   const urlUnitTestId = searchParams.get("unit_test_id");
 
-  const handleSubmissionFileChange = (e) => {
-    setSubmissionFile(e.target.files[0]);
+  const wrapperRef = useRef(null);
+
+  const [fileList, setFileList] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const [failures, setFailures] = useState(0);
+
+  const onDragEnter = () => wrapperRef.current.classList.add('dragover');
+  const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
+  const onDrop = () => wrapperRef.current.classList.remove('dragover');
+
+  const onFileDrop = (e) => {
+    const newFile = e.target.files[0];
+    if (newFile) {
+      setTestResults([]);
+      setFailures(0);
+      setProgress(0);
+      setFileList([newFile]);
+      setSubmissionFile(newFile);
+      props.onFileChange([newFile]);
+    }
+  };
+
+  const fileRemove = (file) => {
+    const updatedList = [...fileList];
+    updatedList.splice(fileList.indexOf(file), 1);
+    setFileList(updatedList);
+    setSubmissionFile(null);
+    props.onFileChange(updatedList);
   };
 
   const handleSubmissionUpload = async () => {
-    const unitTestId = manualUnitTestId || urlUnitTestId; // Use manual Unit Test ID if provided, otherwise fall back to URL parameter
+    const unitTestId = manualUnitTestId || urlUnitTestId;
 
     if (!unitTestId) {
       alert("Please enter a Unit Test ID");
+      return;
+    }
+
+    if (!submissionFile) {
+      alert("Please select a file to upload");
       return;
     }
 
@@ -33,45 +70,109 @@ function SubmissionUpload() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      setTestResults(response.data);
+
+      const data = response.data;
+      if (data.error) {
+        console.error(data.error);
+        alert(data.error);
+        return;
+      }
+
+      const testResultsData = data.test_results || [];
+
+      setProgress(data.percentage_passed || 0);
+      setFailures(data.failures || 0);
+      setTestResults(testResultsData);
+
       alert("Submission file uploaded and tested successfully");
     } catch (error) {
       console.error("Error uploading submission file:", error);
     }
   };
 
+  const generateSummary = () => {
+    const percentagePassed = progress;
+    const failedTests = failures;
+    const totalTests = testResults.length;
+    const passedTests = totalTests - failedTests;
+    const pointsObtained = passedTests * 5;
+    const totalPoints = totalTests * 5;
+
+    const testResultMessage = `${percentagePassed}% of tests passed. ${failedTests} tests failed. ` +
+                              `Score: ${pointsObtained}/${totalPoints}`;
+
+    return testResultMessage;
+  };
+
   return (
-    <div className="upload-section">
-      <h2>Upload Submission File</h2>
-      <input type="file" onChange={handleSubmissionFileChange} />
+    <>
+      <div
+        ref={wrapperRef}
+        className="drop-file-input"
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
+      >
+        <div className="drop-file-input__label">
+          <img src={uploadImg} alt="" />
+          <p>Drag & Drop your files here</p>
+        </div>
+        <input type="file" onChange={onFileDrop} />
+      </div>
       <input
         type="text"
         placeholder="Enter Unit Test ID"
         value={manualUnitTestId}
         onChange={(e) => setManualUnitTestId(e.target.value)}
       />
-      <button onClick={handleSubmissionUpload}>Upload Submission</button>
-      {testResults && (
-        <div className="results-section">
-          <h2>Test Results</h2>
-          <p>Tests Run: {testResults.testsRun}</p>
-          <p>Failures: {testResults.failures}</p>
-          <p>Errors: {testResults.errors}</p>
-          <p>
-            Grade Percentage:{" "}
-            {testResults.grade_percentage !== undefined
-              ? testResults.grade_percentage.toFixed(2)
-              : "N/A"}
-            %
-          </p>
-          <h3>Failures Details:</h3>
-          <pre>{testResults.failures_list.join("\n")}</pre>
-          <h3>Errors Details:</h3>
-          <pre>{testResults.errors_list.join("\n")}</pre>
+      {fileList.length > 0 && (
+        <div className="drop-file-preview">
+          {fileList.map((item, index) => (
+            <div key={index} className="drop-file-preview__item">
+              <img
+                src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']}
+                alt=""
+              />
+              <div className="drop-file-preview__item__info">
+                <p>{item.name}</p>
+                <p>{item.size}B</p>
+              </div>
+              <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>
+                x
+              </span>
+            </div>
+          ))}
+          <button className="drop-file-preview__title" onClick={handleSubmissionUpload}>
+            Ready to upload
+          </button>
+          <div className="progress-container">
+            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+          </div>
+          <p>Test pass percentage: {progress}%</p>
+          <p>Failures: {failures}</p>
+          {testResults.length > 0 && (
+            <div>
+              <p>Test Results:</p>
+              <ul>
+                {testResults.map((test, index) => (
+                  <li key={index}>
+                    {test.name} = {test.status === 'passed' ? '5/5' : '0/5'}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="test-summary">
+            <p>{generateSummary()}</p>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
-}
+};
+
+SubmissionUpload.propTypes = {
+  onFileChange: PropTypes.func.isRequired,
+};
 
 export default SubmissionUpload;
