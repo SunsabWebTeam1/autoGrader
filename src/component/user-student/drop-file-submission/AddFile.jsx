@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
 //Objects
+import DownloadFile from './DownloadFile.jsx';
 import DropFileInput from './DropFileInput.jsx';
 import ProjectDetails from './ProjectDetails.jsx';
-import DownloadFile from './DownloadFile.jsx';
-import './studentAssignmentLayout.css'
+import './studentAssignmentLayout.css';
 //IconsImport
-import infoICON from '../../../assets/icons/Info.png';
-import instructionICON from '../../../assets/icons/Instruction.png';
 import DonwloadICON from '../../../assets/icons/Download.png';
+import infoICON from '../../../assets/icons/Info.png';
 import SubmisionICON from '../../../assets/icons/Submision.png';
 
 //material UI
@@ -75,11 +74,9 @@ const AddFile = () => {
                 </div>
                 <div id="main">
                     <div className='MainLayout'>
-                        <div className='bodyforDropFile'>
                             <div>
                                 {renderMainContent()}
                             </div>
-                        </div>
                     </div>
                     <div className='Submit-NextLayout'>
                         <Button variant="contained" onClick={handleNextClick}>Next</Button>
@@ -97,12 +94,6 @@ const AddFile = () => {
                             <div className='sideBarDetailsINDI'>
                                 <img src={infoICON}/> 
                                 Project Details
-                            </div>
-                        </div>
-                        <div className='sideBarDetails'>
-                            <div className='sideBarDetailsINDI'>
-                                <img src={instructionICON}/> 
-                                Instruction
                             </div>
                         </div>
                         <div className='sideBarDetails'>
