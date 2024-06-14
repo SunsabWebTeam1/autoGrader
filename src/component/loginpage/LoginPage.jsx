@@ -42,6 +42,14 @@ function LoginPage() {
         }
     };
 
+    const handleSignUpRedirect = async () => {
+        try {
+            window.location.href = '/signuppage';
+        } catch (error) {
+            console.error('Cannot find page', error);
+        }
+    };
+
     useEffect(() => {
         const checkUserRole = async () => {
             if (isAuthenticated && user) {
@@ -113,7 +121,8 @@ function LoginPage() {
                                      marginTop: '10%', 
                                      width: '50%', 
                                      height: '7vh',
-                                     borderRadius: '10px'  }}>Sign Up</Button>
+                                     borderRadius: '10px'  }}
+                                     onClick={handleSignUpRedirect}>Sign Up</Button>
                                 </div>
                             </Box>
                         </CardCover>
