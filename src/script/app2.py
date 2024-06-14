@@ -12,18 +12,14 @@ CORS(app)  # Enable CORS for all routes
 UPLOAD_FOLDER = 'uploads'  # Replace with your actual upload folder path
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# MySQL connection configuration
-dbconfig = {
-    'host': 'localhost',
-    'port': 3306,
-    'user': 'root',
-    'password': 'password',
-    'database': 'file_storage'
-}
-
-# Create MySQL connection pool
-mysql_connection = mysql.connector.connect(**dbconfig)
-
+# Configure MySQL connection
+mysql_connection = mysql.connector.connect(
+    host='localhost',
+    port='3306',
+    user='root',
+    password='password',
+    database='file_storage'
+)
 
 def run_test_suite(unit_test_path, uploaded_module, mysql_connection):
     spec = importlib.util.spec_from_file_location("unit_test_module", unit_test_path)
@@ -43,59 +39,32 @@ def run_test_suite(unit_test_path, uploaded_module, mysql_connection):
     return test_results
 
 def generate_test_results(suite, test_suite_result):
-    test_results = []
+    passed_test_results = []
+    failed_test_results = []
 
-    # Iterate over all test cases in the suite
+    # Record failed test cases
+    for test_case, test_failure in zip(suite._tests, test_suite_result.failures):
+        if test_case is not None:
+            test_case_name = test_case.id().split('.')[-1]
+            failed_test_results.append({'name': test_case_name, 'score': '0/5', 'failure_message': str(test_failure[1]), 'status': 'failed'})
+            print(f"{test_case_name} = 0/5")
+        else:
+            print("Warning: test_case is None in failures")
+
+    # Record passed test cases
     for test_case in suite._tests:
         if test_case is not None:
             test_case_name = test_case.id().split('.')[-1]
-
-            # Initialize variables to track test status
-            test_passed = False
-            failure_message = ""
-
-            # Check if the test case failed
-            for test_failure, traceback in test_suite_result.failures:
-                if test_case_name in str(test_failure):
-                    failure_message = str(test_failure)
-                    test_passed = False
-                    break
-            else:
-                # If no failure found, test passed
-                test_passed = True
-
-            # Append test result based on pass/fail status
-            if test_passed:
-                test_results.append({
-                    'name': test_case_name,
-                    'score': '5/5',
-                    'status': 'passed'
-                })
+            if not any(result['name'] == test_case_name for result in failed_test_results):
+                passed_test_results.append({'name': test_case_name, 'score': '5/5', 'status': 'passed'})
                 print(f"{test_case_name} = 5/5")
-            else:
-                test_results.append({
-                    'name': test_case_name,
-                    'score': '0/5',
-                    'failure_message': failure_message,
-                    'status': 'failed'
-                })
-                print(f"{test_case_name} = 0/5")
         else:
-            print("Warning: test_case is None in test suite")
+            print("Warning: test_case is None in passed tests")
+
+    # Combine the arrays into a single test_results array
+    test_results = passed_test_results + failed_test_results
 
     return test_results
-
-def save_file_to_db(filename, size, content, grade_percentage):
-    conn = mysql.connector.connect(**dbconfig)
-    cursor = conn.cursor()
-    query = """
-    INSERT INTO Files (filename, size, content, grade_percentage)
-    VALUES (%s, %s, %s, %s)
-    """
-    cursor.execute(query, (filename, size, content, grade_percentage))
-    conn.commit()
-    cursor.close()
-    conn.close()
 
 @app.route('/upload_unit_test', methods=['POST'])
 def upload_unit_test():
@@ -115,66 +84,60 @@ def upload_unit_test():
 def upload_file_sql():
     if 'file' not in request.files or 'unit_test_id' not in request.form:
         return jsonify({'error': 'Invalid request'}), 400
-
     file = request.files['file']
     unit_test_id = request.form['unit_test_id']
-
+    
     unit_test_path = os.path.join(UPLOAD_FOLDER, f"{unit_test_id}_unit_test.py")
     if not os.path.exists(unit_test_path):
         return jsonify({'error': 'Unit test file not found'}), 404
 
     try:
-        content = file.read().decode('utf-8').strip()
-        uploaded_queries = [query.strip() for query in content.split(';') if query.strip()]
+        content = file.read()
+        size = len(content)
 
-        all_query_results = []
-        conn = mysql_connection
+        # Decode the content and strip any leading/trailing whitespace
+        uploaded_query = content.decode('utf-8').strip()
 
-        for query in uploaded_queries:
-            cursor = conn.cursor()
-            try:
-                cursor.execute(query)
-                result = cursor.fetchall()
-                all_query_results.append({'query': query, 'result': result})
-            except Exception as e:
-                all_query_results.append({'query': query, 'result': str(e)})
-            finally:
-                cursor.close()  # Ensure cursor is closed after each query
+        # Execute the uploaded SQL query directly against the database
+        cursor = mysql_connection.cursor()
+        cursor.execute(uploaded_query)
+        result = cursor.fetchall()
+        cursor.close()
 
-        # Run the tests for all queries
-        test_results = run_test_suite(unit_test_path, uploaded_queries, mysql_connection)
+        # Run the tests and get the test results directly
+        test_results = run_test_suite(unit_test_path, uploaded_query, mysql_connection)
 
-        # Calculate overall test results
+        # Extract information from the test results
         passed_tests = sum(1 for test_result in test_results if test_result['status'] == 'passed')
         failed_tests = sum(1 for test_result in test_results if test_result['status'] == 'failed')
         total_tests = passed_tests + failed_tests
 
+        # Calculate the percentage of passed tests
         percentage_passed = (passed_tests / total_tests) * 100 if total_tests != 0 else 0
-        percentage_passed = round(percentage_passed, 2)
-
+         # Calculate points based on percentage
         total_points = 5 * total_tests
         points_obtained = 5 * passed_tests
-
         # Save file and test results to the database
-        save_file_to_db(file.filename, len(content), content, percentage_passed)
+        cursor = mysql_connection.cursor()
+        cursor.execute("INSERT INTO files (filename, size, content, grade_percentage) VALUES (%s, %s, %s, %s)",
+                       (file.filename, size, content, percentage_passed))
+        mysql_connection.commit()
+        cursor.close()
 
         test_result_message = f"{percentage_passed}% of tests passed. {failed_tests} tests failed. " \
                               f"Score: {points_obtained}/{total_points}"
-
+    
         print(test_result_message)
 
         # Return response with percentage passed, failures, and test results
-        return jsonify({
-            'percentage_passed': percentage_passed,
-            'failures': failed_tests,
-            'points_obtained': points_obtained,
-            'total_points': total_points,
-            'test_results': test_results,
-            'query_results': all_query_results  # Include query execution results
-        })
-
+        return jsonify({'percentage_passed': percentage_passed, 'failures': failed_tests,
+                    'points_obtained': points_obtained, 'total_points': total_points,
+                    'test_results': test_results})
     except Exception as e:
+        # Print out any exceptions that occur for debugging
         print("Error:", str(e))
+        print("Type of 'e':", type(e))
         return jsonify({'error': str(e)})
+
 if __name__ == '__main__':
     app.run(debug=True)

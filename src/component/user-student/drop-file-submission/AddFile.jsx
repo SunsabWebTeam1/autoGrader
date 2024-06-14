@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
 //Objects
+import '../../../styling/studentAssignmentLayout.css';
 import DownloadFile from './DownloadFile.jsx';
 import DropFileInput from './DropFileInput.jsx';
 import ProjectDetails from './ProjectDetails.jsx';
-import './studentAssignmentLayout.css';
 //IconsImport
 import DonwloadICON from '../../../assets/icons/Download.png';
 import infoICON from '../../../assets/icons/Info.png';
