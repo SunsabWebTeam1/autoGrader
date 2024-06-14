@@ -1,12 +1,13 @@
+import axios from "axios";
 import React, { useRef, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
 
 import PropTypes from 'prop-types';
 import uploadImg from '../../../assets/cloud-upload-regular-240.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 
 import '../../../styling/drop-file-input.css';
+import '../../../styling/studentAssignmentLayout.css';
 
 const SubmissionUpload = (props) => {
   const [submissionFile, setSubmissionFile] = useState(null);

@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10%;
 }
 .container {
     display: grid;
@@ -16,6 +17,37 @@
 
     ;
 }
+
+.assignment-header {
+    min-height: 50vh;
+    width: 100vw;
+    position: relative;
+    background-image: url(../images/Teacher-AP.jpg);
+    background-size: cover;
+    overflow: hidden !important;
+    text-align: left;
+    padding: 0 3rem;
+}
+
+.assignment-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(108, 108, 181, 0.6);
+}
+  
+
+.assignment-header h1 {
+    color: #fff;
+    font-size: 5.5rem;
+    position: absolute;
+    bottom: 20%;
+    justify-content: space-around;
+}
+
 
 #subNavBar{
 
@@ -57,7 +89,7 @@
 }
 
 .sideBarContent{
-    background-color: #244431;
+    background-color: #6C6CB5;
     height: 90%;
     width: 80%;
     display: flex;
@@ -95,7 +127,8 @@
 }
 
 .subNavBarContent{
-    background-color: #244431;
+    background-color: #6C6CB5;
+    color: white;
     height: 80%;
     width: 100%;
     margin-top: 5vh;
@@ -126,12 +159,15 @@
 
 /*ProjectDetails*/
 .ProjectDetailsContents{
+    padding: 5%;
+    max-height: 400px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto; 
 }
-
 .ProjectDetailsText{
+    padding-top: 20%; /* Set top padding to 50% */
     text-align: start;
 }

@@ -3,13 +3,12 @@ import React, { useRef, useState } from 'react';
 
 import '../../../styling/drop-file-input.css';
 
-import uploadImg from '../../../assets/cloud-upload-regular-240.png';
+import DropFileInstructions from '../../../assets/DropFileInstructions.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 import { storage } from '../../../firebase';
-import axios from 'axios';
 
 //firebaseStuff
-import { getDownloadURL, ref, uploadBytesResumable, listAll } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 const DropTestInstruction = props => {
 
     const wrapperRef = useRef(null);
@@ -72,8 +71,7 @@ const DropTestInstruction = props => {
                 onDrop={onDrop}
             >
                 <div className="drop-file-input__label">
-                    <img src={uploadImg} alt="" />
-                    <p>Drag & Drop your files here</p>
+                    <img src={DropFileInstructions} alt="" />
                 </div>
                 <input type="file" value="" onChange={onFileDrop}/>
                 

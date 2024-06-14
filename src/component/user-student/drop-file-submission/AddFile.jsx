@@ -12,6 +12,7 @@ import SubmisionICON from '../../../assets/icons/Submision.png';
 
 //material UI
 import { Button } from '@mui/material';
+import SubmitFileHeader from './SubmitFileHeader.jsx';
 const AddFile = () => {
     const [currentContent, setCurrentContent] = useState('ProjectDetails');
 
@@ -65,48 +66,53 @@ const AddFile = () => {
     };
 
     return (
-        <div className='flexContainer'>
-            <div className='container'>
-                <div id="navBar" className='NavBarLayout'>
-                    <div className='NavBarLayoutContent'>
-                        Assigment Title
+        <div className='App'>
+            <SubmitFileHeader/>
+            <div className='flexContainer'>
+                <div className='container'>
+                    <div id="navBar" className='NavBarLayout'>
                     </div>
-                </div>
-                <div id="main">
-                    <div className='MainLayout'>
-                            <div>
-                                {renderMainContent()}
-                            </div>
-                    </div>
-                    <div className='Submit-NextLayout'>
-                        <Button variant="contained" onClick={handleNextClick}>Next</Button>
-                    </div>
-                </div>
-                <div id="subNavBar" className='subNavBarLayout'>
-                    <div className='subNavBarContent'>
-                        <div className='subNavBarContentInfo'>{renderSubNavBarContent()}</div>
-                    </div>
-                </div>
-                <div id="sideBar" className='sideBarLayout'>
-                    <div className='sideBarContent'>
-                        <hr className='sideBarContentHR'/>
-                        <div className='sideBarDetails' onClick={() => handleSidebarClick('ProjectDetails')}>
-                            <div className='sideBarDetailsINDI'>
-                                <img src={infoICON}/> 
-                                Project Details
-                            </div>
+                    <div id="main">
+                        <div className='MainLayout'>
+                                <div>
+                                    {renderMainContent()}
+                                </div>
                         </div>
-                        <div className='sideBarDetails'>
-                            <div className='sideBarDetailsINDI' onClick={() => handleSidebarClick('DownloadFile')}>
-                                <img src={DonwloadICON}/> 
-                                Download
-                            </div>
+                        <div className='Submit-NextLayout'>
+                            <Button variant="contained" onClick={handleNextClick}
+                            style={{ backgroundColor: '#00989B', 
+                            color: 'white', 
+                            width: '25%', 
+                            height: '7vh', 
+                            borderRadius: '10px'  }}>Next</Button>
                         </div>
-                        <hr className='sideBarContentHR'/>
-                        <div className='sideBarDetails' onClick={() => handleSidebarClick('DropFileInput')}>
-                            <div className='sideBarDetailsINDI'>
-                                <img src={SubmisionICON}/> 
-                                Submission
+                    </div>
+                    <div id="subNavBar" className='subNavBarLayout'>
+                        <div className='subNavBarContent2'>
+                            <div className='subNavBarContentInfo'>{renderSubNavBarContent()}</div>
+                        </div>
+                    </div>
+                    <div id="sideBar" className='sideBarLayout'>
+                        <div className='sideBarContent2'>
+                            <hr className='sideBarContentHR'/>
+                            <div className='sideBarDetails' onClick={() => handleSidebarClick('ProjectDetails')}>
+                                <div className='sideBarDetailsINDI'>
+                                    <img src={infoICON}/> 
+                                    Project Details
+                                </div>
+                            </div>
+                            <div className='sideBarDetails'>
+                                <div className='sideBarDetailsINDI' onClick={() => handleSidebarClick('DownloadFile')}>
+                                    <img src={DonwloadICON}/> 
+                                    Download
+                                </div>
+                            </div>
+                            <hr className='sideBarContentHR'/>
+                            <div className='sideBarDetails' onClick={() => handleSidebarClick('DropFileInput')}>
+                                <div className='sideBarDetailsINDI'>
+                                    <img src={SubmisionICON}/> 
+                                    Submission
+                                </div>
                             </div>
                         </div>
                     </div>

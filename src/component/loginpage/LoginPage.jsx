@@ -81,7 +81,7 @@ function LoginPage() {
                                 position: 'absolute', 
                                 width: '100%', 
                                 height: '100%', 
-                                backgroundColor: 'rgba(36, 68, 49, 0.6)', 
+                                backgroundColor: 'rgba(0, 48, 54, 0.8)', 
                                 top: 0, 
                                 left: 0 
                             }} />
