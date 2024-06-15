@@ -2,7 +2,6 @@
     position: relative;
     width: 50vh;
     height: 25vh;
-    border: 2px dashed var(--border-color);
     border-radius: 20px;
 
     display: flex;
@@ -31,11 +30,13 @@
     text-align: center;
     color: var(--txt-second-color);
     font-weight: 600;
-    padding: 10px;
+    padding-top: 20vh;
 }
 
 .drop-file-input__label img {
-    width: 100px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
 }
 
 .drop-file-preview {
@@ -95,5 +96,8 @@
 .bodyforDropFile{
     display: flex;
     justify-content: center;
-    padding-top: 100px;
+}
+
+.test-id-input{
+    margin-top: 500%;
 }

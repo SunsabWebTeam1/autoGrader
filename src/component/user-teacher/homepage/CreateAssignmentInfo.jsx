@@ -3,7 +3,7 @@ import React from "react";
 
 function CreateAssignmentInfo() {
     const redirectCreateAssignment = async (e) => {
-        window.location.href = `/teacher/create-assignment`;
+        window.location.href = `/teacher/upload-instructions`;
     }
 
     return (
@@ -32,7 +32,7 @@ function CreateAssignmentInfo() {
                     width: '25%', 
                     height: '7vh', 
                     borderRadius: '10px' }}
-                    onClick={redirectCreateAssignment}>Create Assignment</Button>
+                    onClick={redirectCreateAssignment}>Upload Assignment</Button>
                 </div>
             </Container>
         </section>

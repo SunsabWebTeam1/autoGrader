@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { Button } from '@mui/material';
 import axios from 'axios';
+import React, { useState } from 'react';
+import DropUnitTest from "../../../assets/SubmitTestFile-teacher.png";
 
 function UnitTestUpload() {
     const [unitTestFile, setUnitTestFile] = useState(null);
@@ -25,15 +27,34 @@ function UnitTestUpload() {
     };
 
     return (
-        <div className='bodyforDropFile'>
-            <div className="box">
-                <h2>Upload Unit Test File</h2>
-                <input type="file" onChange={handleUnitTestFileChange} />
+        <div className="bodyforDropFile">
+            <div className="drop-file-container">
+                <div className="drop-file-input">
+                    <div className="drop-file-input__label">
+                        <img src={DropUnitTest} alt="Upload Unit Test" />
+                        <input type="file" onChange={handleUnitTestFileChange} />
+                    </div>
+                </div>
+
+                <Button
+                    variant="contained" 
+                    onClick={handleUnitTestUpload}
+                    style={{
+                        backgroundColor: '#00989B', 
+                        color: 'white', 
+                        width: '50vh',  
+                        height: '7vh', 
+                        borderRadius: '10px',
+                        marginTop: '30%' 
+                    }}
+                >
+                    Upload Unit Test
+                </Button>
             </div>
-            <button onClick={handleUnitTestUpload}>Upload Unit Test</button>
-            <div>{unitTestId && <p>Unit Test ID: {unitTestId}</p>}</div>
+
+            {unitTestId && <div><p>Unit Test ID: {unitTestId}</p></div>}
         </div>
     );
-};
+}
 
 export default UnitTestUpload;

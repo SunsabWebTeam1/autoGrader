@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10%;
 }
 .container {
     display: grid;
@@ -16,6 +17,34 @@
 
     ;
 }
+.submit-assignment-header{
+    min-height: 50vh;
+    width: 100vw;
+    position: relative;
+    background-image: url(../images/Student-AP.jpg);
+    background-size: cover;
+    overflow: hidden !important;
+    text-align: left;
+    padding: 0 3rem;
+}
+.submit-assignment-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(36, 68, 49, 0.6); /* 60% opacity */
+  }
+  
+
+.submit-assignment-header h1 {
+    color: #fff;
+    font-size: 5.5rem;
+    position: absolute;
+    bottom: 20%;
+    justify-content: space-around;
+}
 
 #subNavBar{
 
@@ -28,8 +57,8 @@
 .MainLayout{
     display: flex;
     flex-direction: column;
-    padding-top: 5vh;
     height: 100%;
+    padding-top: 5vh;
 }
 #navBar{
 
@@ -56,8 +85,8 @@
     align-items: center;
 }
 
-.sideBarContent{
-    background-color: #DDA960;
+.sideBarContent2{
+    background-color: #244431;
     height: 90%;
     width: 80%;
     display: flex;
@@ -76,6 +105,7 @@
     justify-content: start;
     margin-top: 2vh;
     width: 80%;
+    color: white;
 }
 
 
@@ -94,8 +124,9 @@
     align-items: center;
 }
 
-.subNavBarContent{
-    background-color: #DDA960;
+.subNavBarContent2{
+    background-color: #244431;
+    color: white;
     height: 80%;
     width: 100%;
     margin-top: 5vh;
@@ -125,13 +156,54 @@
 
 
 /*ProjectDetails*/
-.ProjectDetailsContents{
+.ProjectDetailsContents {
+    padding: 5%;
+    max-height: 300px; 
+    overflow-y: auto; 
+}
+
+.ProjectDetailsText {
+    padding: 10px 20px; /* Adjust padding as needed */
+    text-align: start;
+}
+
+
+.upload-section{
+    padding: 5%;
+    max-height: 400px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-y: auto; }
+
+
+/* download file */
+.center-container {
+    position: relative;
+    width: 50vh;
+    height: 25vh;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.ProjectDetailsText{
-    text-align: start;
+ 
+.add-file-download {
+    text-align: center;
+    font-weight: 600;
+    padding-top: 20vh;
+
+
+}
+
+ 
+.add-file-download img {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    
+    
 }

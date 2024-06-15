@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Fade, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
@@ -7,6 +7,7 @@ import { findStudent, findTeacher } from "../services/AccountService";
 function Navbar() {
   const { logOut, user } = UserAuth();
   const [userType, setUserType] = useState(null);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +36,10 @@ function Navbar() {
 
     fetchData();
   }, [user]);
+
+  useEffect(() => {
+    setFadeIn(true); // Trigger the fade-in effect when the component mounts
+  }, []);
 
   const renderNavbar = () => {
     if (!user) {
@@ -75,7 +80,7 @@ function Navbar() {
               <Link to={`/homepage/teacher/${user.uid}`} style={{ textDecoration: "none", color: "inherit" }}>Homepage</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
-              <Link to="/teacher/upload-instructions" style={{ textDecoration: "none", color: "inherit" }}>Upload Assignment Instructions</Link>
+              <Link to="/teacher/upload-instructions" style={{ textDecoration: "none", color: "inherit" }}>Upload Assignment</Link>
             </Typography>
             <Typography variant="h6" sx={{ marginLeft: "20px" }}>
               <Link to="/" style={{ textDecoration: "none", color: "inherit" }} onClick={logOut}>Logout</Link>
@@ -99,14 +104,17 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#212322" }}>
-      <Toolbar>
-        <Box sx={{ ml: 'auto', display: 'flex' }}>
-          {renderNavbar()}
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <Fade in={fadeIn} timeout={1000}>
+      <AppBar position="static" sx={{ backgroundColor: "#212322" }}>
+        <Toolbar>
+          <Box sx={{ ml: 'auto', display: 'flex' }}>
+            {renderNavbar()}
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Fade>
   );
 }
 
 export default Navbar;
+

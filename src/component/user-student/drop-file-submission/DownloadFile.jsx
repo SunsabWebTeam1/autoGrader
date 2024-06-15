@@ -1,7 +1,7 @@
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
 import React from 'react';
+import GetFile from '../../../assets/DownloadAssignment-student.png';
 import { storage } from '../../../firebase';
-import { getDownloadURL, ref, listAll } from 'firebase/storage';
-import { Button } from '@mui/material';
 const DownloadFile = () => {
 
     const downloadFile = async () => {
@@ -17,7 +17,11 @@ const DownloadFile = () => {
     };
 
     return (
-        <Button variant="contained" onClick={downloadFile}>Contained</Button>
+        <div class="center-container">
+            <div class="add-file-download">
+                <img src={GetFile} alt="" onClick={downloadFile}/>
+            </div>
+        </div>
     )
 }
 
