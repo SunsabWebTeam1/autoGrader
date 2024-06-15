@@ -1,6 +1,6 @@
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
 import React from 'react';
-import GetFile from '../../../assets/AddFileDownload.png';
+import GetFile from '../../../assets/DownloadAssignment-student.png';
 import { storage } from '../../../firebase';
 const DownloadFile = () => {
 
@@ -17,8 +17,10 @@ const DownloadFile = () => {
     };
 
     return (
-        <div className="add-file-download">
-            <img src={GetFile} alt="" onClick={downloadFile}/>
+        <div class="center-container">
+            <div class="add-file-download">
+                <img src={GetFile} alt="" onClick={downloadFile}/>
+            </div>
         </div>
     )
 }

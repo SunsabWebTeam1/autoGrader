@@ -3,9 +3,10 @@ import React, { useRef, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 
 import PropTypes from 'prop-types';
-import uploadImg from '../../../assets/cloud-upload-regular-240.png';
+import uploadImg from '../../../assets/SubmitAssignment-student.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 
+import { TextField } from "@mui/material";
 import '../../../styling/drop-file-input.css';
 import '../../../styling/studentAssignmentLayout.css';
 
@@ -116,13 +117,15 @@ const SubmissionUpload = (props) => {
       >
         <div className="drop-file-input__label">
           <img src={uploadImg} alt="" />
-          <p>Drag & Drop your files here</p>
         </div>
-        <input type="file" onChange={onFileDrop} />
-      </div>
-      <input
+          <input type="file" onChange={onFileDrop} />
+        </div>
+      <TextField
+        id="outlined-basic" 
+        label="Enter Unit Test ID" 
+        variant="outlined" 
+        sx={{ mt: 2, mb: 1, width: '100%', marginTop: '30%' }} 
         type="text"
-        placeholder="Enter Unit Test ID"
         value={manualUnitTestId}
         onChange={(e) => setManualUnitTestId(e.target.value)}
       />

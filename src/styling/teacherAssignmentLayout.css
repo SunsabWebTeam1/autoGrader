@@ -157,17 +157,3 @@
 }
 
 
-/*ProjectDetails*/
-.ProjectDetailsContents{
-    padding: 5%;
-    max-height: 400px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow-y: auto; 
-}
-.ProjectDetailsText{
-    padding-top: 20%; /* Set top padding to 50% */
-    text-align: start;
-}

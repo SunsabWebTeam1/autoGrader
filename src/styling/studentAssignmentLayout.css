@@ -58,6 +58,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding-top: 5vh;
 }
 #navBar{
 
@@ -155,20 +156,17 @@
 
 
 /*ProjectDetails*/
-.ProjectDetailsContents{
+.ProjectDetailsContents {
     padding: 5%;
-    max-height: 400px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    max-height: 300px; 
     overflow-y: auto; 
 }
 
-.ProjectDetailsText{
-    padding-top: 20%; /* Set top padding to 50% */
+.ProjectDetailsText {
+    padding: 10px 20px; /* Adjust padding as needed */
     text-align: start;
 }
+
 
 .upload-section{
     padding: 5%;
@@ -179,9 +177,9 @@
     align-items: center;
     overflow-y: auto; }
 
-    /*Add File*/
 
-.add-file-download{
+/* download file */
+.center-container {
     position: relative;
     width: 50vh;
     height: 25vh;
@@ -190,15 +188,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: var(--input-bg);
 }
 
-.add-file-download img {
-    position: relative;
-    width: 50vh;
-    height: 25vh;
-    border-radius: 20px;
-    
+ 
+.add-file-download {
+    text-align: center;
+    font-weight: 600;
+    padding-top: 20vh;
 
+
+}
+
+ 
+.add-file-download img {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    
+    
 }

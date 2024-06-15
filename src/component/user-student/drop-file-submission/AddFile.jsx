@@ -70,13 +70,13 @@ const AddFile = () => {
             <SubmitFileHeader/>
             <div className='flexContainer'>
                 <div className='container'>
-                    <div id="navBar" className='NavBarLayout'>
-                    </div>
                     <div id="main">
                         <div className='MainLayout'>
-                                <div>
+                            <div className='bodyforDropFile'>
+                            <div>
                                     {renderMainContent()}
                                 </div>
+                            </div>
                         </div>
                         <div className='Submit-NextLayout'>
                             <Button variant="contained" onClick={handleNextClick}

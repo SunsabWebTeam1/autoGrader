@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import '../../../styling/teacherAssignmentLayout.css';
 const ProjectDetails = () => {
 
     return(
@@ -7,6 +6,7 @@ const ProjectDetails = () => {
             <div className='ProjectDetailsText'>
                 Implement a basic user authentication system using SQL. This includes creating tables for storing user data, writing queries 
                 for user registration, login, and password management.
+                
             </div>
         </div>
     )

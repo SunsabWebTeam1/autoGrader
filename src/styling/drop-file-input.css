@@ -30,6 +30,7 @@
     text-align: center;
     color: var(--txt-second-color);
     font-weight: 600;
+    padding-top: 20vh;
 }
 
 .drop-file-input__label img {
@@ -95,5 +96,8 @@
 .bodyforDropFile{
     display: flex;
     justify-content: center;
-    padding-top: 100px;
+}
+
+.test-id-input{
+    margin-top: 500%;
 }

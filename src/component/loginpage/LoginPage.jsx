@@ -152,13 +152,11 @@ function LoginPage() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <div className="buttons-2">
+                            <div className="buttons-2" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10%' }}>
                                 <Button variant="contained" 
                                 style={{ backgroundColor: '#00989B', 
                                 color: 'white', 
-                                marginTop: '10%', 
-                                marginRight: '10%', 
-                                width: '50%', 
+                                width: '48%', 
                                 height: '7vh',
                                 borderRadius: '10px' }}
                                 onClick={handleGoogleSubmit}>Log In with Google</Button>
@@ -166,8 +164,7 @@ function LoginPage() {
                                 <Button variant="contained" 
                                 style={{ backgroundColor: '#00989B', 
                                 color: 'white', 
-                                marginTop: '10%', 
-                                width: '50%', 
+                                width: '48%', 
                                 height: '7vh',
                                 borderRadius: '10px'  }}
                                 onClick={handleSubmit}>Log In
@@ -182,4 +179,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

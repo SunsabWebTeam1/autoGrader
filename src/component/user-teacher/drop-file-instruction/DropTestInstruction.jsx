@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 
 import '../../../styling/drop-file-input.css';
 
-import DropFileInstructions from '../../../assets/DropFileInstructions.png';
+import DropFileInstructions from '../../../assets/SubmitFileInstructions-teacher.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 import { storage } from '../../../firebase';
 
