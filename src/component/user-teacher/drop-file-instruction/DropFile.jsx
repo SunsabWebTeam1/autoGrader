@@ -21,9 +21,9 @@ const DropFile = () => {
     const handleNextClick = () => {
         switch (currentContent) {
             case 'ProjectDetails':
-                setCurrentContent('DownloadFile');
+                setCurrentContent('UnitTestUpload');
                 break;
-            case 'DownloadFile':
+            case 'UnitTestUpload':
                 setCurrentContent('DropTestInstruction');
                 break;
             // Add case for further navigation if needed
@@ -84,19 +84,21 @@ const DropFile = () => {
                             </div>
                         </div>
                         <div className='Submit-NextLayout'>
-                            <Button 
-                                variant="contained" 
-                                onClick={handleNextClick} 
-                                style={{ 
-                                    backgroundColor: '#00989B', 
-                                    color: 'white', 
-                                    width: '25%', 
-                                    height: '7vh', 
-                                    borderRadius: '10px' 
-                                }}
-                            >
-                                Next
-                            </Button>
+                            {currentContent !== 'DropTestInstruction' && (
+                                <Button 
+                                    variant="contained" 
+                                    onClick={handleNextClick} 
+                                    style={{ 
+                                        backgroundColor: '#00989B', 
+                                        color: 'white', 
+                                        width: '25%', 
+                                        height: '7vh', 
+                                        borderRadius: '10px' 
+                                    }}
+                                >
+                                    Next
+                                </Button>
+                            )}
                         </div>
                     </div>
                     <div id="subNavBar" className='subNavBarLayout'>
