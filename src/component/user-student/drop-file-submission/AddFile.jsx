@@ -79,12 +79,21 @@ const AddFile = () => {
                             </div>
                         </div>
                         <div className='Submit-NextLayout'>
-                            <Button variant="contained" onClick={handleNextClick}
-                            style={{ backgroundColor: '#00989B', 
-                            color: 'white', 
-                            width: '25%', 
-                            height: '7vh', 
-                            borderRadius: '10px'  }}>Next</Button>
+                            {currentContent !== 'DropFileInput' && (
+                                    <Button 
+                                        variant="contained" 
+                                        onClick={handleNextClick} 
+                                        style={{ 
+                                            backgroundColor: '#00989B', 
+                                            color: 'white', 
+                                            width: '25%', 
+                                            height: '7vh', 
+                                            borderRadius: '10px' 
+                                        }}
+                                    >
+                                        Next
+                                    </Button>
+                            )}
                         </div>
                     </div>
                     <div id="subNavBar" className='subNavBarLayout'>
