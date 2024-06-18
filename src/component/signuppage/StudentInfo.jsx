@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import StudentIcon from "../../icons/Children.svg";
 
@@ -13,32 +13,35 @@ function StudentInfo({ onStudentClick, selected }) {
   return (
     <div id="studentinfo" className="studentinfo">
       <div className="row">
-        <h3 className="title">Student Account</h3>
+        <Typography variant="h3" sx={{ fontFamily: 'Montserrat, sans-serif' }} className="title">
+          Student Account
+        </Typography>
         <div className="content">
-            <div className="text">
-                <p>
-                    Students can view and submit assignments, track their progress, and
-                    receive feedback from instructors. They can access course
-                    materials, participate in discussions, and stay updated with
-                    announcements. Students can also manage their profiles and
-                    communicate with instructors and peers.
-                </p>
-            </div>
+          <div className="text">
+            <p>
+              Students can view and submit assignments, track their progress, and
+              receive feedback from instructors. They can access course
+              materials, participate in discussions, and stay updated with
+              announcements. Students can also manage their profiles and
+              communicate with instructors and peers.
+            </p>
+          </div>
           <div className="section-1">
             <img src={StudentIcon} alt="Student Icon" className="student-icon" />
             <Button
-                variant="contained"
-                style={{
+              variant="contained"
+              style={{
                 backgroundColor: selected === "student" ? "#DDA960" : "#BEBEBE",
                 color: "white",
                 width: "50%",
                 height: "7vh",
                 marginTop: "4vh",
-                borderRadius: '10px'
-                }}
-                onClick={handleButtonClick}
+                borderRadius: '10px',
+                fontFamily: 'Montserrat, sans-serif'
+              }}
+              onClick={handleButtonClick}
             >
-                I am a Student
+              I am a Student
             </Button>
           </div>
         </div>

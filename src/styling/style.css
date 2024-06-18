@@ -79,6 +79,7 @@ body {
 }
 
 .home h1 {
+  font-family: "Montserrat", sans-serif;
   color: #fff;
   font-size: 5.5rem;
   position: absolute;
@@ -153,6 +154,7 @@ body {
 
 
 .signup h1 {
+  font-family: "Montserrat", sans-serif;
   font-size: 3rem;
   position: absolute;
   justify-content: space-around;

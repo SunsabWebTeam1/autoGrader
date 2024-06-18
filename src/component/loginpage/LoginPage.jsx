@@ -103,15 +103,24 @@ function LoginPage() {
                                 color: 'white',
                                 width: '90%', 
                             }}>
-                                <Typography component="div" variant="h3" sx={{marginTop: '5%', '@media (max-width: 100vh)': { fontSize: 'calc(3.5vw + 5px)' }}}> 
+                                <Typography component="div" variant="h3" sx={{ 
+                                    marginTop: '5%', 
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    '@media (max-width: 100vh)': { fontSize: 'calc(3.5vw + 5px)' }}}> 
                                     Welcome back
                                 </Typography>
                                 <br/>
-                                <Typography component="div" variant="h4" sx={{marginTop: '0.23%', '@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
+                                <Typography component="div" variant="h4" sx={{ 
+                                    marginTop: '0.23%', 
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    '@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Enter your username or email address
                                 </Typography>
                                 <br/>
-                                <Typography component="div" variant="h4" sx={{marginTop: '0.10%', '@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
+                                <Typography component="div" variant="h4" sx={{ 
+                                    marginTop: '0.10%', 
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    '@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     New to AutoGrader? Create an account
                                 </Typography>
                                 <div className="buttons-1">
@@ -121,14 +130,17 @@ function LoginPage() {
                                      marginTop: '10%', 
                                      width: '50%', 
                                      height: '7vh',
-                                     borderRadius: '10px'  }}
+                                     borderRadius: '10px',
+                                     fontFamily: 'Montserrat, sans-serif' }}
                                      onClick={handleSignUpRedirect}>Sign Up</Button>
                                 </div>
                             </Box>
                         </CardCover>
                         <CardContent sx={{ flex: '1 0 50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign:"left" }}>
                             <div className="section-1">
-                                <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
+                                <Typography component="div" variant="h5" sx={{ 
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    '@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Email 
                                 </Typography>
                                 <TextField 
@@ -140,7 +152,9 @@ function LoginPage() {
                                 onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className="section-2">
-                                <Typography component="div" variant="h5" sx={{'@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
+                                <Typography component="div" variant="h5" sx={{ 
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    '@media (max-width: 100vh)': { fontSize: 'calc(1vw + 5px)' }}}>
                                     Password 
                                 </Typography>
                                 <TextField 
@@ -158,7 +172,8 @@ function LoginPage() {
                                 color: 'white', 
                                 width: '48%', 
                                 height: '7vh',
-                                borderRadius: '10px' }}
+                                borderRadius: '10px',
+                                fontFamily: 'Montserrat, sans-serif' }}
                                 onClick={handleGoogleSubmit}>Log In with Google</Button>
                                 
                                 <Button variant="contained" 
@@ -166,7 +181,8 @@ function LoginPage() {
                                 color: 'white', 
                                 width: '48%', 
                                 height: '7vh',
-                                borderRadius: '10px'  }}
+                                borderRadius: '10px',
+                                fontFamily: 'Montserrat, sans-serif'  }}
                                 onClick={handleSubmit}>Log In
                                 </Button>
                             </div>

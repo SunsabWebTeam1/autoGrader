@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
@@ -66,7 +66,9 @@ function SignupGooglePage() {
     <div className="App">
       <div className="signup">
         <div className="section-1">
-          <h1 className="title">Choose Account Type</h1>
+          <Typography variant="h1" sx={{ fontFamily: 'Montserrat, sans-serif' }} className="title">
+            Choose Account Type
+          </Typography>
         </div>
         <div className="section-2">
           <div className="section-2-teacher">
@@ -91,7 +93,8 @@ function SignupGooglePage() {
               marginTop: "5%",
               width: "25%",
               height: "7vh",
-              borderRadius: '10px'
+              borderRadius: '10px',
+              fontFamily: 'Montserrat, sans-serif'
             }}
             onClick={handleProceed}
           >

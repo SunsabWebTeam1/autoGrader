@@ -1,11 +1,14 @@
+import { Typography } from "@mui/material";
 import React from "react";
-import About from "./About";
-import '../../index.css'
+import '../../index.css';
+
 function Home() {
   return (
-    <body id="home" className="home">
-      <h1>Welcome to the AutoGrader</h1>
-    </body>
+    <div id="home" className="home">
+      <Typography variant="h1" sx={{ fontFamily: 'Montserrat, sans-serif' }}>
+        Welcome to the AutoGrader
+      </Typography>
+    </div>
   );
 }
 

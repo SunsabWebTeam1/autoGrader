@@ -1,15 +1,12 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StudentInfo from "./StudentInfo";
 import TeacherInfo from "./TeacherInfo";
 
-function SignupPage() 
-{
+function SignupPage() {
   const { accountType } = useParams();
-  // State to keep track of selected account type
   const [selectedAccountType, setSelectedAccountType] = useState("");
-  
 
   const handleStudentClick = () => {
     setSelectedAccountType("student");
@@ -26,20 +23,19 @@ function SignupPage()
 
   const handleProceed = () => {
     if (selectedAccountType === "teacher") {
-      // Redirect to teacher signup page with selectedAccountType parameter
       window.location.href = `/signuppage/${selectedAccountType}`;
     } else if (selectedAccountType === "student") {
-      // Redirect to student signup page with selectedAccountType parameter
       window.location.href = `/signuppage/${selectedAccountType}`;
     }
   };
-  
 
   return (
     <div className="App">
       <div className="signup">
         <div className="section-1">
-          <h1 className="title">Choose Account Type</h1>
+          <Typography variant="h1" sx={{ fontFamily: 'Montserrat, sans-serif' }} className="title">
+            Choose Account Type
+          </Typography>
         </div>
         <div className="section-2">
           <div className="section-2-teacher">
@@ -64,7 +60,8 @@ function SignupPage()
               marginTop: "5%",
               width: "25%",
               height: "7vh",
-              borderRadius: '10px'
+              borderRadius: '10px',
+              fontFamily: 'Montserrat, sans-serif'
             }}
             onClick={handleProceed}
           >

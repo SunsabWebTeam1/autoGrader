@@ -26,6 +26,8 @@
     position: absolute;
     bottom: 20%;
     justify-content: space-around;
+    margin: 0 3rem;
+
 }
 
 .about {

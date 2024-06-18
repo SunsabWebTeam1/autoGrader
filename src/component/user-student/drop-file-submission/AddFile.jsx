@@ -88,7 +88,8 @@ const AddFile = () => {
                                             color: 'white', 
                                             width: '25%', 
                                             height: '7vh', 
-                                            borderRadius: '10px' 
+                                            borderRadius: '10px', 
+                                            fontFamily: 'Montserrat, sans-serif'
                                         }}
                                     >
                                         Next
