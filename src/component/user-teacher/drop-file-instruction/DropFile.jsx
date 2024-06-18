@@ -69,70 +69,72 @@ const DropFile = () => {
     };
 
     return (
-        <div className="App">
-            <DropFileHeader />
-            <div className='flexContainer'>
-                <div className='container'>
-                    <div id="main">
-                        <div className='MainLayout'>
-                            <div className='bodyforDropFile'>
-                                <Fade in={true} key={currentContent} timeout={500}>
-                                    <div>
-                                        {renderMainContent()}
+        <Fade in={true} timeout={1000}>
+            <div className="App">
+                <DropFileHeader />
+                <div className='flexContainer'>
+                    <div className='container'>
+                        <div id="main">
+                            <div className='MainLayout'>
+                                <div className='bodyforDropFile'>
+                                    <Fade in={true} key={currentContent} timeout={500}>
+                                        <div>
+                                            {renderMainContent()}
+                                        </div>
+                                    </Fade>
+                                </div>
+                            </div>
+                            <div className='Submit-NextLayout'>
+                                {currentContent !== 'DropTestInstruction' && (
+                                    <Button 
+                                        variant="contained" 
+                                        onClick={handleNextClick} 
+                                        style={{ 
+                                            backgroundColor: '#00989B', 
+                                            color: 'white', 
+                                            width: '25%', 
+                                            height: '7vh', 
+                                            borderRadius: '10px',
+                                            fontFamily: 'Montserrat, sans-serif'
+                                        }}
+                                    >
+                                        Next
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                        <div id="subNavBar" className='subNavBarLayout'>
+                            <div className='subNavBarContent'>
+                                <div className='subNavBarContentInfo'>{renderSubNavBarContent()}</div>
+                            </div>
+                        </div>
+                        <div id="sideBar" className='sideBarLayout'>
+                            <div className='sideBarContent'>
+                                <hr className='sideBarContentHR' />
+                                <div className='sideBarDetails' onClick={() => handleSidebarClick('ProjectDetails')}>
+                                    <div className='sideBarDetailsINDI'>
+                                        <img src={infoICON} /> 
+                                        Tutorial
                                     </div>
-                                </Fade>
-                            </div>
-                        </div>
-                        <div className='Submit-NextLayout'>
-                            {currentContent !== 'DropTestInstruction' && (
-                                <Button 
-                                    variant="contained" 
-                                    onClick={handleNextClick} 
-                                    style={{ 
-                                        backgroundColor: '#00989B', 
-                                        color: 'white', 
-                                        width: '25%', 
-                                        height: '7vh', 
-                                        borderRadius: '10px',
-                                        fontFamily: 'Montserrat, sans-serif'
-                                    }}
-                                >
-                                    Next
-                                </Button>
-                            )}
-                        </div>
-                    </div>
-                    <div id="subNavBar" className='subNavBarLayout'>
-                        <div className='subNavBarContent'>
-                            <div className='subNavBarContentInfo'>{renderSubNavBarContent()}</div>
-                        </div>
-                    </div>
-                    <div id="sideBar" className='sideBarLayout'>
-                        <div className='sideBarContent'>
-                            <hr className='sideBarContentHR' />
-                            <div className='sideBarDetails' onClick={() => handleSidebarClick('ProjectDetails')}>
-                                <div className='sideBarDetailsINDI'>
-                                    <img src={infoICON} /> 
-                                    Tutorial
                                 </div>
-                            </div>
-                            <div className='sideBarDetails'>
-                                <div className='sideBarDetailsINDI' onClick={() => handleSidebarClick('UnitTestUpload')}>
-                                    <img src={DonwloadICON} /> 
-                                    DropUniTest
+                                <div className='sideBarDetails'>
+                                    <div className='sideBarDetailsINDI' onClick={() => handleSidebarClick('UnitTestUpload')}>
+                                        <img src={DonwloadICON} /> 
+                                        DropUniTest
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='sideBarDetails' onClick={() => handleSidebarClick('DropTestInstruction')}>
-                                <div className='sideBarDetailsINDI'>
-                                    <img src={SubmisionICON} /> 
-                                    DropTestInstruction
+                                <div className='sideBarDetails' onClick={() => handleSidebarClick('DropTestInstruction')}>
+                                    <div className='sideBarDetailsINDI'>
+                                        <img src={SubmisionICON} /> 
+                                        DropTestInstruction
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Fade>
     );
 };
 
