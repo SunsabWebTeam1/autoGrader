@@ -51,8 +51,9 @@ function UnitTestUpload() {
                     Upload Unit Test
                 </Button>
             </div>
-
-            {unitTestId && <div><p>Unit Test ID: {unitTestId}</p></div>}
+            <div className="drop-file-response">
+                {unitTestId && <div><p>Unit Test ID: {unitTestId}</p></div>}
+            </div>
         </div>
     );
 }

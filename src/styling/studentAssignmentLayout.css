@@ -163,9 +163,11 @@
 }
 
 .ProjectDetailsText {
-    padding: 10px 20px; /* Adjust padding as needed */
+    padding: 10px 20px;  
     text-align: start;
+    white-space: pre-wrap;
 }
+
 
 
 .upload-section{

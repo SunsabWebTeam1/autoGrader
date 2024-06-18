@@ -58,7 +58,7 @@ const AddFile = () => {
             case 'DropFileInput':
                 return 'Submission';
             case 'DownloadFile':
-                return 'Download';
+                return 'Download Content';
             // Add cases for other content here if needed
             default:
                 return 'Submission';

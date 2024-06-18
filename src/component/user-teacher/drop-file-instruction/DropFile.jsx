@@ -57,11 +57,11 @@ const DropFile = () => {
     const renderSubNavBarContent = () => {
         switch (currentContent) {
             case 'ProjectDetails':
-                return 'Project Details';
+                return 'Tutorial';
             case 'UnitTestUpload':
-                return 'UnitTestUpload';
+                return 'Unit Test Upload';
             case 'DropTestInstruction':
-                return 'DropTestInstruction';
+                return 'Drop Test Instruction';
             // Add cases for other content here if needed
             default:
                 return 'Submission';
@@ -112,7 +112,7 @@ const DropFile = () => {
                             <div className='sideBarDetails' onClick={() => handleSidebarClick('ProjectDetails')}>
                                 <div className='sideBarDetailsINDI'>
                                     <img src={infoICON} /> 
-                                    Project Details
+                                    Tutorial
                                 </div>
                             </div>
                             <div className='sideBarDetails'>

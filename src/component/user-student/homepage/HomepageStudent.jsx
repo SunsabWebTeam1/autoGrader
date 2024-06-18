@@ -1,11 +1,11 @@
 import React from "react";
-import AssignmentList from "./AssignmentList";
 import StudentHeader from "./StudentHeader";
+import SubmitAssignment from "./ViewAssignmentInfo";
 function HomepageStudent() {
     return (
         <div className="App">
             <StudentHeader/>
-            <AssignmentList/>
+            <SubmitAssignment/>
         </div>
     )
 }
