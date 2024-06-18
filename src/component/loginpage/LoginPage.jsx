@@ -127,7 +127,6 @@ function LoginPage() {
                                     <Button variant="contained"
                                      style={{ backgroundColor: '#00989B', 
                                      color: 'white', 
-                                     marginTop: '10%', 
                                      width: '50%', 
                                      height: '7vh',
                                      borderRadius: '10px',

@@ -27,9 +27,10 @@ function AboutSignUp() {
                     </Typography>
                     <div className="content">
                         <p>
-                            To try out the autograder, create an account on the [registration page/portal] using your [email address/school ID]. 
-                            Log in with your credentials, then access the submission portal to upload your assignment files according to the [submission guidelines]. 
-                            Submit your files to receive detailed feedback from the autograder.
+                            To try out Autograder, create an account through the registration page using your email address, 
+                            or log in using your Google account through the login portal. New users will be prompted to 
+                            choose an account type before gaining access.
+
                         </p>
                     </div>
                 </div>

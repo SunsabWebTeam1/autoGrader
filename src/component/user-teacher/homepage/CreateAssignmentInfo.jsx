@@ -11,12 +11,13 @@ function CreateAssignmentInfo() {
             <Container>
                 <div className="row">
                     <Typography variant="h3" sx={{ fontFamily: 'Montserrat, sans-serif' }} className="title">
-                        How it works
+                        Uploading Assignment 
                     </Typography>
                     <div className="content">
-                        {/* Placeholder text */}
                         <p>
-                            To create an assignment for her students, a teacher can begin by clearly defining the learning objectives and the skills the assignment is intended to assess. Next, she should design tasks that align with these objectives, ensuring they are appropriately challenging and engaging. The assignment should include detailed instructions, a rubric for evaluation, and any necessary resources or materials. Additionally, the teacher can set a timeline for completion, including milestones for drafts or checkpoints to monitor progress. Providing opportunities for feedback and revision can also help enhance student learning and performance.
+                            To upload an assignment, go to the upload assignment page and provide a description of the assignment, 
+                            any content related to the assignment and a JUNIT test to be used to grade assignments. 
+                            Uploaded content would be saved in firestore storage.                         
                         </p>
                     </div>
                 </div>

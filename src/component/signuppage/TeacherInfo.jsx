@@ -19,12 +19,8 @@ function TeacherInfo({ onTeacherClick, selected }) {
         <div className="content">
           <div className="text">
             <p>
-              Instructors can create and manage assignments, set deadlines, and
-              update or delete existing tasks. They can grade student
-              submissions, provide feedback, and monitor student progress.
-              Additionally, instructors can manage course enrollment, send
-              announcements, and communicate with students regarding assignments
-              and course materials.
+              Instructors can create and manage assignments. They can grade student submissions and monitor student progress. 
+              Additionally, instructors can communicate with students regarding assignments and course materials.
             </p>
           </div>
           <div className="section-1">
@@ -36,7 +32,7 @@ function TeacherInfo({ onTeacherClick, selected }) {
                 color: "white",
                 width: "50%",
                 height: "7vh",
-                marginTop: "4vh",
+                marginTop: "7.5%",
                 borderRadius: '10px',
                 fontFamily: 'Montserrat, sans-serif'
               }}

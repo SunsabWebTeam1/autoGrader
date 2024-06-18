@@ -19,11 +19,8 @@ function StudentInfo({ onStudentClick, selected }) {
         <div className="content">
           <div className="text">
             <p>
-              Students can view and submit assignments, track their progress, and
-              receive feedback from instructors. They can access course
-              materials, participate in discussions, and stay updated with
-              announcements. Students can also manage their profiles and
-              communicate with instructors and peers.
+              Students can view and submit assignments, track their progress, and receive feedback from instructors. 
+              They can access course materials, participate in discussions, and stay updated with announcements. 
             </p>
           </div>
           <div className="section-1">
@@ -35,7 +32,7 @@ function StudentInfo({ onStudentClick, selected }) {
                 color: "white",
                 width: "50%",
                 height: "7vh",
-                marginTop: "4vh",
+                marginTop: "7.5%",
                 borderRadius: '10px',
                 fontFamily: 'Montserrat, sans-serif'
               }}
