@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Button, IconButton, TextField, Typography } from "@mui/material";
+import { Alert, Button, IconButton, TextField, Typography } from "@mui/material";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ function AddCredentialsPage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null); // State to hold error message
 
   useEffect(() => {
     console.log("Selected Account Type:", accountType);
@@ -26,11 +27,12 @@ function AddCredentialsPage() {
 
   const handleProceed = async (event) => {
     event.preventDefault(); 
-  
+    
     if (accountType) {
       
       if (!firstName || !lastName || !email || !password) {
         console.error("Please fill in all fields.");
+        setError("Please fill in all fields."); // Set error message
         return; 
       }
   
@@ -63,10 +65,15 @@ function AddCredentialsPage() {
         } 
       } catch (error) {
         console.error("Error creating account:", error);
+        setError("Error creating account. Please try again."); // Set error message
       }
     }
   };
-  
+
+  const clearError = () => {
+    setError(null); // Clear error message
+  };
+
   return (
     <div className="App">
       <div className="add-credentials">
@@ -171,6 +178,18 @@ function AddCredentialsPage() {
           >
             Proceed
           </Button>
+          <div className="error-alert" 
+            style={{
+              marginTop: "5%",
+              width: "40%",
+              borderRadius: '10px',
+            }}>
+            {error && (
+              <Alert severity="error" onClose={clearError}>
+                {error}
+              </Alert>
+            )}
+          </div>
         </div>
       </div>
     </div>

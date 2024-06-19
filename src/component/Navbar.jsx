@@ -12,7 +12,7 @@ function Navbar() {
   const { logOut, user } = UserAuth();
   const [userType, setUserType] = useState(null);
   const [fadeIn, setFadeIn] = useState(false);
-  const [logoSrc, setLogoSrc] = useState(logoDefault); // Default logo
+  const [logoSrc, setLogoSrc] = useState(logoDefault);  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,20 +23,20 @@ function Navbar() {
           const studentResult = await findStudent(userId);
           if (studentResult.found) {
             setUserType("student");
-            setLogoSrc(logoStudent); // Set student logo
+            setLogoSrc(logoStudent);  
           } else {
             const teacherResult = await findTeacher(userId);
             if (teacherResult.found) {
               setUserType("teacher");
-              setLogoSrc(logoTeacher); // Set teacher logo
+              setLogoSrc(logoTeacher);  
             } else {
               setUserType("authenticated");
-              setLogoSrc(logoDefault); // Set default logo for authenticated users
+              setLogoSrc(logoDefault);  
             }
           }
         } else {
           setUserType("unauthenticated");
-          setLogoSrc(logoDefault); // Set default logo for unauthenticated users
+          setLogoSrc(logoDefault);  
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -47,7 +47,7 @@ function Navbar() {
   }, [user]);
 
   useEffect(() => {
-    setFadeIn(true); // Trigger the fade-in effect when the component mounts
+    setFadeIn(true);  
   }, []);
 
   const renderNavbar = () => {

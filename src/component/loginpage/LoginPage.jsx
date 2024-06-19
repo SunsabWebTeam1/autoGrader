@@ -1,12 +1,10 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { CardCover } from "@mui/joy";
-import { Box, Button, Card, CardContent, Fade, IconButton, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, CardContent, Fade, IconButton, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from "../../context/AuthContext";
 import imgLogin from '../../images/LI-Image.jpg';
 import { findStudent, findTeacher } from "../../services/AccountService";
-
 
 function LoginPage() {
     const { onLogin, googleSignIn, user } = UserAuth();
@@ -14,6 +12,7 @@ function LoginPage() {
     const [password, setPassword] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState(null);  
     const navigate = useNavigate();
 
     const handlePasswordVisibility = () => {
@@ -22,32 +21,32 @@ function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await onLogin(email, password);
         try {
+            await onLogin(email, password);
             const teacherResult = await findTeacher(user.uid);
             if (teacherResult.found) {
                 navigate(`/homepage/teacher/${user.uid}`);
                 return;
             }
-
             const studentResult = await findStudent(user.uid);
             if (studentResult.found) {
                 navigate(`/homepage/student/${user.uid}`);
                 return;
             }
-
-            console.log('User is neither a teacher nor a student.');
+            setError('User is neither a teacher nor a student.');
         } catch (error) {
-            console.error('Login failed', error);
+            console.error('Login error:', error);
+            setError('Invalid username or password.'); 
         }
     };
 
     const handleGoogleSubmit = async () => {
-        await googleSignIn();
         try {
+            await googleSignIn();
             setIsAuthenticated(true);
         } catch (error) {
-            console.error('Google login failed', error);
+            console.error('Google login error:', error);
+            setError('Google login failed.');  
         }
     };
 
@@ -64,13 +63,11 @@ function LoginPage() {
                         navigate(`/homepage/teacher/${user.uid}`);
                         return;
                     }
-
                     const studentResult = await findStudent(user.uid);
                     if (studentResult.found) {
                         navigate(`/homepage/student/${user.uid}`);
                         return;
                     }
-
                     navigate(`/signupgooglepage`);
                 } catch (error) {
                     console.error('Error checking user role:', error);
@@ -81,7 +78,9 @@ function LoginPage() {
         checkUserRole();
     }, [isAuthenticated, navigate, user]);
 
-    console.log("User:", user);
+    const clearError = () => {
+        setError(null);  
+    };
 
     return (
         <Fade in={true} timeout={1000}>
@@ -89,7 +88,7 @@ function LoginPage() {
                 <div className="login">
                     <div className="loginCard">
                         <Card sx={{ display: 'flex', position: 'relative', width: '100%', height: '80vh' }}>
-                            <CardCover sx={{ flex: '1 0 50%', position: 'relative' }}>
+                            <Box sx={{ flex: '1 0 50%', position: 'relative' }}>
                                 <img src={imgLogin} alt="Login Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 <Box sx={{ 
                                     position: 'absolute', 
@@ -140,7 +139,7 @@ function LoginPage() {
                                         onClick={handleSignUpRedirect}>Sign Up</Button>
                                     </div>
                                 </Box>
-                            </CardCover>
+                            </Box>
                             <CardContent sx={{ flex: '1 0 50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign:"left" }}>
                                 <div className="section-1">
                                     <Typography component="div" variant="h5" sx={{ 
@@ -215,6 +214,11 @@ function LoginPage() {
                                         Log In
                                     </Button>
                                 </div>
+                                {error && (
+                                    <Alert severity="error" onClose={clearError} sx={{ mt: '20px' }}>
+                                        {error}
+                                    </Alert>
+                                )}
                             </CardContent>
                         </Card>
                     </div>

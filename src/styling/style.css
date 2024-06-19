@@ -276,6 +276,8 @@ body {
 
 .add-credentials .section-4 {
   display: flex;
+  justify-content: space-between;  
+  align-items: center;  
   padding: 0 3rem;
   padding-bottom: 2.5%;
 }
@@ -503,8 +505,8 @@ body {
   justify-content: center;
   padding: 16px;
   border-radius: 4px;
-  height: 100vh; /* Full viewport height to center content vertically */
-  box-sizing: border-box; /* Include padding in height calculation */
+  height: 100vh;  
+  box-sizing: border-box;  
 }
 
 .error-icon img {
@@ -516,7 +518,7 @@ body {
 .error-message {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
-  color: #f44336;  
+  color:#212322;  
   text-align: center;
   margin-Top: 50%;
 
