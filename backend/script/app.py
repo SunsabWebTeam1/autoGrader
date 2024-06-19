@@ -15,11 +15,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # MySQL connection configuration
 dbconfig = {
+    'host': 'host.docker.internal',
+    'port': 3306,
     'user': 'root',
     'password': 'password',
-    'host': 'mysql',  # This should match the service name in docker-compose
-    'database': 'file_storage',
+    'database': 'file_storage'
 }
+
 
 # Create MySQL connection pool
 mysql_connection = mysql.connector.connect(**dbconfig)
