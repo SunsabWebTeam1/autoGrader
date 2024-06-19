@@ -2,7 +2,8 @@ import { Button, Fade, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
-import { addAccount } from "../../services/AccountService";
+import { addAccount, findStudent, findTeacher } from "../../services/AccountService"; // Assuming these functions exist
+import ErrorComponent from "../error-message/Error"; // Import the ErrorComponent
 import StudentInfo from "./StudentInfo";
 import TeacherInfo from "./TeacherInfo";
 
@@ -12,16 +13,42 @@ function SignupGooglePage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [selectedAccountType, setSelectedAccountType] = useState("");
+  const [Render, setRender] = useState(false); // State to control rendering
+  const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
     setSelectedAccountType(accountType);
     console.log("Account Type:", accountType);
 
-    // Set the first and last name from displayName
-    if (user && user.displayName) {
-      const displayNameWords = user.displayName.split(' ');
-      setFirstName(displayNameWords[0]);
-      setLastName(displayNameWords.slice(1).join(' '));
+    // Check if user is authenticated
+    if (user) {
+      setRender(true);
+
+      // Set the first and last name from displayName
+      if (user.displayName) {
+        const displayNameWords = user.displayName.split(' ');
+        setFirstName(displayNameWords[0]);
+        setLastName(displayNameWords.slice(1).join(' '));
+      }
+
+      // Check if user is already a student or teacher
+      const checkUserType = async () => {
+        try {
+          const [teacherResult, studentResult] = await Promise.all([
+            findTeacher(user.uid),
+            findStudent(user.uid)
+          ]);
+
+          // If user is found as either, do not render the page
+          if (teacherResult.found || studentResult.found) {
+            setRender(false);
+          }
+        } catch (error) {
+          console.error("Error checking user type:", error);
+        }
+      };
+
+      checkUserType();
     }
   }, [accountType, user]);
 
@@ -38,6 +65,7 @@ function SignupGooglePage() {
         
         if (!user) {
           console.error("User not authenticated.");
+          setError('User not authenticated.'); // Set error state
           return;
         }
 
@@ -56,11 +84,24 @@ function SignupGooglePage() {
             window.location.href = `/homepage/${selectedAccountType}/${userId}`;
         } catch (error) {
             console.error("Error adding account:", error);
-            // Handle error accordingly
+            setError('Failed to add account. Please try again.'); // Set error state on failure
         }
+    } else {
+        setError('Please choose an account type.'); // Set error state if account type not selected
     }
   };
 
+  if (!user || !Render) {
+    return (
+      <Fade in={true} timeout={1000}>
+        <div className="App">
+          <div className="signup">
+            <ErrorComponent message="Error: Unauthorized access." />
+          </div>
+        </div>
+      </Fade>
+    );
+  }
 
   return (
     <Fade in={true} timeout={1000}>
@@ -101,11 +142,11 @@ function SignupGooglePage() {
             >
               {selectedAccountType ? `Proceed as ${selectedAccountType}` : "Choose Account Type"}
             </Button>
+            {error && <ErrorComponent message={error} />}  
           </div>
         </div>
       </div>
     </Fade>
-
   );
 }
 

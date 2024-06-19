@@ -1,12 +1,29 @@
 import { Button, Fade, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { UserAuth } from "../../context/AuthContext";
+import ErrorComponent from "../error-message/Error"; // Import the ErrorComponent
 import StudentInfo from "./StudentInfo";
 import TeacherInfo from "./TeacherInfo";
 
 function SignupPage() {
+  const { user } = UserAuth(); // Use your authentication context
   const { accountType } = useParams();
   const [selectedAccountType, setSelectedAccountType] = useState("");
+  const [error, setError] = useState(null); // State for error handling
+  const [Render, setRender] = useState(false); // State to control rendering
+
+  useEffect(() => {
+    setSelectedAccountType(accountType);
+    console.log("Account Type:", accountType);
+
+    // Check if the user is signed in and set error accordingly
+    if (user) {
+      setError('You are already signed in.');
+    } else {
+      setRender(true);
+    }
+  }, [accountType, user]);
 
   const handleStudentClick = () => {
     setSelectedAccountType("student");
@@ -16,18 +33,23 @@ function SignupPage() {
     setSelectedAccountType("teacher");
   };
 
-  useEffect(() => {
-    setSelectedAccountType(accountType);
-    console.log("Account Type:", accountType);
-  }, [accountType]);
-
   const handleProceed = () => {
-    if (selectedAccountType === "teacher") {
-      window.location.href = `/signuppage/${selectedAccountType}`;
-    } else if (selectedAccountType === "student") {
+    if (selectedAccountType === "teacher" || selectedAccountType === "student") {
       window.location.href = `/signuppage/${selectedAccountType}`;
     }
   };
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <ErrorComponent message={error} />
+      </div>
+    );
+  }
+
+  if (!Render) {
+    return null;  
+  }
 
   return (
     <Fade in={true} timeout={1000}>

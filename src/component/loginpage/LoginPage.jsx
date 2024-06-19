@@ -1,15 +1,24 @@
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { CardCover } from "@mui/joy";
-import { Box, Button, Card, CardContent, Fade, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Fade, IconButton, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { UserAuth } from "../../context/AuthContext";
 import imgLogin from '../../images/LI-Image.jpg';
 import { findStudent, findTeacher } from "../../services/AccountService";
+
 
 function LoginPage() {
     const { onLogin, googleSignIn, user } = UserAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+
+    const handlePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,13 +26,13 @@ function LoginPage() {
         try {
             const teacherResult = await findTeacher(user.uid);
             if (teacherResult.found) {
-                window.location.href = `/homepage/teacher/${user.uid}`;
+                navigate(`/homepage/teacher/${user.uid}`);
                 return;
             }
 
             const studentResult = await findStudent(user.uid);
             if (studentResult.found) {
-                window.location.href = `/homepage/student/${user.uid}`;
+                navigate(`/homepage/student/${user.uid}`);
                 return;
             }
 
@@ -42,12 +51,8 @@ function LoginPage() {
         }
     };
 
-    const handleSignUpRedirect = async () => {
-        try {
-            window.location.href = '/signuppage';
-        } catch (error) {
-            console.error('Cannot find page', error);
-        }
+    const handleSignUpRedirect = () => {
+        navigate('/signuppage');
     };
 
     useEffect(() => {
@@ -56,17 +61,17 @@ function LoginPage() {
                 try {
                     const teacherResult = await findTeacher(user.uid);
                     if (teacherResult.found) {
-                        window.location.href = `/homepage/teacher/${user.uid}`;
+                        navigate(`/homepage/teacher/${user.uid}`);
                         return;
                     }
 
                     const studentResult = await findStudent(user.uid);
                     if (studentResult.found) {
-                        window.location.href = `/homepage/student/${user.uid}`;
+                        navigate(`/homepage/student/${user.uid}`);
                         return;
                     }
 
-                    window.location.href = `/signupgooglepage`;
+                    navigate(`/signupgooglepage`);
                 } catch (error) {
                     console.error('Error checking user role:', error);
                 }
@@ -74,7 +79,7 @@ function LoginPage() {
         };
 
         checkUserRole();
-    }, [isAuthenticated]);
+    }, [isAuthenticated, navigate, user]);
 
     console.log("User:", user);
 
@@ -144,12 +149,13 @@ function LoginPage() {
                                         Email 
                                     </Typography>
                                     <TextField 
-                                    id="outlined-basic" 
-                                    label="Username or Email" 
-                                    variant="outlined" 
-                                    sx={{ mt: 2, mb: 1, width: '100%' }} 
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}/>
+                                        id="outlined-basic" 
+                                        label="Username or Email" 
+                                        variant="outlined" 
+                                        sx={{ mt: 2, mb: 1, width: '100%' }} 
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                 </div>
                                 <div className="section-2">
                                     <Typography component="div" variant="h5" sx={{ 
@@ -158,32 +164,55 @@ function LoginPage() {
                                         Password 
                                     </Typography>
                                     <TextField 
-                                    id="outlined-basic" 
-                                    label="Password"  
-                                    variant="outlined" 
-                                    sx={{ mt: 2, mb: 1, width: '100%' }}
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                        id="outlined-password" 
+                                        label="Password"  
+                                        variant="outlined" 
+                                        type={showPassword ? 'text' : 'password'}
+                                        sx={{ mt: 2, mb: 1, width: '100%' }}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handlePasswordVisibility}
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            ),
+                                        }}
                                     />
                                 </div>
                                 <div className="buttons-2" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10%' }}>
-                                    <Button variant="contained" 
-                                    style={{ backgroundColor: '#00989B', 
-                                    color: 'white', 
-                                    width: '48%', 
-                                    height: '7vh',
-                                    borderRadius: '10px',
-                                    fontFamily: 'Montserrat, sans-serif' }}
-                                    onClick={handleGoogleSubmit}>Log In with Google</Button>
+                                    <Button 
+                                        variant="contained" 
+                                        style={{ 
+                                            backgroundColor: '#00989B', 
+                                            color: 'white', 
+                                            width: '48%', 
+                                            height: '7vh',
+                                            borderRadius: '10px',
+                                            fontFamily: 'Montserrat, sans-serif' 
+                                        }}
+                                        onClick={handleGoogleSubmit}
+                                    >
+                                        Log In with Google
+                                    </Button>
                                     
-                                    <Button variant="contained" 
-                                    style={{ backgroundColor: '#00989B', 
-                                    color: 'white', 
-                                    width: '48%', 
-                                    height: '7vh',
-                                    borderRadius: '10px',
-                                    fontFamily: 'Montserrat, sans-serif'  }}
-                                    onClick={handleSubmit}>Log In
+                                    <Button 
+                                        variant="contained" 
+                                        style={{ 
+                                            backgroundColor: '#00989B', 
+                                            color: 'white', 
+                                            width: '48%', 
+                                            height: '7vh',
+                                            borderRadius: '10px',
+                                            fontFamily: 'Montserrat, sans-serif'  
+                                        }}
+                                        onClick={handleSubmit}
+                                    >
+                                        Log In
                                     </Button>
                                 </div>
                             </CardContent>
@@ -192,7 +221,6 @@ function LoginPage() {
                 </div>
             </div>
         </Fade>
-
     );
 }
 

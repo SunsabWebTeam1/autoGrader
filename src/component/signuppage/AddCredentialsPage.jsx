@@ -1,4 +1,5 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, IconButton, TextField, Typography } from "@mui/material";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -13,10 +14,15 @@ function AddCredentialsPage() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     console.log("Selected Account Type:", accountType);
   }, [accountType, userId]);
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleProceed = async (event) => {
     event.preventDefault(); 
@@ -130,9 +136,21 @@ function AddCredentialsPage() {
                 id="outlined-basic"
                 label="Password"
                 variant="outlined"
+                type={showPassword ? 'text' : 'password'}
                 sx={{ mt: 2, mb: 1, width: "100%" }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handlePasswordVisibility}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
               />
             </div>
           </div>
