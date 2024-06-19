@@ -1,14 +1,14 @@
 import axios from "axios";
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import PropTypes from 'prop-types';
-import uploadImg from '../../../assets/SubmitAssignment-student.png';
-import { ImageConfig } from '../../../config/ImageConfig';
+import PropTypes from "prop-types";
+import uploadImg from "../../../assets/SubmitAssignment-student.png";
+import { ImageConfig } from "../../../config/ImageConfig";
 
 import { TextField } from "@mui/material";
-import '../../../styling/drop-file-input.css';
-import '../../../styling/studentAssignmentLayout.css';
+import "../../../styling/drop-file-input.css";
+import "../../../styling/studentAssignmentLayout.css";
 
 const SubmissionUpload = (props) => {
   const [submissionFile, setSubmissionFile] = useState(null);
@@ -23,9 +23,9 @@ const SubmissionUpload = (props) => {
   const [progress, setProgress] = useState(0);
   const [failures, setFailures] = useState(0);
 
-  const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-  const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
-  const onDrop = () => wrapperRef.current.classList.remove('dragover');
+  const onDragEnter = () => wrapperRef.current.classList.add("dragover");
+  const onDragLeave = () => wrapperRef.current.classList.remove("dragover");
+  const onDrop = () => wrapperRef.current.classList.remove("dragover");
 
   const onFileDrop = (e) => {
     const newFile = e.target.files[0];
@@ -66,7 +66,7 @@ const SubmissionUpload = (props) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/upload_submission",
+        "http://localhost:5000/api/upload_submission",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -100,8 +100,9 @@ const SubmissionUpload = (props) => {
     const pointsObtained = passedTests * 5;
     const totalPoints = totalTests * 5;
 
-    const testResultMessage = `${percentagePassed}% of tests passed. ${failedTests} tests failed. ` +
-                              `Score: ${pointsObtained}/${totalPoints}`;
+    const testResultMessage =
+      `${percentagePassed}% of tests passed. ${failedTests} tests failed. ` +
+      `Score: ${pointsObtained}/${totalPoints}`;
 
     return testResultMessage;
   };
@@ -118,13 +119,13 @@ const SubmissionUpload = (props) => {
         <div className="drop-file-input__label">
           <img src={uploadImg} alt="" />
         </div>
-          <input type="file" onChange={onFileDrop} />
-        </div>
+        <input type="file" onChange={onFileDrop} />
+      </div>
       <TextField
-        id="outlined-basic" 
-        label="Enter Unit Test ID" 
-        variant="outlined" 
-        sx={{ mt: 2, mb: 1, width: '100%', marginTop: '30%' }} 
+        id="outlined-basic"
+        label="Enter Unit Test ID"
+        variant="outlined"
+        sx={{ mt: 2, mb: 1, width: "100%", marginTop: "30%" }}
         type="text"
         value={manualUnitTestId}
         onChange={(e) => setManualUnitTestId(e.target.value)}
@@ -134,23 +135,34 @@ const SubmissionUpload = (props) => {
           {fileList.map((item, index) => (
             <div key={index} className="drop-file-preview__item">
               <img
-                src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']}
+                src={
+                  ImageConfig[item.type.split("/")[1]] || ImageConfig["default"]
+                }
                 alt=""
               />
               <div className="drop-file-preview__item__info">
                 <p>{item.name}</p>
                 <p>{item.size}B</p>
               </div>
-              <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>
+              <span
+                className="drop-file-preview__item__del"
+                onClick={() => fileRemove(item)}
+              >
                 x
               </span>
             </div>
           ))}
-          <button className="drop-file-preview__title" onClick={handleSubmissionUpload}>
+          <button
+            className="drop-file-preview__title"
+            onClick={handleSubmissionUpload}
+          >
             Ready to upload
           </button>
           <div className="progress-container">
-            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+            <div
+              className="progress-bar"
+              style={{ width: `${progress}%` }}
+            ></div>
           </div>
           <p>Test pass percentage: {progress}%</p>
           <p>Failures: {failures}</p>
@@ -160,7 +172,7 @@ const SubmissionUpload = (props) => {
               <ul>
                 {testResults.map((test, index) => (
                   <li key={index}>
-                    {test.name} = {test.status === 'passed' ? '5/5' : '0/5'}
+                    {test.name} = {test.status === "passed" ? "5/5" : "0/5"}
                   </li>
                 ))}
               </ul>

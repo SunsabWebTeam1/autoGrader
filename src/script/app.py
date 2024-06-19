@@ -9,7 +9,7 @@ from google.cloud.sql.connector import Connector
 import pymysql
 import sqlalchemy
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../build", static_url_path='/')
 CORS(app)  # Enable CORS for all routes
 
 UPLOAD_FOLDER = 'uploads'  # Replace with your actual upload folder path
@@ -110,7 +110,11 @@ def save_file_to_db(filename, size, content, grade_percentage):
         conn.commit()
 
 
-@app.route('/upload_unit_test', methods=['POST'])
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+@app.route('/api/upload_unit_test', methods=['POST'])
 def upload_unit_test():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
@@ -124,7 +128,7 @@ def upload_unit_test():
     
     return jsonify({'unit_test_id': unit_test_id}), 200
 
-@app.route('/upload_submission', methods=['POST'])
+@app.route('/api/upload_submission', methods=['POST'])
 def upload_file_sql():
     if 'file' not in request.files or 'unit_test_id' not in request.form:
         return jsonify({'error': 'Invalid request'}), 400
@@ -189,5 +193,11 @@ def upload_file_sql():
     except Exception as e:
         print("Error:", str(e))
         return jsonify({'error': str(e)})
+    
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return app.send_static_file('index.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
