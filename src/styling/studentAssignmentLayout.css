@@ -18,7 +18,7 @@
     ;
 }
 .submit-assignment-header{
-    min-height: 60vh;
+    min-height: 20vh;
     width: 100vw;
     position: relative;
     background-image: url(../images/Student-AP.jpg);
@@ -40,7 +40,7 @@
 
 .submit-assignment-header h1 {
     color: #fff;
-    font-size: 5.5rem;
+    font-size: 3rem;
     position: absolute;
     bottom: 20%;
     justify-content: space-around;
