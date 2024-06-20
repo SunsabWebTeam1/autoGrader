@@ -17,7 +17,7 @@ function UnitTestUpload() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/upload_unit_test",
+        "https://autograder-app-flask-yac6pd5bwq-uw.a.run.app/api/upload_unit_test",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
