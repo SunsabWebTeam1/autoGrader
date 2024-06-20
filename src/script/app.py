@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import mysql.connector
-import os
-import uuid
-import unittest
 import importlib.util
+import os
+import unittest
+import uuid
+
+import mysql.connector
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -15,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # MySQL connection configuration
 dbconfig = {
     'host': 'localhost',
-    'port': 3306,
+    'port': 3307,
     'user': 'root',
     'password': 'password',
     'database': 'file_storage'

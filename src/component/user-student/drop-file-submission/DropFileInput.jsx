@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import uploadImg from '../../../assets/SubmitAssignment-student.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 
-import { TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import '../../../styling/drop-file-input.css';
 import '../../../styling/studentAssignmentLayout.css';
 
@@ -107,7 +107,7 @@ const SubmissionUpload = (props) => {
   };
 
   return (
-    <>
+    <div>
       <div
         ref={wrapperRef}
         className="drop-file-input"
@@ -146,14 +146,26 @@ const SubmissionUpload = (props) => {
               </span>
             </div>
           ))}
-          <button className="drop-file-preview__title" onClick={handleSubmissionUpload}>
+          <Button className="drop-file-preview__title" onClick={handleSubmissionUpload}
+                  variant="contained" 
+                  style={{ 
+                      backgroundColor: '#00989B', 
+                      color: 'white', 
+                      width: '100%', 
+                      height: '7vh', 
+                      borderRadius: '10px', 
+                      fontFamily: 'Montserrat, sans-serif'
+                  }}
+          >
             Ready to upload
-          </button>
+          </Button>
           <div className="progress-container">
             <div className="progress-bar" style={{ width: `${progress}%` }}></div>
           </div>
-          <p>Test pass percentage: {progress}%</p>
-          <p>Failures: {failures}</p>
+          <div className="ProjectDetailsText">
+            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Test pass percentage: {progress}%</Typography>
+            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Failures: {failures}</Typography>
+          </div>
           {testResults.length > 0 && (
             <div>
               <p>Test Results:</p>
@@ -171,7 +183,7 @@ const SubmissionUpload = (props) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

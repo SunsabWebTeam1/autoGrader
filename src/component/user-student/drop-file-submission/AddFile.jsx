@@ -82,8 +82,7 @@ const AddFile = () => {
                                         </div>
                                     </Fade>
                                 </div>
-                            </div>
-                            <div className='Submit-NextLayout'>
+                                <div className='Submit-NextLayout'>
                                 {currentContent !== 'DropFileInput' && (
                                         <Button 
                                             variant="contained" 
@@ -94,12 +93,14 @@ const AddFile = () => {
                                                 width: '25%', 
                                                 height: '7vh', 
                                                 borderRadius: '10px', 
-                                                fontFamily: 'Montserrat, sans-serif'
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                marginTop: '50%',
                                             }}
                                         >
                                             Next
                                         </Button>
                                 )}
+                            </div>
                             </div>
                         </div>
                         <div id="subNavBar" className='subNavBarLayout'>

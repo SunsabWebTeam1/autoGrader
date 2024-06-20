@@ -96,10 +96,13 @@
     opacity: 1;
 }
 
-.bodyforDropFile{
+.bodyforDropFile {
     display: flex;
     justify-content: center;
+    height: 600px;      /* Set default height to 600px */
+    max-height: 600px;  /* Set maximum height to 600px */
 }
+
 
 .test-id-input{
     margin-top: 500%;
@@ -113,4 +116,14 @@
     /* Add additional styling as needed */
     padding: 10px 20px;
     text-align: center;
+}
+
+.submission-content{
+    height: 600px;      /* Set default height to 600px */
+    max-height: 500px;  /* Set maximum height to 600px */
+}
+.test-summary{
+    padding: 10px 20px;  
+    text-align: start;
+    white-space: pre-wrap;
 }

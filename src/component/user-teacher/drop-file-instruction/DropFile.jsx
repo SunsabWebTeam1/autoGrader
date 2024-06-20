@@ -83,8 +83,7 @@ const DropFile = () => {
                                         </div>
                                     </Fade>
                                 </div>
-                            </div>
-                            <div className='Submit-NextLayout'>
+                                <div className='Submit-NextLayout'>
                                 {currentContent !== 'DropTestInstruction' && (
                                     <Button 
                                         variant="contained" 
@@ -101,6 +100,7 @@ const DropFile = () => {
                                         Next
                                     </Button>
                                 )}
+                                </div>
                             </div>
                         </div>
                         <div id="subNavBar" className='subNavBarLayout'>
