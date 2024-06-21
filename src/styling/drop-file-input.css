@@ -97,6 +97,7 @@
 }
 
 .bodyforDropFile {
+    padding-top: 5%;
     display: flex;
     justify-content: center;
     height: 600px;      /* Set default height to 600px */

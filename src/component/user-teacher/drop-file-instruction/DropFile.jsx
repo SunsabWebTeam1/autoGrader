@@ -61,7 +61,7 @@ const DropFile = () => {
             case 'UnitTestUpload':
                 return 'Unit Test Upload';
             case 'DropTestInstruction':
-                return 'Drop Test Instruction';
+                return 'Test Instruction Upload';
             // Add cases for other content here if needed
             default:
                 return 'Submission';

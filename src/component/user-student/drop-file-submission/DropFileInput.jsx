@@ -1,4 +1,4 @@
-import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
@@ -184,8 +184,13 @@ const SubmissionUpload = (props) => {
               <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>Test Results:</Typography>
               <ul>
                 {testResults.map((test, index) => (
-                  <li key={index}>
-                    {test.name} = {test.status === 'passed' ? '5/5' : '0/5'}
+                  <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+                    <Avatar sx={{ backgroundColor: test.status === 'passed' ? '#70F57D' : '#DC1717', color: '#FFFFFF' }}>
+                      {test.status === 'passed' ? 'P' : 'F'}
+                    </Avatar>
+                    <Typography sx={{ marginLeft: '10px' }}>
+                      {test.name} = {test.status === 'passed' ? '5/5' : '0/5'}
+                    </Typography>
                   </li>
                 ))}
               </ul>
