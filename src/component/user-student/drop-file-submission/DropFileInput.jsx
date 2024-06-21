@@ -1,12 +1,11 @@
+import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import axios from "axios";
+import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
-
-import PropTypes from 'prop-types';
+import initialUploadImg from '../../../assets/SubmitAssignment-int-student.png';
 import uploadImg from '../../../assets/SubmitAssignment-student.png';
 import { ImageConfig } from '../../../config/ImageConfig';
-
-import { Button, TextField, Typography } from "@mui/material";
 import '../../../styling/drop-file-input.css';
 import '../../../styling/studentAssignmentLayout.css';
 
@@ -107,7 +106,7 @@ const SubmissionUpload = (props) => {
   };
 
   return (
-    <div>
+    <div className="submission-content">
       <div
         ref={wrapperRef}
         className="drop-file-input"
@@ -115,27 +114,18 @@ const SubmissionUpload = (props) => {
         onDragLeave={onDragLeave}
         onDrop={onDrop}
       >
-        <div className="drop-file-input__label">
-          <img src={uploadImg} alt="" />
-        </div>
-          <input type="file" onChange={onFileDrop} />
-        </div>
-      <TextField
-        id="outlined-basic" 
-        label="Enter Unit Test ID" 
-        variant="outlined" 
-        sx={{ mt: 2, mb: 1, width: '100%', marginTop: '30%' }} 
-        type="text"
-        value={manualUnitTestId}
-        onChange={(e) => setManualUnitTestId(e.target.value)}
-      />
+          <div className="drop-file-input__label">
+            <img src={fileList.length > 0 ? uploadImg : initialUploadImg} alt="Upload" />
+          </div>
+            <input type="file" onChange={onFileDrop} />
+      </div>
       {fileList.length > 0 && (
         <div className="drop-file-preview">
           {fileList.map((item, index) => (
             <div key={index} className="drop-file-preview__item">
               <img
                 src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']}
-                alt=""
+                alt="Preview"
               />
               <div className="drop-file-preview__item__info">
                 <p>{item.name}</p>
@@ -146,29 +136,52 @@ const SubmissionUpload = (props) => {
               </span>
             </div>
           ))}
-          <Button className="drop-file-preview__title" onClick={handleSubmissionUpload}
-                  variant="contained" 
-                  style={{ 
-                      backgroundColor: '#00989B', 
-                      color: 'white', 
-                      width: '100%', 
-                      height: '7vh', 
-                      borderRadius: '10px', 
-                      fontFamily: 'Montserrat, sans-serif'
-                  }}
-          >
-            Ready to upload
-          </Button>
-          <div className="progress-container">
-            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-          </div>
+
+      <TextField
+        id="outlined-basic" 
+        label="Enter Unit Test ID" 
+        variant="outlined" 
+        sx={{ mt: 2, mb: 1, width: '100%', marginTop: '5%' }} 
+        type="text"
+        value={manualUnitTestId}
+        onChange={(e) => setManualUnitTestId(e.target.value)}
+      />
+      <Button 
+        className="drop-file-preview__title" 
+        onClick={handleSubmissionUpload}
+        variant="contained" 
+        style={{ 
+            backgroundColor: '#00989B', 
+            color: 'white', 
+            width: '50vh',
+            height: '7vh', 
+            borderRadius: '10px', 
+            marginTop: '5%',
+            fontFamily: 'Montserrat, sans-serif'
+        }}
+      >
+        Ready to upload
+      </Button>
+          <Box sx={{ width: '100%', mt: 2 }}>
+              <LinearProgress 
+                  variant="determinate"
+                  value={progress} 
+                  sx={{
+                      '& .MuiLinearProgress-barColorPrimary': {
+                          backgroundColor: '#6C6CB5', // Change the progress color
+                      },
+                      '& .MuiLinearProgress-colorPrimary': {
+                          backgroundColor: '#D3D3D3', // Change the buffer color
+                      },
+              }} />
+          </Box>
           <div className="ProjectDetailsText">
             <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Test pass percentage: {progress}%</Typography>
             <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Failures: {failures}</Typography>
           </div>
           {testResults.length > 0 && (
             <div>
-              <p>Test Results:</p>
+              <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>Test Results:</Typography>
               <ul>
                 {testResults.map((test, index) => (
                   <li key={index}>
@@ -179,7 +192,7 @@ const SubmissionUpload = (props) => {
             </div>
           )}
           <div className="test-summary">
-            <p>{generateSummary()}</p>
+            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>{generateSummary()}</Typography>
           </div>
         </div>
       )}
