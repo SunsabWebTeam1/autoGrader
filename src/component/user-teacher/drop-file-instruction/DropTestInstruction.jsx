@@ -98,10 +98,10 @@ const DropTestInstruction = props => {
                                 value={progress} 
                                 sx={{
                                     '& .MuiLinearProgress-barColorPrimary': {
-                                        backgroundColor: '#6C6CB5', // Change the progress color
+                                        backgroundColor: '#6C6CB5',  
                                     },
                                     '& .MuiLinearProgress-colorPrimary': {
-                                        backgroundColor: '#D3D3D3', // Change the buffer color
+                                        backgroundColor: '#D3D3D3',  
                                     },
                             }} />
                         </Box>

@@ -83,24 +83,23 @@ const AddFile = () => {
                                     </Fade>
                                 </div>
                                 <div className='Submit-NextLayout'>
-                                {currentContent !== 'DropFileInput' && (
-                                        <Button 
-                                            variant="contained" 
-                                            onClick={handleNextClick} 
-                                            style={{ 
-                                                backgroundColor: '#00989B', 
-                                                color: 'white', 
-                                                width: '25%', 
-                                                height: '7vh', 
-                                                borderRadius: '10px', 
-                                                fontFamily: 'Montserrat, sans-serif',
-                                                marginTop: '50%',
-                                            }}
-                                        >
-                                            Next
-                                        </Button>
-                                )}
-                            </div>
+                                    {currentContent !== 'DropFileInput' && (
+                                            <Button 
+                                                variant="contained" 
+                                                onClick={handleNextClick} 
+                                                style={{ 
+                                                    backgroundColor: '#00989B', 
+                                                    color: 'white', 
+                                                    width: '25%', 
+                                                    height: '7vh', 
+                                                    borderRadius: '10px', 
+                                                    fontFamily: 'Montserrat, sans-serif',
+                                                }}
+                                            >
+                                                Next
+                                            </Button>
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div id="subNavBar" className='subNavBarLayout'>
