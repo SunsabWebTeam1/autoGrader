@@ -55,43 +55,47 @@ def run_test_suite(unit_test_path, uploaded_module, pool):
 def generate_test_results(suite, test_suite_result):
     test_results = []
 
-    # Iterate over all test cases in the suite
-    for test_case in suite._tests:
-        if test_case is not None:
-            test_case_name = test_case.id().split('.')[-1]
+    # Collect all test case names from the suite
+    test_case_names = {test_case.id().split('.')[-1]: test_case for test_case in suite._tests if test_case is not None}
 
-            # Initialize variables to track test status
-            test_passed = False
-            failure_message = ""
+    # Process errors
+    for test_error, traceback in test_suite_result.errors:
+        test_case_name = test_error.id().split('.')[-1]
+        if test_case_name in test_case_names:
+            failure_message = str(traceback)
+            test_results.append({
+                'name': test_case_name,
+                'score': '0/5',
+                'failure_message': failure_message,
+                'status': 'failed'
+            })
+            print(f"{test_case_name} = 0/5")
+            # Remove processed test case from the dictionary
+            del test_case_names[test_case_name]
 
-            # Check if the test case failed
-            for test_failure, traceback in test_suite_result.failures:
-                if test_case_name in str(test_failure):
-                    failure_message = str(test_failure)
-                    test_passed = False
-                    break
-            else:
-                # If no failure found, test passed
-                test_passed = True
+    # Process failures
+    for test_failure, traceback in test_suite_result.failures:
+        test_case_name = test_failure.id().split('.')[-1]
+        if test_case_name in test_case_names:
+            failure_message = str(traceback)
+            test_results.append({
+                'name': test_case_name,
+                'score': '0/5',
+                'failure_message': failure_message,
+                'status': 'failed'
+            })
+            print(f"{test_case_name} = 0/5")
+            # Remove processed test case from the dictionary
+            del test_case_names[test_case_name]
 
-            # Append test result based on pass/fail status
-            if test_passed:
-                test_results.append({
-                    'name': test_case_name,
-                    'score': '5/5',
-                    'status': 'passed'
-                })
-                print(f"{test_case_name} = 5/5")
-            else:
-                test_results.append({
-                    'name': test_case_name,
-                    'score': '0/5',
-                    'failure_message': failure_message,
-                    'status': 'failed'
-                })
-                print(f"{test_case_name} = 0/5")
-        else:
-            print("Warning: test_case is None in test suite")
+    # Process passed tests
+    for test_case_name, test_case in test_case_names.items():
+        test_results.append({
+            'name': test_case_name,
+            'score': '5/5',
+            'status': 'passed'
+        })
+        print(f"{test_case_name} = 5/5")
 
     return test_results
 

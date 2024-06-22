@@ -44,7 +44,15 @@ const SubmissionUpload = (props) => {
     updatedList.splice(fileList.indexOf(file), 1);
     setFileList(updatedList);
     setSubmissionFile(null);
+    setTestResults([]);
+    setFailures(0);
+    setProgress(0);
     props.onFileChange(updatedList);
+    // Allow file input to accept the same file again
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   const handleSubmissionUpload = async () => {
