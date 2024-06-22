@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useRef, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
-
 import PropTypes from 'prop-types';
 import uploadImg from '../../../assets/SubmitAssignment-student.png';
 import { ImageConfig } from '../../../config/ImageConfig';
-
 import { TextField } from "@mui/material";
 import '../../../styling/drop-file-input.css';
 import '../../../styling/studentAssignmentLayout.css';
@@ -44,7 +42,16 @@ const SubmissionUpload = (props) => {
     updatedList.splice(fileList.indexOf(file), 1);
     setFileList(updatedList);
     setSubmissionFile(null);
+    setTestResults([]);
+    setFailures(0);
+    setProgress(0);
     props.onFileChange(updatedList);
+
+    // Allow file input to accept the same file again
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   const handleSubmissionUpload = async () => {
@@ -118,8 +125,8 @@ const SubmissionUpload = (props) => {
         <div className="drop-file-input__label">
           <img src={uploadImg} alt="" />
         </div>
-          <input type="file" onChange={onFileDrop} />
-        </div>
+        <input type="file" onChange={onFileDrop} />
+      </div>
       <TextField
         id="outlined-basic" 
         label="Enter Unit Test ID" 

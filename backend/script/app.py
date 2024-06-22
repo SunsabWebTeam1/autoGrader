@@ -16,7 +16,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # MySQL connection configuration
 dbconfig = {
     'host': 'host.docker.internal',
-    'port': 3306,
+    'port': 3307,
     'user': 'root',
     'password': 'password',
     'database': 'file_storage'
