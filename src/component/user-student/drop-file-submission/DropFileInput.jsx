@@ -1,13 +1,14 @@
-import { Avatar, Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import axios from "axios";
-import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import initialUploadImg from '../../../assets/SubmitAssignment-int-student.png';
-import uploadImg from '../../../assets/SubmitAssignment-student.png';
-import { ImageConfig } from '../../../config/ImageConfig';
-import '../../../styling/drop-file-input.css';
-import '../../../styling/studentAssignmentLayout.css';
+
+import PropTypes from "prop-types";
+import uploadImg from "../../../assets/SubmitAssignment-student.png";
+import { ImageConfig } from "../../../config/ImageConfig";
+
+import { TextField } from "@mui/material";
+import "../../../styling/drop-file-input.css";
+import "../../../styling/studentAssignmentLayout.css";
 
 const SubmissionUpload = (props) => {
   const [submissionFile, setSubmissionFile] = useState(null);
@@ -22,9 +23,9 @@ const SubmissionUpload = (props) => {
   const [progress, setProgress] = useState(0);
   const [failures, setFailures] = useState(0);
 
-  const onDragEnter = () => wrapperRef.current.classList.add('dragover');
-  const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
-  const onDrop = () => wrapperRef.current.classList.remove('dragover');
+  const onDragEnter = () => wrapperRef.current.classList.add("dragover");
+  const onDragLeave = () => wrapperRef.current.classList.remove("dragover");
+  const onDrop = () => wrapperRef.current.classList.remove("dragover");
 
   const onFileDrop = (e) => {
     const newFile = e.target.files[0];
@@ -43,7 +44,15 @@ const SubmissionUpload = (props) => {
     updatedList.splice(fileList.indexOf(file), 1);
     setFileList(updatedList);
     setSubmissionFile(null);
+    setTestResults([]);
+    setFailures(0);
+    setProgress(0);
     props.onFileChange(updatedList);
+    // Allow file input to accept the same file again
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   const handleSubmissionUpload = async () => {
@@ -65,7 +74,7 @@ const SubmissionUpload = (props) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/upload_submission",
+        "https://autograder-app-flask-yac6pd5bwq-uw.a.run.app/api/upload_submission",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -99,14 +108,15 @@ const SubmissionUpload = (props) => {
     const pointsObtained = passedTests * 5;
     const totalPoints = totalTests * 5;
 
-    const testResultMessage = `${percentagePassed}% of tests passed. ${failedTests} tests failed. ` +
-                              `Score: ${pointsObtained}/${totalPoints}`;
+    const testResultMessage =
+      `${percentagePassed}% of tests passed. ${failedTests} tests failed. ` +
+      `Score: ${pointsObtained}/${totalPoints}`;
 
     return testResultMessage;
   };
 
   return (
-    <div className="submission-content">
+    <>
       <div
         ref={wrapperRef}
         className="drop-file-input"
@@ -114,94 +124,74 @@ const SubmissionUpload = (props) => {
         onDragLeave={onDragLeave}
         onDrop={onDrop}
       >
-          <div className="drop-file-input__label">
-            <img src={fileList.length > 0 ? uploadImg : initialUploadImg} alt="Upload" />
-          </div>
-            <input type="file" onChange={onFileDrop} />
+        <div className="drop-file-input__label">
+          <img src={uploadImg} alt="" />
+        </div>
+        <input type="file" onChange={onFileDrop} />
       </div>
+      <TextField
+        id="outlined-basic"
+        label="Enter Unit Test ID"
+        variant="outlined"
+        sx={{ mt: 2, mb: 1, width: "100%", marginTop: "30%" }}
+        type="text"
+        value={manualUnitTestId}
+        onChange={(e) => setManualUnitTestId(e.target.value)}
+      />
       {fileList.length > 0 && (
         <div className="drop-file-preview">
           {fileList.map((item, index) => (
             <div key={index} className="drop-file-preview__item">
               <img
-                src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']}
-                alt="Preview"
+                src={
+                  ImageConfig[item.type.split("/")[1]] || ImageConfig["default"]
+                }
+                alt=""
               />
               <div className="drop-file-preview__item__info">
                 <p>{item.name}</p>
                 <p>{item.size}B</p>
               </div>
-              <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>
+              <span
+                className="drop-file-preview__item__del"
+                onClick={() => fileRemove(item)}
+              >
                 x
               </span>
             </div>
           ))}
-
-      <TextField
-        id="outlined-basic" 
-        label="Enter Unit Test ID" 
-        variant="outlined" 
-        sx={{ mt: 2, mb: 1, width: '100%', marginTop: '5%' }} 
-        type="text"
-        value={manualUnitTestId}
-        onChange={(e) => setManualUnitTestId(e.target.value)}
-      />
-      <Button 
-        className="drop-file-preview__title" 
-        onClick={handleSubmissionUpload}
-        variant="contained" 
-        style={{ 
-            backgroundColor: '#00989B', 
-            color: 'white', 
-            width: '50vh',
-            height: '7vh', 
-            borderRadius: '10px', 
-            marginTop: '5%',
-            fontFamily: 'Montserrat, sans-serif'
-        }}
-      >
-        Ready to upload
-      </Button>
-          <Box sx={{ width: '100%', mt: 2 }}>
-              <LinearProgress 
-                  variant="determinate"
-                  value={progress} 
-                  sx={{
-                      '& .MuiLinearProgress-barColorPrimary': {
-                          backgroundColor: '#244431',  
-                      },
-                      '& .MuiLinearProgress-colorPrimary': {
-                          backgroundColor: '#D3D3D3',  
-                      },
-              }} />
-          </Box>
-          <div className="ProjectDetailsText">
-            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Test pass percentage: {progress}%</Typography>
-            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Failures: {failures}</Typography>
+          <button
+            className="drop-file-preview__title"
+            onClick={handleSubmissionUpload}
+          >
+            Ready to upload
+          </button>
+          <div className="progress-container">
+            <div
+              className="progress-bar"
+              style={{ width: `${progress}%` }}
+            ></div>
           </div>
+          <p>Test pass percentage: {progress}%</p>
+          <p>Failures: {failures}</p>
           {testResults.length > 0 && (
             <div>
-              <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>Test Results:</Typography>
+              <p>Test Results:</p>
               <ul>
                 {testResults.map((test, index) => (
-                  <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                    <Avatar sx={{ backgroundColor: test.status === 'passed' ? '#70F57D' : '#DC1717', color: '#FFFFFF' }}>
-                      {test.status === 'passed' ? 'P' : 'F'}
-                    </Avatar>
-                    <Typography sx={{ marginLeft: '10px' }}>
-                      {test.name} = {test.status === 'passed' ? '5/5' : '0/5'}
-                    </Typography>
+                  <li key={index}>
+                    {test.name} = {test.status === "passed" ? "5/5" : "0/5"}
                   </li>
                 ))}
               </ul>
             </div>
           )}
           <div className="test-summary">
-            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>{generateSummary()}</Typography>
+            <p>{generateSummary()}</p>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
