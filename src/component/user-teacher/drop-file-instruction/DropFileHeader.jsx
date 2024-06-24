@@ -1,9 +1,14 @@
-function DropFileHeader()  {
+import { Typography } from "@mui/material";
+import React from "react";
+
+function DropFileHeader() {
     return (
         <div id="assignment-header" className="assignment-header">
-            <h1>Upload Assignment</h1>
+            <Typography variant="h1" sx={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Upload Assignment
+            </Typography>
         </div>
     );
 }
 
-export default DropFileHeader; 
+export default DropFileHeader;

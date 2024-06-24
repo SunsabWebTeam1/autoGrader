@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
-
 import '../../../styling/drop-file-input.css';
 
+import { Box, Button, LinearProgress, Typography } from '@mui/material';
+import initialDropFileInstructions from '../../../assets/SubmitFileInstructions-int-teacher.png';
 import DropFileInstructions from '../../../assets/SubmitFileInstructions-teacher.png';
 import { ImageConfig } from '../../../config/ImageConfig';
 import { storage } from '../../../firebase';
@@ -11,10 +12,11 @@ import { storage } from '../../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 const DropTestInstruction = props => {
 
-    const wrapperRef = useRef(null);
 
     const [fileList, setFileList] = useState([]);
-    const [progress, setProgress] = useState()
+    const [progress, setProgress] = useState(0)
+
+    const wrapperRef = useRef(null);
 
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
@@ -71,13 +73,12 @@ const DropTestInstruction = props => {
                 onDrop={onDrop}
             >
                 <div className="drop-file-input__label">
-                    <img src={DropFileInstructions} alt="" />
+                    <img src={fileList.length > 0 ? DropFileInstructions : initialDropFileInstructions} alt="Upload Instructions" />
                 </div>
-                <input type="file" value="" onChange={onFileDrop}/>
+                <input type="file" onChange={onFileDrop} />
                 
             </div>
-            {
-                fileList.length > 0 ? (
+            {fileList.length > 0 ? (
                     <div className="drop-file-preview">
                         {
                             fileList.map((item, index) => (
@@ -91,12 +92,39 @@ const DropTestInstruction = props => {
                                 </div>
                             ))
                         }
-                        <button className="drop-file-preview__title" onClick={startUpload}>
-                            Ready to upload
-                        </button>
-                        <h2 className="header">
+                        <Box sx={{ width: '100%', mt: 2 }}>
+                            <LinearProgress 
+                                variant="determinate"
+                                value={progress} 
+                                sx={{
+                                    '& .MuiLinearProgress-barColorPrimary': {
+                                        backgroundColor: '#6C6CB5',  
+                                    },
+                                    '& .MuiLinearProgress-colorPrimary': {
+                                        backgroundColor: '#D3D3D3',  
+                                    },
+                            }} />
+                        </Box>
+                        <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>
                             Uploaded {progress}%
-                        </h2>
+                        </Typography>
+                        <Button 
+                            className="drop-file-preview__title" 
+                            onClick={startUpload}
+                            variant="contained" 
+                            style={{
+                                backgroundColor: '#00989B', 
+                                color: 'white', 
+                                width: '50vh',  
+                                height: '7vh', 
+                                borderRadius: '10px',
+                                marginTop: '5%',
+                                fontFamily: 'Montserrat, sans-serif'
+                        }}
+                        >
+                            Ready to upload
+                        </Button>
+
                     </div>
                 ) : null
             }

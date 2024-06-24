@@ -1,9 +1,14 @@
-function SubmitFileHeader()  {
+import { Typography } from "@mui/material";
+import React from "react";
+
+function SubmitFileHeader() {
     return (
         <div id="submit-assignment-header" className="submit-assignment-header">
-            <h1>Assignment Name</h1>
+            <Typography variant="h1" sx={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Lab: Simple SELECT and Sorting Data
+            </Typography>
         </div>
     );
 }
 
-export default SubmitFileHeader; 
+export default SubmitFileHeader;

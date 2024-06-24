@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { UserAuth } from "../../../context/AuthContext";
 import { findStudent } from "../../../services/AccountService";
@@ -31,7 +32,9 @@ function StudentHeader() {
 
     return (
         <div id="student-header" className="student-header">
-            <h1>Welcome to the AutoGrader, {firstName}</h1>
+            <Typography variant="h1" sx={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Welcome to the AutoGrader, {firstName}
+            </Typography>
         </div>
     );
 }

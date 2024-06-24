@@ -38,7 +38,7 @@ body {
   padding: 1rem 0;
 }
 
-.about img {
+.about .demo {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -79,6 +79,7 @@ body {
 }
 
 .home h1 {
+  font-family: "Montserrat", sans-serif;
   color: #fff;
   font-size: 5.5rem;
   position: absolute;
@@ -153,6 +154,7 @@ body {
 
 
 .signup h1 {
+  font-family: "Montserrat", sans-serif;
   font-size: 3rem;
   position: absolute;
   justify-content: space-around;
@@ -274,6 +276,8 @@ body {
 
 .add-credentials .section-4 {
   display: flex;
+  justify-content: space-between;  
+  align-items: center;  
   padding: 0 3rem;
   padding-bottom: 2.5%;
 }
@@ -490,4 +494,32 @@ body {
   width: 2em;
   margin-left: 10px;  
   vertical-align: middle;  
+}
+
+
+/* Error component styles */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 4px;
+  height: 100vh;  
+  box-sizing: border-box;  
+}
+
+.error-icon img {
+  margin-Bottom: 20%;
+  width: 250px;
+  height: auto;
+}
+
+.error-message {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color:#212322;  
+  text-align: center;
+  margin-Top: 50%;
+
 }

@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10%;
+    margin-bottom: 20%;
+    padding-bottom: 5%;
 }
 .container {
     display: grid;
@@ -18,7 +19,7 @@
     ;
 }
 .submit-assignment-header{
-    min-height: 50vh;
+    min-height: 20vh;
     width: 100vw;
     position: relative;
     background-image: url(../images/Student-AP.jpg);
@@ -40,10 +41,12 @@
 
 .submit-assignment-header h1 {
     color: #fff;
-    font-size: 5.5rem;
+    font-size: 3rem;
     position: absolute;
     bottom: 20%;
     justify-content: space-around;
+    margin: 0 3rem;
+
 }
 
 #subNavBar{
@@ -58,6 +61,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-height: 600px;
+    overflow-y: auto; 
     padding-top: 5vh;
 }
 #navBar{
@@ -67,12 +72,14 @@
 #sideBar{
 
     grid-area: sideBar;
+
 }
 
 .Submit-NextLayout{
     display: flex;
     align-items: end;
     justify-content: end;
+    padding-left: 5%;
     height: 5%;
 }
 
@@ -87,7 +94,7 @@
 
 .sideBarContent2{
     background-color: #244431;
-    height: 90%;
+    height: 100%;
     width: 80%;
     display: flex;
     justify-content: start;
@@ -127,9 +134,8 @@
 .subNavBarContent2{
     background-color: #244431;
     color: white;
-    height: 80%;
+    height: 100%;
     width: 100%;
-    margin-top: 5vh;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -158,24 +164,23 @@
 /*ProjectDetails*/
 .ProjectDetailsContents {
     padding: 5%;
-    max-height: 300px; 
-    overflow-y: auto; 
 }
 
 .ProjectDetailsText {
-    padding: 10px 20px; /* Adjust padding as needed */
+    padding: 10px 20px;  
     text-align: start;
+    white-space: pre-wrap;
 }
+
 
 
 .upload-section{
     padding: 5%;
-    max-height: 400px; 
+    max-height: 600px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    overflow-y: auto; }
+    align-items: center;}
 
 
 /* download file */
@@ -194,9 +199,6 @@
 .add-file-download {
     text-align: center;
     font-weight: 600;
-    padding-top: 20vh;
-
-
 }
 
  

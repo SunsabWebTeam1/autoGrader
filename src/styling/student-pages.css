@@ -1,5 +1,5 @@
 .student-header {
-    min-height: 80vh;
+    min-height: 20vh;
     width: 100vw;
     position: relative;
     background-image: url(../images/Student-HP.jpg);
@@ -21,8 +21,9 @@
 
 .student-header h1 {
     color: #fff;
-    font-size: 5.5rem;
+    font-size: 3rem;
     position: absolute;
     bottom: 20%;
     justify-content: space-around;
+    margin: 0 3rem;
 }

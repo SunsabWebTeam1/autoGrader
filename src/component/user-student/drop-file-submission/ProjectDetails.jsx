@@ -1,44 +1,33 @@
-/* eslint-disable jsx-a11y/alt-text */
+/*When saved in database, have it automatically space and break text*/
 const ProjectDetails = () => {
-
-    return(
+    return (
         <div className='ProjectDetailsContents'>
             <div className='ProjectDetailsText'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique unde
-                fugit veniam eius, perspiciatis sunt? Corporis qui ducimus quibusdam,
-                aliquam dolore excepturi quae. Distinctio enim at eligendi perferendis in
-                cum quibusdam sed quae, accusantium et aperiam? Quod itaque exercitationem,
-                at ab sequi qui modi delectus quia corrupti alias distinctio nostrum.
-                Minima ex dolor modi inventore sapiente necessitatibus aliquam fuga et. Sed
-                numquam quibusdam at officia sapiente porro maxime corrupti perspiciatis
-                asperiores, exercitationem eius nostrum consequuntur iure aliquam itaque,
-                assumenda et! Quibusdam temporibus beatae doloremque voluptatum doloribus
-                soluta accusamus porro reprehenderit eos inventore facere, fugit, molestiae
-                ab officiis illo voluptates recusandae. Vel dolor nobis eius, ratione atque
-                soluta, aliquam fugit qui iste architecto perspiciatis. Nobis, voluptatem!
-                Cumque, eligendi unde aliquid minus quis sit debitis obcaecati error,
-                delectus quo eius exercitationem tempore. Delectus sapiente, provident
-                corporis dolorum quibusdam aut beatae repellendus est labore quisquam
-                praesentium repudiandae non vel laboriosam quo ab perferendis velit ipsa
-                deleniti modi! Ipsam, illo quod. Nesciunt commodi nihil corrupti cum non
-                fugiat praesentium doloremque architecto laborum aliquid. Quae, maxime
-                recusandae? Eveniet dolore molestiae dicta blanditiis est expedita eius
-                debitis cupiditate porro sed aspernatur quidem, repellat nihil quasi
-                praesentium quia eos, quibusdam provident. Incidunt tempore vel placeat
-                voluptate iure labore, repellendus beatae quia unde est aliquid dolor
-                molestias libero. Reiciendis similique exercitationem consequatur, nobis
-                placeat illo laudantium! Enim perferendis nulla soluta magni error,
-                provident repellat similique cupiditate ipsam, et tempore cumque quod! Qui,
-                iure suscipit tempora unde rerum autem saepe nisi vel cupiditate iusto.
-                Illum, corrupti? Fugiat quidem accusantium nulla. Aliquid inventore commodi
-                reprehenderit rerum reiciendis! Quidem alias repudiandae eaque eveniet
-                cumque nihil aliquam in expedita, impedit quas ipsum nesciunt ipsa ullam
-                consequuntur dignissimos numquam at nisi porro a, quaerat rem repellendus.
-                Voluptates perspiciatis, in pariatur impedit, nam facilis libero dolorem
-                dolores sunt inventore perferendis, aut sapiente modi nesciunt.
+                Lab: Simple SELECT and Sorting Data<br />
+                Equipment and Materials<br />
+                For this lab, you will need:<br />
+                &nbsp;&nbsp;· A Windows computer with a minimum of 16GB RAM and 250GB of free disk space, capable of nested virtualization<br />
+                &nbsp;&nbsp;· Access to ORACLE SQL*PLUS<br />
+                &nbsp;&nbsp;· Really Cheap Vacations Database created as part of previous learning activities<br />
+                &nbsp;&nbsp;· Physical model for Really Cheap Vacations as created during previous learning activities<br />
+                &nbsp;&nbsp;· A copy of the Really Cheap Vacations database<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;o Create the Really Cheap Vacations database by referring to the file ReallyCheapVacationsDB.zip in the course resource section of Brightspace.<br />
+                &nbsp;&nbsp;· The file Labskelelton.sql, which is provided on Brightspace.<br />
+                <br />
+                Instructions<br />
+                1. First, work through stages 2-5 individually. Then arrange a time to come together with your small group. As a group, create one solution based on the best individual script for each problem. Further refine the solution as a group as needed.<br />
+                2. Review the Really Cheap Vacations Physical Model.<br />
+                3. Review the Really Cheap Vacation Database.<br />
+                4. Using Labskelelton.sql as a starting point, write a single script that satisfies all the requirements outlined in the Problem Set.<br />
+                5. Review the Tips for Success and Marking Criteria sections. Adjust your script as needed.<br />
+                6. See Brightspace for exact due dates.<br />
+                7. Only one submission is required per group. The submission should include:<br />
+                &nbsp;&nbsp;a. One script file<br />
+                &nbsp;&nbsp;b. One spool file showing all results<br />
+                &nbsp;&nbsp;c. One attribution list that outlines the activities associated with completing this assignment. A sample attribution list is provided on Brightspace.<br />
             </div>
         </div>
-    )
+    );
 }
 
 export default ProjectDetails;

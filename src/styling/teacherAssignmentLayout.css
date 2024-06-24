@@ -19,7 +19,7 @@
 }
 
 .assignment-header {
-    min-height: 50vh;
+    min-height: 20vh;
     width: 100vw;
     position: relative;
     background-image: url(../images/Teacher-AP.jpg);
@@ -42,10 +42,12 @@
 
 .assignment-header h1 {
     color: #fff;
-    font-size: 5.5rem;
+    font-size: 3rem;
     position: absolute;
     bottom: 20%;
     justify-content: space-around;
+    margin: 0 3rem;
+
 }
 
 
@@ -76,6 +78,8 @@
     display: flex;
     align-items: end;
     justify-content: end;
+    padding-top: 5%;
+    padding-right: 5%;
     height: 5%;
 }
 
@@ -90,7 +94,7 @@
 
 .sideBarContent{
     background-color: #6C6CB5;
-    height: 90%;
+    height: 100%;
     width: 80%;
     display: flex;
     justify-content: start;
@@ -129,9 +133,8 @@
 .subNavBarContent{
     background-color: #6C6CB5;
     color: white;
-    height: 80%;
+    height: 100%;
     width: 100%;
-    margin-top: 5vh;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -155,5 +158,4 @@
     margin-top: 4vh;
     padding-left: 45px;
 }
-
 

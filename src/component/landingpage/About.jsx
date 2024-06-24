@@ -1,27 +1,32 @@
-import { Container } from '@mui/material';
-import imgDemo from '../../images/LP-Demo.png';
-function About(){
-    return(
+import { Container, Typography } from '@mui/material';
+import autograderDemo from '../../demo/LP-demo.mp4';
+
+function About() {
+    return (
         <section id="about" className="about">
             <Container>
                 <div className="row">
-                    <h3 className="title">How it works</h3>
+                    <Typography variant="h3" sx={{ fontFamily: 'Montserrat, sans-serif' }} className="title">
+                        How it works
+                    </Typography>
                     <div className="content">
-                        {/*Placeholder text*/}
                         <p>
-                        An autograder automates the grading of programming assignments by running predefined tests on submitted files. 
-                        Students upload their files through a submission portal, where each file is tagged with metadata like student ID and timestamp. 
-                        The autograder sets up the necessary environment and runs various tests, including unit, integration, and functional tests, 
-                        in a controlled sandbox. Based on the test results, 
-                        it calculates scores considering factors like correctness, efficiency, and code quality. Detailed feedback is generated, 
-                        providing pass/fail outcomes, specific error messages, performance metrics, and comments on code style and best practices.  
+                            Autograder automates the grading of programming assignments through automated execution of JUNIT tests on submitted files. 
+                            Teachers upload the assignment along with the JUNIT tests necessary for grading. Once uploaded, students can access the assignment 
+                            and submit their work. Upon submission, the autograder runs the teacher's JUNIT tests to grade the student's assignment, providing pass/fail 
+                            outcomes based on the results.
                         </p>
                     </div>
                 </div>
-                <img src={imgDemo} alt="Demo" />
+                <div className="demo">
+                    <video controls width="100%" style={{ borderRadius: '8px' }}>
+                        <source src={autograderDemo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </Container>
         </section>
-    )
+    );
 }
 
 export default About;

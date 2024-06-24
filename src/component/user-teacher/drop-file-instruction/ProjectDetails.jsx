@@ -4,9 +4,9 @@ const ProjectDetails = () => {
     return(
         <div className='ProjectDetailsContents'>
             <div className='ProjectDetailsText'>
-                Implement a basic user authentication system using SQL. This includes creating tables for storing user data, writing queries 
-                for user registration, login, and password management.
-                
+                Provide necessary instructions for the assignment by uploading a document or entering them manually. 
+                Once completed, upload the JUNIT test. Upon uploading, you will receive a code. Save and share this 
+                code with your students so they can run the test after submitting their assignment. 
             </div>
         </div>
     )

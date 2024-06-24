@@ -1,7 +1,8 @@
+import CircularProgress from "@mui/material/CircularProgress";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { UserAuth } from "./AuthContext";
 import { findTeacher } from "../services/AccountService";
+import { UserAuth } from "./AuthContext";
 
 export function TeaProtected({ children }) {
   const { user } = UserAuth();
@@ -24,8 +25,12 @@ export function TeaProtected({ children }) {
   }, [user]);
 
   if (loading) {
-    // Render loading state while checking if user is a teacher
-    return <div>Loading...</div>;
+    // Render loading spinner while checking if user is a teacher
+    return (
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        <CircularProgress color="secondary" sx={{ color: "#6C6CB5" }} />
+      </div>
+    );
   }
 
   if (!user || !isTeacher) {

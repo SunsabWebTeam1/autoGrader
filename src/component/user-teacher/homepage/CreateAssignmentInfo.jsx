@@ -1,42 +1,38 @@
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import React from "react";
 
 function CreateAssignmentInfo() {
     const redirectCreateAssignment = async (e) => {
         window.location.href = `/teacher/upload-instructions`;
-    }
+    };
 
     return (
         <section id="about" className="about">
             <Container>
                 <div className="row">
-                    <h3 className="title">How it works</h3>
+                    <Typography variant="h3" sx={{ fontFamily: 'Montserrat, sans-serif' }} className="title">
+                        Uploading Assignment 
+                    </Typography>
                     <div className="content">
-                        {/*Placeholder text*/}
                         <p>
-                        To create an assignment for her students, 
-                        a teacher can begin by clearly defining the learning objectives and the skills the 
-                        assignment is intended to assess. Next, she should design tasks that align with these objectives, 
-                        ensuring they are appropriately challenging and engaging. The assignment should include detailed instructions, 
-                        a rubric for evaluation, and any necessary resources or materials. Additionally, the teacher can set a timeline 
-                        for completion, including milestones for drafts or checkpoints to monitor progress. Providing opportunities for 
-                        feedback and revision can also help enhance student learning and performance.
+                            To upload an assignment, go to the upload assignment page and provide a description of the assignment, 
+                            any content related to the assignment and a JUNIT test to be used to grade assignments. 
+                            Uploaded content would be saved in firestore storage.                         
                         </p>
                     </div>
                 </div>
                 <div id="about-createassignment" className="about-createassignment">
-                    <Button variant="contained" 
-                    style={{ backgroundColor: '#00989B', 
-                    color: 'white', 
-                    marginRight: '2%', 
-                    width: '25%', 
-                    height: '7vh', 
-                    borderRadius: '10px' }}
-                    onClick={redirectCreateAssignment}>Upload Assignment</Button>
+                    <Button
+                        variant="contained"
+                        style={{ backgroundColor: '#00989B', color: 'white', marginRight: '2%', width: '25%', height: '7vh', borderRadius: '10px', fontFamily: 'Montserrat, sans-serif' }}
+                        onClick={redirectCreateAssignment}
+                    >
+                        Upload Assignment
+                    </Button>
                 </div>
             </Container>
         </section>
-    )
+    );
 }
 
-export default  CreateAssignmentInfo
+export default CreateAssignmentInfo;
