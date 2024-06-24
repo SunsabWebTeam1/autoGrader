@@ -23,17 +23,7 @@ function LoginPage() {
         e.preventDefault();
         try {
             await onLogin(email, password);
-            const teacherResult = await findTeacher(user.uid);
-            if (teacherResult.found) {
-                navigate(`/homepage/teacher/${user.uid}`);
-                return;
-            }
-            const studentResult = await findStudent(user.uid);
-            if (studentResult.found) {
-                navigate(`/homepage/student/${user.uid}`);
-                return;
-            }
-            setError('User is neither a teacher nor a student.');
+            setIsAuthenticated(true);
         } catch (error) {
             console.error('Login error:', error);
             setError('Invalid username or password.'); 
