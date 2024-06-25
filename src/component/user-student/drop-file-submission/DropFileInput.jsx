@@ -73,21 +73,23 @@ const SubmissionUpload = (props) => {
     formData.append("unit_test_id", unitTestId);
 
     try {
+      console.log('Starting file upload...');
       const response = await axios.post(
-        "https://autograder-app-flask-yac6pd5bwq-uw.a.run.app/api/upload_submission",
+        "http://localhost:5000/api/upload_submission",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-
+    
       const data = response.data;
+      console.log('Server response:', data);
+    
       if (data.error) {
         console.error(data.error);
         alert(data.error);
         return;
       }
-
       const testResultsData = data.test_results || [];
 
       setProgress(data.percentage_passed || 0);

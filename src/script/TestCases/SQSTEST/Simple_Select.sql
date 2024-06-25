@@ -9,4 +9,4 @@ where rating_code='E' OR rating_code='M' AND tour_description like '%Paris%' ORD
 -- #3
 SELECT country "COUNTRY", dest_description "DEST_DESCRIPTION" 
 from rcv_destination 
-where country='Canada' OR country='United States' ORDER BY country,dest_description;
+where country='Canada' OR country='United Stats' ORDER BY country,dest_description;

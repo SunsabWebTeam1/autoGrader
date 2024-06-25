@@ -8,7 +8,7 @@ import importlib.util
 from google.cloud.sql.connector import Connector
 import pymysql
 import sqlalchemy
-
+import re
 app = Flask(__name__, static_folder="../build", static_url_path='/')
 CORS(app)  # Enable CORS for all routes
 
@@ -21,7 +21,7 @@ connector = Connector()
 # Function to return the database connection
 def getconn():
     conn = connector.connect(
-        "bamboo-basis-426622-u5:us-west1:sunsab-autograder",
+        "rapid-snowfall-427223-g8:us-central1:root",
         "pymysql",
         user="root",
         password="E=a0YXV8qp,V0sr{",
@@ -132,6 +132,50 @@ def upload_unit_test():
     
     return jsonify({'unit_test_id': unit_test_id}), 200
 
+def extract_sql_queries(content):
+    """Extract SQL queries from the content, ignoring comments and non-SQL commands."""
+    # Split content into lines
+    lines = content.splitlines()
+
+    # Regular expression to match SQL commands
+    sql_line_re = re.compile(r'^\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TRUNCATE|REPLACE|WITH)\b', re.IGNORECASE)
+    
+    # Variables to store the extracted queries
+    queries = []
+    current_query = []
+
+    print("Starting to process lines for SQL queries...")
+
+    # Iterate over lines to filter and collect SQL queries
+    for line in lines:
+        stripped_line = line.strip()
+        
+        print(f"Processing line: {stripped_line}")
+
+        # Ignore lines that start with 'rem', '--' or contain 'set', 'spool'
+        if (stripped_line.lower().startswith('rem') or
+            stripped_line.startswith('--') or
+            re.match(r'^\s*set\s', stripped_line, re.IGNORECASE) or
+            re.match(r'^\s*spool\s', stripped_line, re.IGNORECASE) or
+            not stripped_line):
+            print(f"Ignoring line: {stripped_line}")
+            continue
+        
+        # If line matches the start of an SQL command or we are in the middle of an SQL command, collect the line
+        if sql_line_re.match(stripped_line) or current_query:
+            print(f"Adding line to current query: {stripped_line}")
+            current_query.append(stripped_line)
+        
+        # If the line ends with a semicolon, it indicates the end of an SQL query
+        if stripped_line.endswith(';'):
+            full_query = ' '.join(current_query)
+            print(f"Completed SQL query: {full_query}")
+            queries.append(full_query)
+            current_query = []
+
+    print(f"Extracted SQL queries: {queries}")
+    return queries
+
 @app.route('/api/upload_submission', methods=['POST'])
 def upload_file_sql():
     if 'file' not in request.files or 'unit_test_id' not in request.form:
@@ -146,7 +190,7 @@ def upload_file_sql():
 
     try:
         content = file.read().decode('utf-8').strip()
-        uploaded_queries = [query.strip() for query in content.split(';') if query.strip()]
+        uploaded_queries = extract_sql_queries(content)
 
         all_query_results = []
         conn = getconn()
