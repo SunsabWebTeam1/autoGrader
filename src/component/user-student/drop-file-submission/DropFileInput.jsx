@@ -3,10 +3,11 @@ import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import PropTypes from "prop-types";
+import intialuploadImg from "../../../assets/SubmitAssignment-int-student.png";
 import uploadImg from "../../../assets/SubmitAssignment-student.png";
 import { ImageConfig } from "../../../config/ImageConfig";
 
-import { TextField } from "@mui/material";
+import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
 import "../../../styling/drop-file-input.css";
 import "../../../styling/studentAssignmentLayout.css";
 
@@ -17,6 +18,7 @@ const SubmissionUpload = (props) => {
   const [manualUnitTestId, setManualUnitTestId] = useState("");
   const urlUnitTestId = searchParams.get("unit_test_id");
 
+  
   const wrapperRef = useRef(null);
 
   const [fileList, setFileList] = useState([]);
@@ -125,19 +127,12 @@ const SubmissionUpload = (props) => {
         onDrop={onDrop}
       >
         <div className="drop-file-input__label">
-          <img src={uploadImg} alt="" />
+          <img 
+            src={submissionFile ? uploadImg : intialuploadImg } 
+            alt="" />
         </div>
         <input type="file" onChange={onFileDrop} />
       </div>
-      <TextField
-        id="outlined-basic"
-        label="Enter Unit Test ID"
-        variant="outlined"
-        sx={{ mt: 2, mb: 1, width: "100%", marginTop: "30%" }}
-        type="text"
-        value={manualUnitTestId}
-        onChange={(e) => setManualUnitTestId(e.target.value)}
-      />
       {fileList.length > 0 && (
         <div className="drop-file-preview">
           {fileList.map((item, index) => (
@@ -158,25 +153,52 @@ const SubmissionUpload = (props) => {
               >
                 x
               </span>
-            </div>
-          ))}
-          <button
-            className="drop-file-preview__title"
+          </div>
+      ))}
+      <TextField
+        id="outlined-basic"
+        label="Enter Unit Test ID"
+        variant="outlined"
+        sx={{ mt: 2, mb: 1, width: "100%", marginTop: "5%" }}
+        type="text"
+        value={manualUnitTestId}
+        onChange={(e) => setManualUnitTestId(e.target.value)}
+      />
+
+          <Button 
+            className="drop-file-preview__title" 
             onClick={handleSubmissionUpload}
+            variant="contained" 
+            style={{ 
+                backgroundColor: '#00989B', 
+                color: 'white', 
+                width: '50vh',
+                height: '7vh', 
+                borderRadius: '10px', 
+                marginTop: '5%',
+                fontFamily: 'Montserrat, sans-serif'
+            }}
           >
             Ready to upload
-          </button>
-          <div className="progress-container">
-            <div
-              className="progress-bar"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-          <p>Test pass percentage: {progress}%</p>
-          <p>Failures: {failures}</p>
+          </Button>
+          <Box sx={{ width: '100%', mt: 2 }}>
+              <LinearProgress 
+                  variant="determinate"
+                  value={progress} 
+                  sx={{
+                      '& .MuiLinearProgress-barColorPrimary': {
+                          backgroundColor: '#244431',  
+                      },
+                      '& .MuiLinearProgress-colorPrimary': {
+                          backgroundColor: '#D3D3D3',  
+                      },
+              }} />
+          </Box>
+          <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Test pass percentage: {progress}%</Typography>
+          <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Failures: {failures}</Typography>
           {testResults.length > 0 && (
-            <div>
-              <p>Test Results:</p>
+            <div className="ProjectDetailsText"> 
+              <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>Test Results:</Typography>
               <ul>
                 {testResults.map((test, index) => (
                   <li key={index}>
@@ -187,7 +209,7 @@ const SubmissionUpload = (props) => {
             </div>
           )}
           <div className="test-summary">
-            <p>{generateSummary()}</p>
+            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>{generateSummary()}</Typography>
           </div>
         </div>
       )}
