@@ -9,8 +9,8 @@ import Navbar from './component/Navbar';
 import LandingPage from './component/landingpage/LandingPage';
 import LoginPage from './component/loginpage/LoginPage';
 import AddCredentialsPage from './component/signuppage/AddCredentialsPage';
+import AddCredentialsPageStudent from './component/signuppage/AddCredentialsPage-student';
 import SignupGooglePage from './component/signuppage/SignupGoogle';
-import SignupPage from './component/signuppage/SignupPage';
 import AddFile from './component/user-student/drop-file-submission/AddFile';
 import HomepageStudent from './component/user-student/homepage/HomepageStudent';
 import CreateAssignmentPage from './component/user-teacher/create-assignment-page/CreateAssignmentPage';
@@ -55,7 +55,8 @@ const Home = () => {
                 <Route path="/addfile" element={<AddFile />} />
                 <Route path="/DropFile" element={<DropFile />} />
                 <Route path="/loginpage" element={<LoginPage />} />
-                <Route path="/signuppage" element={<SignupPage/>} />
+                {/*/signuppage changed to /signuppagestudent*/}
+                <Route path="/signuppage" element={<AddCredentialsPageStudent/>} />
                 <Route path="/signupgooglepage" element={<SignupGooglePage/>}/>
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
                 <Route path="/signuppage/:accountType" element={<AddCredentialsPage/>}/>
