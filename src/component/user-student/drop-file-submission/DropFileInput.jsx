@@ -7,7 +7,13 @@ import intialuploadImg from "../../../assets/SubmitAssignment-int-student.png";
 import uploadImg from "../../../assets/SubmitAssignment-student.png";
 import { ImageConfig } from "../../../config/ImageConfig";
 
-import { Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  LinearProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import "../../../styling/drop-file-input.css";
 import "../../../styling/studentAssignmentLayout.css";
 
@@ -18,7 +24,6 @@ const SubmissionUpload = (props) => {
   const [manualUnitTestId, setManualUnitTestId] = useState("");
   const urlUnitTestId = searchParams.get("unit_test_id");
 
-  
   const wrapperRef = useRef(null);
 
   const [fileList, setFileList] = useState([]);
@@ -75,18 +80,18 @@ const SubmissionUpload = (props) => {
     formData.append("unit_test_id", unitTestId);
 
     try {
-      console.log('Starting file upload...');
+      console.log("Starting file upload...");
       const response = await axios.post(
-        "http://localhost:5000/api/upload_submission",
+        "https://autograder-app-flask-yac6pd5bwq-uw.a.run.app/api/upload_submission",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-    
+
       const data = response.data;
-      console.log('Server response:', data);
-    
+      console.log("Server response:", data);
+
       if (data.error) {
         console.error(data.error);
         alert(data.error);
@@ -129,9 +134,7 @@ const SubmissionUpload = (props) => {
         onDrop={onDrop}
       >
         <div className="drop-file-input__label">
-          <img 
-            src={submissionFile ? uploadImg : intialuploadImg } 
-            alt="" />
+          <img src={submissionFile ? uploadImg : intialuploadImg} alt="" />
         </div>
         <input type="file" onChange={onFileDrop} />
       </div>
@@ -155,52 +158,68 @@ const SubmissionUpload = (props) => {
               >
                 x
               </span>
-          </div>
-      ))}
-      <TextField
-        id="outlined-basic"
-        label="Enter Unit Test ID"
-        variant="outlined"
-        sx={{ mt: 2, mb: 1, width: "100%", marginTop: "5%" }}
-        type="text"
-        value={manualUnitTestId}
-        onChange={(e) => setManualUnitTestId(e.target.value)}
-      />
+            </div>
+          ))}
+          <TextField
+            id="outlined-basic"
+            label="Enter Unit Test ID"
+            variant="outlined"
+            sx={{ mt: 2, mb: 1, width: "100%", marginTop: "5%" }}
+            type="text"
+            value={manualUnitTestId}
+            onChange={(e) => setManualUnitTestId(e.target.value)}
+          />
 
-          <Button 
-            className="drop-file-preview__title" 
+          <Button
+            className="drop-file-preview__title"
             onClick={handleSubmissionUpload}
-            variant="contained" 
-            style={{ 
-                backgroundColor: '#00989B', 
-                color: 'white', 
-                width: '50vh',
-                height: '7vh', 
-                borderRadius: '10px', 
-                marginTop: '5%',
-                fontFamily: 'Montserrat, sans-serif'
+            variant="contained"
+            style={{
+              backgroundColor: "#00989B",
+              color: "white",
+              width: "50vh",
+              height: "7vh",
+              borderRadius: "10px",
+              marginTop: "5%",
+              fontFamily: "Montserrat, sans-serif",
             }}
           >
             Ready to upload
           </Button>
-          <Box sx={{ width: '100%', mt: 2 }}>
-              <LinearProgress 
-                  variant="determinate"
-                  value={progress} 
-                  sx={{
-                      '& .MuiLinearProgress-barColorPrimary': {
-                          backgroundColor: '#244431',  
-                      },
-                      '& .MuiLinearProgress-colorPrimary': {
-                          backgroundColor: '#D3D3D3',  
-                      },
-              }} />
+          <Box sx={{ width: "100%", mt: 2 }}>
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{
+                "& .MuiLinearProgress-barColorPrimary": {
+                  backgroundColor: "#244431",
+                },
+                "& .MuiLinearProgress-colorPrimary": {
+                  backgroundColor: "#D3D3D3",
+                },
+              }}
+            />
           </Box>
-          <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Test pass percentage: {progress}%</Typography>
-          <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }} >Failures: {failures}</Typography>
+          <Typography
+            variant="h6"
+            sx={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Test pass percentage: {progress}%
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ fontFamily: "Montserrat, sans-serif" }}
+          >
+            Failures: {failures}
+          </Typography>
           {testResults.length > 0 && (
-            <div className="ProjectDetailsText"> 
-              <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>Test Results:</Typography>
+            <div className="ProjectDetailsText">
+              <Typography
+                variant="h6"
+                sx={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                Test Results:
+              </Typography>
               <ul>
                 {testResults.map((test, index) => (
                   <li key={index}>
@@ -211,7 +230,12 @@ const SubmissionUpload = (props) => {
             </div>
           )}
           <div className="test-summary">
-            <Typography variant="h6" sx={{ fontFamily: 'Montserrat, sans-serif' }}>{generateSummary()}</Typography>
+            <Typography
+              variant="h6"
+              sx={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              {generateSummary()}
+            </Typography>
           </div>
         </div>
       )}

@@ -21,7 +21,7 @@ connector = Connector()
 # Function to return the database connection
 def getconn():
     conn = connector.connect(
-        "rapid-snowfall-427223-g8:us-central1:root",
+        "bamboo-basis-426622-u5:us-west1:sunsab-autograder",
         "pymysql",
         user="root",
         password="E=a0YXV8qp,V0sr{",
