@@ -82,7 +82,7 @@ const SubmissionUpload = (props) => {
     try {
       console.log("Starting file upload...");
       const response = await axios.post(
-        "https://autograder-app-flask-yac6pd5bwq-uw.a.run.app/api/upload_submission",
+        "http://127.0.0.1:5000/api/upload_submission",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

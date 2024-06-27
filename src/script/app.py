@@ -9,6 +9,7 @@ from google.cloud.sql.connector import Connector
 import pymysql
 import sqlalchemy
 import re
+
 app = Flask(__name__, static_folder="../build", static_url_path='/')
 CORS(app)  # Enable CORS for all routes
 
@@ -40,7 +41,7 @@ def run_test_suite(unit_test_path, uploaded_module, pool):
     unit_test_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(unit_test_module)
     
-    test_suite_instance = unit_test_module.test_suite(uploaded_module,pool)
+    test_suite_instance = unit_test_module.test_suite(uploaded_module, pool)
     # Run the test suite
     test_runner = unittest.TextTestRunner()
     test_suite_result = test_runner.run(test_suite_instance)
@@ -113,7 +114,6 @@ def save_file_to_db(filename, size, content, grade_percentage):
         })
         conn.commit()
 
-
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
@@ -173,8 +173,20 @@ def extract_sql_queries(content):
             queries.append(full_query)
             current_query = []
 
-    print(f"Extracted SQL queries: {queries}")
-    return queries
+    # Convert table names to lowercase
+    converted_queries = [convert_table_names_to_lowercase(query) for query in queries]
+
+    print(f"Extracted SQL queries: {converted_queries}")
+    return converted_queries
+
+def convert_table_names_to_lowercase(sql_query):
+    def replace_table_names(match):
+        return f"{match.group(1)} {match.group(2).lower()}"
+    
+    # Match table names in the FROM, JOIN, UPDATE, INSERT INTO, and other clauses
+    pattern = re.compile(r'\b(FROM|JOIN|UPDATE|INSERT INTO|INTO|TABLE)\s+([a-zA-Z_][a-zA-Z0-9_]*)', re.IGNORECASE)
+    converted_query = pattern.sub(replace_table_names, sql_query)
+    return converted_query
 
 @app.route('/api/upload_submission', methods=['POST'])
 def upload_file_sql():
